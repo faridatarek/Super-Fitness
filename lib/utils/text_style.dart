@@ -11,7 +11,7 @@ class AppTextStyles {
     double? fontSize,
     FontWeight fontWeight = FontWeight.w500,
   }) {
-    return GoogleFonts.inter(
+    return GoogleFonts.balooThambi2(
       textStyle: TextStyle(
         color: color ?? ColorManager.white,
         fontSize: fontSize ?? AppSize.s24,
@@ -24,7 +24,7 @@ class AppTextStyles {
     double? fontSize,
     FontWeight fontWeight = FontWeight.w400,
   }) {
-    return GoogleFonts.inter(
+    return GoogleFonts.balooThambi2(
       textStyle: TextStyle(
         color: color ?? ColorManager.white,
         fontSize: fontSize ?? AppSize.s18,
@@ -37,7 +37,7 @@ class AppTextStyles {
     double? fontSize,
     FontWeight fontWeight = FontWeight.w800,
   }) {
-    return GoogleFonts.inter(
+    return GoogleFonts.balooThambi2(
       textStyle: TextStyle(
         color: color ?? ColorManager.white,
         fontSize: fontSize ?? AppSize.s24,
@@ -50,7 +50,7 @@ class AppTextStyles {
     double? fontSize,
     FontWeight fontWeight = FontWeight.w800,
   }) {
-    return GoogleFonts.inter(
+    return GoogleFonts.balooThambi2(
       textStyle: TextStyle(
         color: color ?? ColorManager.white,
         fontSize: fontSize ?? AppSize.s20,
@@ -63,7 +63,7 @@ class AppTextStyles {
     double? fontSize,
     FontWeight fontWeight = FontWeight.w800,
   }) {
-    return GoogleFonts.inter(
+    return GoogleFonts.balooThambi2(
       textStyle: TextStyle(
         color: color ?? ColorManager.white,
         fontSize: fontSize ?? AppSize.s14,
@@ -77,7 +77,7 @@ class AppTextStyles {
     double? fontSize,
     FontWeight fontWeight = FontWeight.w600,
   }) {
-    return GoogleFonts.inter(
+    return GoogleFonts.balooThambi2(
       textStyle: TextStyle(
         color: color ?? ColorManager.white,
         fontSize: fontSize ?? AppSize.s24,
