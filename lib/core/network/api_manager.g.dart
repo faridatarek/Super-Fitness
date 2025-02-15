@@ -14,7 +14,7 @@ class _ApiManager implements ApiManager {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://flower.elevateegy.com/api';
+    baseUrl ??= 'https://fitness.elevateegy.com/api/v1/';
   }
 
   final Dio _dio;

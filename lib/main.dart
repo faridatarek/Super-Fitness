@@ -12,7 +12,6 @@ import 'package:super_fitness/core/routes/app_routes.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = SimpleBlocObserver();
@@ -20,7 +19,8 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(EasyLocalization(
+  runApp(
+      EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
