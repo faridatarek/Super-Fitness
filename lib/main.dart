@@ -20,15 +20,11 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   runApp(
-      EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ar')],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
-      child: ChangeNotifierProvider(
+      ChangeNotifierProvider(
           create: (BuildContext context) {
             return UserProvider();
           },
-          child: const MyApp())));
+          child: const MyApp()));
 }
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
 GlobalKey<ScaffoldMessengerState>();

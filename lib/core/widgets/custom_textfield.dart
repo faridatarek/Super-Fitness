@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:super_fitness/utils/color_manager.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hint;
   final Function(String)? onChange;
   final TextEditingController controller;
-  final bool obscureText; // Controls initial text visibility
-  final bool? readOnly; // Controls initial text visibility
-  final String label;
+  final bool obscureText;
+  final bool? readOnly;
   final String? Function(String?)? validator;
   final String? errorText;
-
   const CustomTextField({
     super.key,
     required this.hint,
     this.onChange,
-    this.obscureText = false, // Default is false (text visible)
+    this.obscureText = false,
     this.validator,
-    required this.label,
     required this.controller,
     this.errorText,
     this.readOnly,
@@ -27,13 +26,12 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  late bool _obscureText; // Controls the text visibility dynamically
-  Color labelColor = Colors.grey[850]!;
+  late bool _obscureText;
+  Color labelColor = ColorManager.white;
 
   @override
   void initState() {
     super.initState();
-    // Initialize _obscureText with the value of widget.obscureText
     _obscureText = widget.obscureText;
   }
 
@@ -52,7 +50,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: _obscureText, // Use _obscureText to toggle visibility
+      obscureText: _obscureText, 
       validator: _validate,
       readOnly: widget.readOnly ?? false,
       onChanged: widget.onChange,
@@ -62,35 +60,36 @@ class _CustomTextFieldState extends State<CustomTextField> {
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red, width: 2.0),
         ),
-        focusedErrorBorder: const OutlineInputBorder(
+        focusedErrorBorder:  OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(100.r)),
           borderSide: BorderSide(color: Colors.red, width: 2.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey[850]!),
+          borderRadius: BorderRadius.all(Radius.circular(100.r)),
+          borderSide: BorderSide(color: ColorManager.white),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey[850]!),
+          borderRadius: BorderRadius.all(Radius.circular(100.r)),
+          borderSide: BorderSide(color: ColorManager.white),
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        label: Text(
-          widget.label,
-          style: TextStyle(color: labelColor),
-        ),
+
         hintText: widget.hint,
         hintStyle: const TextStyle(color: Colors.grey),
+
         suffixIcon: widget.obscureText
             ? IconButton(
                 icon: Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: Colors.grey[850],
+                  _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                  color: ColorManager.white,
                 ),
                 onPressed: () {
                   setState(() {
-                    _obscureText = !_obscureText; // Toggle text visibility
+                    _obscureText = !_obscureText; 
                   });
                 },
               )
-            : null, // No icon if obscureText is false
+            : null, 
       ),
     );
   }
