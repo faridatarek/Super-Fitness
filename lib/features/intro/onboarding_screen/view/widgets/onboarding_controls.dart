@@ -1,0 +1,131 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/blured_countainer.dart';
+import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/text_style.dart';
+import 'package:super_fitness/utils/values_manager.dart';
+import '../../view_model/onboarding_view_model.dart';
+
+class OnboardingControls extends StatelessWidget {
+  final PageController pageController;
+  final int totalPages;
+
+  const OnboardingControls({
+    super.key,
+    required this.pageController,
+    required this.totalPages,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<OnboardingCubit, int>(
+      builder: (context, pageIndex) {
+        return BlurredContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                SmoothPageIndicator(
+                  controller: pageController,
+                  count: totalPages,
+                  effect: const ExpandingDotsEffect(
+                    dotHeight: 8,
+                    dotWidth: 8,
+                    activeDotColor: ColorManager.primary,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (pageIndex > 0)
+                      _buildButton(
+                        context,
+                        text: "Back",
+                        color: Colors.grey,
+                        onPressed: () {
+                          pageController.previousPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          );
+                        },
+                      ),
+                    _buildButton(
+                      context,
+                      text: pageIndex == totalPages - 1 ? "Do It" : "Next",
+                      color: ColorManager.primary,
+                      onPressed: () {
+                        if (pageIndex == totalPages - 1) {
+                          // ToDo: Navigate to login screen
+                        } else {
+                          pageController.nextPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          );
+                        }
+                      },
+                      isExpanded: pageIndex == 0,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildButton(
+      BuildContext context, {
+        required String text,
+        required Color color,
+        required VoidCallback onPressed,
+        bool isExpanded = false,
+      }) {
+    final button = ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
+      child: Text(
+        text,
+        style: AppTextStyles.font24W800White(fontSize: AppSize.s14),
+      ),
+    );
+
+    return isExpanded ? Expanded(child: button) : button;
+  }
+}
+
+
+
+class SkipButton extends StatelessWidget {
+  const SkipButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 40,
+      right: 20,
+      child: TextButton(
+        onPressed: () {
+          // ToDo: Navigate to login screen
+        },
+        child: Text(
+          "Skip",
+          style: AppTextStyles.font18W400White(
+            fontSize: AppSize.s14,
+            color: ColorManager.lightGrey,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
