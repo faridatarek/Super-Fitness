@@ -44,7 +44,8 @@ class OnboardingControls extends StatelessWidget {
                       _buildButton(
                         context,
                         text: "Back",
-                        color: Colors.grey,
+                        color: ColorManager.transparent,
+                        borderColor: ColorManager.primary,
                         onPressed: () {
                           pageController.previousPage(
                             duration: const Duration(milliseconds: 300),
@@ -84,13 +85,17 @@ class OnboardingControls extends StatelessWidget {
         required Color color,
         required VoidCallback onPressed,
         bool isExpanded = false,
+        Color? borderColor,
+
       }) {
     final button = ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         shape: RoundedRectangleBorder(
+          side: BorderSide(color:borderColor??color ),
           borderRadius: BorderRadius.circular(30),
+
         ),
       ),
       child: Text(
