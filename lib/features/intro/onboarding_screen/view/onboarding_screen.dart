@@ -28,11 +28,22 @@ class OnboardingScreen extends StatelessWidget {
                         controller: cubit.getPageController,
                         itemCount: OnBoardingData.onboardingData.length,
                         onPageChanged: cubit.updatePage,
+                        physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return OnboardingPage(
-                            image: OnBoardingData.onboardingData[index]["image"]!,
-                            title: OnBoardingData.onboardingData[index]["title"]!,
-                            description: OnBoardingData.onboardingData[index]["description"]!,
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 500),
+                            transitionBuilder: (Widget child, Animation<double> animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: ScaleTransition(scale: animation, child: child),
+                              );
+                            },
+                            child: OnboardingPage(
+                              key: ValueKey(index), // Ensures animation works smoothly
+                              image: OnBoardingData.onboardingData[index]["image"]!,
+                              title: OnBoardingData.onboardingData[index]["title"]!,
+                              description: OnBoardingData.onboardingData[index]["description"]!,
+                            ),
                           );
                         },
                       ),

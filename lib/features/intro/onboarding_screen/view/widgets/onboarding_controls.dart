@@ -41,34 +41,48 @@ class OnboardingControls extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     if (pageIndex > 0)
-                      _buildButton(
+                      _buildAnimatedButton(
                         context,
                         text: "Back",
                         color: ColorManager.transparent,
                         borderColor: ColorManager.primary,
                         onPressed: () {
                           pageController.previousPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.ease,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
                           );
                         },
                       ),
-                    _buildButton(
-                      context,
-                      text: pageIndex == totalPages - 1 ? "Do It" : "Next",
-                      color: ColorManager.primary,
-                      onPressed: () {
-                        if (pageIndex == totalPages - 1) {
-                          // ToDo: Navigate to login screen
-                        } else {
-                          pageController.nextPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.ease,
-                          );
-                        }
-                      },
-                      isExpanded: pageIndex == 0,
-                    ),
+                    if (pageIndex == 0)
+                      Expanded(
+                        child: _buildButton(
+                          context,
+                          text: "Next",
+                          color: ColorManager.primary,
+                          onPressed: () {
+                            pageController.nextPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
+                      )
+                    else
+                      _buildAnimatedButton(
+                        context,
+                        text: pageIndex == totalPages - 1 ? "Do It" : "Next",
+                        color: ColorManager.primary,
+                        onPressed: () {
+                          if (pageIndex == totalPages - 1) {
+                            // ToDo: Navigate to login screen
+                          } else {
+                            pageController.nextPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                            );
+                          }
+                        },
+                      ),
                   ],
                 ),
               ],
@@ -78,6 +92,51 @@ class OnboardingControls extends StatelessWidget {
       },
     );
   }
+
+  Widget _buildAnimatedButton(
+      BuildContext context, {
+        required String text,
+        required Color color,
+        required VoidCallback onPressed,
+        Color? borderColor,
+      }) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return ScaleTransition(
+          scale: Tween<double>(begin: 0.8, end: 1.0).animate(animation),
+          child: FadeTransition(opacity: animation, child: child),
+        );
+      },
+      child: ElevatedButton(
+        key: ValueKey(text),
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: borderColor ?? color),
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return SlideTransition(
+              position: Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
+                  .animate(animation),
+              child: FadeTransition(opacity: animation, child: child),
+            );
+          },
+          child: Text(
+            text,
+            key: ValueKey<String>(text),
+            style: AppTextStyles.font24W800White(fontSize: AppSize.s14),
+          ),
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildButton(
       BuildContext context, {
