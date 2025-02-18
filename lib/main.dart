@@ -8,12 +8,15 @@ import 'package:super_fitness/core/common/bloc_observer.dart';
 import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
+import 'package:super_fitness/features/intro/splash_screen/view/splash_screen.dart';
+import 'package:super_fitness/utils/theme_manger.dart';
 
 import 'core/routes/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
+
   Bloc.observer = SimpleBlocObserver();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -26,8 +29,6 @@ Future<void> main() async {
           },
           child: const MyApp()));
 }
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-GlobalKey<ScaffoldMessengerState>();
 
 
 class MyApp extends StatelessWidget {
@@ -42,19 +43,10 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: scaffoldMessengerKey,
         title: 'Super Fitness app',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color(0xffFF4100),
-              primary: const Color(0xffFF4100),
-              onError: Colors.red,
-              secondary: const Color(0xffA6A6A6)),
-          useMaterial3: true,
-        ),
-
-        onGenerateRoute: manageRoutes,
-        initialRoute: AppRoutes.homeScreen,
+        theme: ThemeManger.themeManger,
+         onGenerateRoute: manageRoutes,
+         initialRoute: AppRoutes.splashScreen,
       ),
     );
   }
