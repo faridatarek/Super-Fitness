@@ -49,6 +49,7 @@ dependencies:
   easy_localization:
   smooth_page_indicator:
   lottie: ^3.3.1
+  pinput:
 
 
 
