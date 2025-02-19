@@ -23,7 +23,8 @@ class CustomTextField extends StatefulWidget {
     required this.controller,
     this.errorText,
     this.readOnly = false,
-    this.prefixIcon, this.keyboardType,
+    this.prefixIcon,
+    this.keyboardType,
   });
 
   @override
@@ -48,7 +49,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       height: 45.h,
       child: TextFormField(
-        keyboardType:widget.keyboardType  ,
+        keyboardType: widget.keyboardType,
         style: AppTextStyles.font18W400White(color: const Color(0xffD3D3D3)),
         obscureText: _obscureText,
         validator: _validate,
@@ -76,11 +77,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: widget.hint,
           hintStyle: AppTextStyles.font18W400White(fontSize: 16),
-          prefixIcon: Padding(
+          prefixIcon: widget.prefixIcon != null
+              ? Padding(
             padding: const EdgeInsets.all(8.0),
             child: widget.prefixIcon,
-          ),
-          suffixIcon: widget.obscureText
+          )
+              : null,
+          suffixIcon: widget.obscureText && !widget.readOnly
               ? IconButton(
             icon: Icon(
               _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:super_fitness/core/common/bloc_observer.dart';
 import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/providers/user_provider.dart';
+import 'package:super_fitness/features/forget_password/presentaion/create_new_pass_screen/view/create_new_password_screen.dart';
 import 'package:super_fitness/utils/theme_manger.dart';
 
 import 'core/routes/app_routes.dart';

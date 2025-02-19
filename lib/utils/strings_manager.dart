@@ -3,6 +3,7 @@ class StringsManager {
   static const String enterYourEmail = "Enter Your Email";
   static const String forgetPassword = "Forget Password";
   static const String emailHint = "Email";
+  static const String passwordHint = "Password";
   static const String sendOtp = "Send OTP";
 
   // OTP Verification
@@ -12,4 +13,24 @@ class StringsManager {
   static const String didntReceiveCode = "Didn't receive verification code?";
   static const String resendCode = "Resend Code?";
   static const String retryAgain = "Try again";
+  static const String done = "Done";
+
+
+  static const String otpResentSuccess = "OTP resent successfully! Please enter the new code.";
+  static const String otpVerifiedSuccess = "OTP verified successfully! 🎉";
+  static const String otpSendFailed = "Failed to send OTP. Try again!";
+  static const String invalidOtp = "Invalid OTP. Please try again!";
+
+
+
+  // Onboarding
+  static const String onboardingBack = "Back";
+  static const String onboardingSkip = "Skip";
+  static const String onboardingNext = "Next";
+  static const String onboardingDoIt = "Do It";
+
+  //create new password
+  static const String ensurePassWordText = "make sure its 8 characters or more";
+  static const String passWordText = "create new password";
+
 }

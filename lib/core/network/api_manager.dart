@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart';
+import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart';
 
 import '../../features/forget_password/data/models/requests/forgot_password_request.dart';
 import '../../features/forget_password/data/models/responses/forgot_password_response.dart';
@@ -43,5 +45,7 @@ abstract class ApiManager {
   Future<ForgotPasswordResponse> forgotPassword(
       @Body() ForgotPasswordRequest request);
 
-
+  @POST(ApiConstants.restCode)
+  Future<OtpVerifyResetCodeResponse> resetCode(
+      @Body() OtpVerifyResetCodeRequest request);
 }

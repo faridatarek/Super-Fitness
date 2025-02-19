@@ -40,7 +40,7 @@ class OnboardingScreen extends StatelessWidget {
                               );
                             },
                             child: OnboardingPage(
-                              key: ValueKey(index), // Ensures animation works smoothly
+                              key: ValueKey(index),
                               image: OnBoardingData.onboardingData[index]["image"]!,
                               title: OnBoardingData.onboardingData[index]["title"]!,
                               description: OnBoardingData.onboardingData[index]["description"]!,

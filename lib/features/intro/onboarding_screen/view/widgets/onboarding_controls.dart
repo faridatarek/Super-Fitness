@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/blured_countainer.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 import 'package:super_fitness/utils/values_manager.dart';
 import '../../view_model/onboarding_view_model.dart';
@@ -43,7 +44,7 @@ class OnboardingControls extends StatelessWidget {
                     if (pageIndex > 0)
                       _buildAnimatedButton(
                         context,
-                        text: "Back",
+                        text: StringsManager.onboardingBack,
                         color: ColorManager.transparent,
                         borderColor: ColorManager.primary,
                         onPressed: () {
@@ -57,7 +58,7 @@ class OnboardingControls extends StatelessWidget {
                       Expanded(
                         child: _buildButton(
                           context,
-                          text: "Next",
+                          text: StringsManager.onboardingNext,
                           color: ColorManager.primary,
                           onPressed: () {
                             pageController.nextPage(
@@ -70,7 +71,7 @@ class OnboardingControls extends StatelessWidget {
                     else
                       _buildAnimatedButton(
                         context,
-                        text: pageIndex == totalPages - 1 ? "Do It" : "Next",
+                        text: pageIndex == totalPages - 1 ? StringsManager.onboardingDoIt: StringsManager.onboardingNext,
                         color: ColorManager.primary,
                         onPressed: () {
                           if (pageIndex == totalPages - 1) {
@@ -182,7 +183,7 @@ class SkipButton extends StatelessWidget {
           // ToDo: Navigate to login screen
         },
         child: Text(
-          "Skip",
+          StringsManager.onboardingSkip,
           style: AppTextStyles.font18W400White(
             fontSize: AppSize.s14,
             color: ColorManager.lightGrey,

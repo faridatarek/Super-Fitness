@@ -18,6 +18,7 @@ class SVGAssets {
       "${_basePath}arrowIcon.svg";
   static const String appLogo ="${_basePath}logo.svg";
   static const String mail ="${_basePath}mail.svg";
+  static const String lock ="${_basePath}lock.svg";
 
 }
 

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart';
+import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart';
 
 import '../../../../core/common/result.dart';
 import '../../../../core/network/api_execution.dart';
@@ -8,17 +10,13 @@ import '../contracts/forget_password_online_datasource.dart';
 import '../models/requests/forgot_password_request.dart';
 import '../models/responses/forgot_password_response.dart';
 
-
 @Injectable(as: ForgetPasswordOnlineDatasource)
-class ForgetPasswordOnlineDatasourceImpl
-    implements ForgetPasswordOnlineDatasource {
+class ForgetPasswordOnlineDatasourceImpl implements ForgetPasswordOnlineDatasource {
   final ApiManager apiManager;
   ForgetPasswordOnlineDatasourceImpl(this.apiManager);
 
-
-
   @override
-  Future<Result<ForgotPasswordResponse?>> forgotPassword( ForgotPasswordRequest request) async {
+  Future<Result<ForgotPasswordResponse?>> forgotPassword(ForgotPasswordRequest request) async {
     try {
       final result = await apiManager.forgotPassword(request);
       return Success(result);
@@ -27,21 +25,68 @@ class ForgetPasswordOnlineDatasourceImpl
         String errorMessage = _handleDioError(e);
         return Fail(Exception(errorMessage), data: ForgotPasswordResponse(error: errorMessage));
       }
-      return Fail(Exception(e.toString()));
+      return Fail(Exception("Unexpected error: ${e.toString()}"));
+    }
+  }
+
+
+
+
+  @override
+  Future<Result<OtpVerifyResetCodeResponse?>> resetPassword(OtpVerifyResetCodeRequest request)async {
+    try {
+      final result = await apiManager.resetCode(request);
+      return Success(result);
+    } catch (e) {
+      if (e is DioException) {
+        String errorMessage = _handleDioError(e);
+        return Fail(Exception(errorMessage), data: OtpVerifyResetCodeResponse(error: errorMessage));
+      }
+      return Fail(Exception("Unexpected error: ${e.toString()}"));
     }
   }
 
   String _handleDioError(DioException e) {
-    if (e.response != null && e.response?.data != null) {
-      try {
-        final errorData = e.response?.data;
-        if (errorData is Map<String, dynamic> && errorData.containsKey("error")) {
-          return errorData["error"];
+    switch (e.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.receiveTimeout:
+      case DioExceptionType.sendTimeout:
+        return "Connection timed out. Please try again.";
+
+      case DioExceptionType.badResponse:
+        if (e.response != null) {
+          return _parseServerError(e.response!);
         }
-      } catch (error) {
-        return "Error processing response.";
-      }
+        return "Received invalid response from server.";
+
+      case DioExceptionType.connectionError:
+        return "No internet connection. Please check your network.";
+
+      case DioExceptionType.cancel:
+        return "Request was cancelled. Please try again.";
+
+      case DioExceptionType.unknown:
+        return "An unknown error occurred. Please try again later.";
+
+      default:
+        return e.message ?? "An unexpected error occurred.";
     }
-    return e.message ?? "An unknown error occurred.";
+  }
+
+  String _parseServerError(Response response) {
+    try {
+      if (response.data is Map<String, dynamic> && response.data.containsKey("error")) {
+        return response.data["error"];
+      } else if (response.statusCode == 401) {
+        return "Unauthorized access. Please login again.";
+      } else if (response.statusCode == 403) {
+        return "Access denied. You do not have permission.";
+      } else if (response.statusCode == 404) {
+        return "Requested resource not found.";
+      } else if (response.statusCode == 500) {
+        return "Server error. Please try again later.";
+      }
+    } catch (_) {}
+    return "Unexpected server response.";
   }
 }
