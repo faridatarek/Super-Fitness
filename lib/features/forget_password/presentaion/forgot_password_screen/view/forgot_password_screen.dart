@@ -19,7 +19,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is SuccessState) {
             Navigator.pop(context);
-            Navigator.pushNamed(context, AppRoutes.otpVerificationScreen);
+            Navigator.pushReplacementNamed(context, AppRoutes.otpVerificationScreen);
 
           }
           if (state is ErrorState) {

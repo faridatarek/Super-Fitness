@@ -33,4 +33,10 @@ class StringsManager {
   static const String ensurePassWordText = "make sure its 8 characters or more";
   static const String passWordText = "create new password";
 
+
+// Validation Messages
+  static const String validationsFieldRequired = "This field is required";
+  static const String validationsValidEmail = "Enter a valid email address";
+  static const String validationsPasswordSpecifications = "Password must be at least 8 characters and contain letters and numbers";
+
 }

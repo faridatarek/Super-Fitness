@@ -25,7 +25,7 @@ class OtpVerificationScreen extends StatelessWidget {
             },
             listener: (context, state) {
               if (state is CorrectOtpState) {
-                Navigator.pushNamed(context,AppRoutes.createNewPasswordScreen);
+                Navigator.pushReplacementNamed(context,AppRoutes.createNewPasswordScreen);
               }
               return baseListener(context, state);
             },

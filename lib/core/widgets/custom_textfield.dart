@@ -46,53 +46,52 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45.h,
-      child: TextFormField(
-        keyboardType: widget.keyboardType,
-        style: AppTextStyles.font18W400White(color: const Color(0xffD3D3D3)),
-        obscureText: _obscureText,
-        validator: _validate,
-        readOnly: widget.readOnly,
-        onChanged: widget.onChange,
-        controller: widget.controller,
-        decoration: InputDecoration(
-          errorText: widget.errorText,
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100.r),
-            borderSide: const BorderSide(color: Colors.red, width: 2.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100.r),
-            borderSide: const BorderSide(color: Colors.red, width: 2.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100.r),
-            borderSide: const BorderSide(color: ColorManager.white),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100.r),
-            borderSide: const BorderSide(color: ColorManager.white),
-          ),
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintText: widget.hint,
-          hintStyle: AppTextStyles.font18W400White(fontSize: 16),
-          prefixIcon: widget.prefixIcon != null
-              ? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: widget.prefixIcon,
-          )
-              : null,
-          suffixIcon: widget.obscureText && !widget.readOnly
-              ? IconButton(
-            icon: Icon(
-              _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-              color: ColorManager.white,
-            ),
-            onPressed: () => setState(() => _obscureText = !_obscureText),
-          )
-              : null,
+    return TextFormField(
+      keyboardType: widget.keyboardType,
+      style: AppTextStyles.font18W400White(color: const Color(0xffD3D3D3), fontSize: 14),
+      obscureText: _obscureText,
+      validator: _validate,
+      readOnly: widget.readOnly,
+      onChanged: widget.onChange,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
+        errorText: widget.errorText,
+        errorStyle: TextStyle(fontSize: 12.sp),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(100.r),
+          borderSide: const BorderSide(color: Colors.red, width: 1.5),
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(100.r),
+          borderSide: const BorderSide(color: Colors.red, width: 1.5),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(100.r),
+          borderSide: const BorderSide(color: ColorManager.white, width: 1.5),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(100.r),
+          borderSide: const BorderSide(color: ColorManager.white, width: 1.5),
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        hintText: widget.hint,
+        hintStyle: AppTextStyles.font18W400White(fontSize: 14),
+        prefixIcon: widget.prefixIcon != null
+            ? Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: widget.prefixIcon,
+        )
+            : null,
+        suffixIcon: widget.obscureText && !widget.readOnly
+            ? IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+            color: ColorManager.white,
+          ),
+          onPressed: () => setState(() => _obscureText = !_obscureText),
+        )
+            : null,
       ),
     );
   }

@@ -20,6 +20,8 @@ import '../../features/forget_password/data/repositories/forget_password_reposit
     as _i787;
 import '../../features/forget_password/domain/repositories/forget_password_repository.dart'
     as _i129;
+import '../../features/forget_password/domain/usecases/create_new_pass_use_case.dart'
+    as _i1065;
 import '../../features/forget_password/domain/usecases/forget_password_usecase.dart'
     as _i535;
 import '../../features/forget_password/domain/usecases/reset_code_use_case.dart'
@@ -46,8 +48,6 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioModule = _$DioModule();
-    gh.factory<_i362.CreateNewPassWordViewModel>(
-        () => _i362.CreateNewPassWordViewModel());
     gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
     gh.lazySingleton<_i26.UserProvider>(() => _i26.UserProvider());
     gh.singleton<_i119.ApiManager>(() => _i119.ApiManager(gh<_i361.Dio>()));
@@ -60,6 +60,11 @@ extension GetItInjectableX on _i174.GetIt {
         _i535.ForgetPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i248.ResetCodeUseCase>(
         () => _i248.ResetCodeUseCase(gh<_i129.ForgetPasswordRepository>()));
+    gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
+        _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
+    gh.factory<_i362.CreateNewPassWordViewModel>(() =>
+        _i362.CreateNewPassWordViewModel(
+            gh<_i1065.CreateNewPasswordUseCase>()));
     gh.factory<_i910.OtpVerifyViewModel>(() => _i910.OtpVerifyViewModel(
           gh<_i535.ForgetPasswordUseCase>(),
           gh<_i248.ResetCodeUseCase>(),

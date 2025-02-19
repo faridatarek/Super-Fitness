@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:super_fitness/features/forget_password/data/models/requests/create_newpass_request.dart';
 import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart';
+import 'package:super_fitness/features/forget_password/data/models/responses/Create_new_pass_respones.dart';
 import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart';
 
 import '../../../../core/common/result.dart';
@@ -88,5 +90,19 @@ class ForgetPasswordOnlineDatasourceImpl implements ForgetPasswordOnlineDatasour
       }
     } catch (_) {}
     return "Unexpected server response.";
+  }
+
+  @override
+  Future<Result<CreateNewPassResponse ?>> createNewPass(CreateNewPassWordRequest request) async{
+    try {
+      final result = await apiManager.createNewPassword(request);
+      return Success(result);
+    } catch (e) {
+      if (e is DioException) {
+        String errorMessage = _handleDioError(e);
+        return Fail(Exception(errorMessage), data: CreateNewPassResponse(error: errorMessage));
+      }
+      return Fail(Exception("Unexpected error: ${e.toString()}"));
+    }
   }
 }

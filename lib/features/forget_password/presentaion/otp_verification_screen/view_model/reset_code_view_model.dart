@@ -26,7 +26,7 @@ final TextEditingController otpController = TextEditingController();
   Future<void> forgetPassword(ForgotPasswordRequest request) async {
     final result = await _forgetPasswordUseCase.forgotPassword(request);
     if (result is Success<ForgotPasswordResponse?>) {
-      emit(SuccessState('${result.data?.error??' '}\n${StringsManager.otpResentSuccess}'));
+      emit(SuccessState('${result.data?.message??' '}\n${StringsManager.otpResentSuccess}'));
     } else if (result is Fail<ForgotPasswordResponse?>) {
       emit(ErrorState(result.data?.error??''));
     }
