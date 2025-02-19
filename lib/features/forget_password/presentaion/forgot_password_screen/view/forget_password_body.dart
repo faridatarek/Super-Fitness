@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pinput/pinput.dart';
-import 'package:super_fitness/core/widgets/custom_scaffold.dart';
-import 'package:super_fitness/utils/assets_manager.dart';
-import 'package:super_fitness/utils/text_style.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:super_fitness/features/forget_password/data/models/requests/forgot_password_request.dart';
+import 'package:super_fitness/features/forget_password/presentaion/forgot_password_screen/view_model/foget_password_view_model.dart';
+import '../../../../../core/widgets/custom_blur_continer.dart';
+import '../../../../../core/widgets/custom_button.dart';
+import '../../../../../core/widgets/custom_scaffold.dart';
+import '../../../../../core/widgets/custom_textfield.dart';
+import '../../../../../utils/assets_manager.dart';
+import '../../../../../utils/strings_manager.dart';
+import '../../../../../utils/text_style.dart';
 
-import '../../../../core/widgets/custom_blur_continer.dart';
-import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_textfield.dart';
-
-
-import '../../../../utils/strings_manager.dart';
-import '../../otp_verification_screen/view/otp_verification_screen.dart';
-
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+class ForgetPasswordBody extends StatelessWidget {
+  const ForgetPasswordBody({super.key, required this.viewModel});
+  final ForgetPassWordViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +48,14 @@ class ForgotPasswordScreen extends StatelessWidget {
                   keyboardType: TextInputType.emailAddress,
                   prefixIcon: SvgPicture.asset(SVGAssets.mail),
                   hint: StringsManager.emailHint,
-                  controller: TextEditingController(),
+                  controller: viewModel.forgetPassWordTextField,
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
                   text: StringsManager.sendOtp,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OtpVerificationScreen(),
-                      ),
-                    );
+                    viewModel.forgetPassWord(ForgotPasswordRequest(
+                        email: viewModel.forgetPassWordTextField.text));
                   },
                 ),
               ],
@@ -73,4 +67,3 @@ class ForgotPasswordScreen extends StatelessWidget {
     );
   }
 }
-

@@ -1,5 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../../../../utils/assets_manager.dart';
+
+import '../../../../../utils/assets_manager.dart';
+import '../../../../../utils/strings_manager.dart';
+
 import 'base_states.dart';
 import 'base_widgets.dart';
 
@@ -26,7 +30,7 @@ void baseListener(BuildContext context, BaseState state) {
           displayType: state.displayType,
           context: context,
           // onTap: state.retry,
-          title: 'Try again',
+          title: StringsManager.retryAgain.tr(),
         ),
       ],
     );

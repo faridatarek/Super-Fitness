@@ -5,9 +5,10 @@ import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
-import '../../../../core/widgets/custom_scaffold.dart';
-import '../../../../utils/assets_manager.dart';
-import '../../../../utils/strings_manager.dart';
+import '../../../../../core/widgets/custom_scaffold.dart';
+import '../../../../../utils/assets_manager.dart';
+import '../../../../../utils/strings_manager.dart';
+
 
 class OtpVerificationScreen extends StatelessWidget {
   const OtpVerificationScreen({super.key});

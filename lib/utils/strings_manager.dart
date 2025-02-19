@@ -11,4 +11,5 @@ class StringsManager {
   static const String confirm = "Confirm";
   static const String didntReceiveCode = "Didn't receive verification code?";
   static const String resendCode = "Resend Code?";
+  static const String retryAgain = "Try again";
 }
