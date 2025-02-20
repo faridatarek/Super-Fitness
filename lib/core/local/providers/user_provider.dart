@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/features/auth/domain/models/user.dart';

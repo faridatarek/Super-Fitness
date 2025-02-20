@@ -15,10 +15,14 @@ PreferredSizeWidget CustomAppBar({required String title}) {
       title,
       style: AppTextStyles.titleFont24W600(),
     ),
-    leading: CircleAvatar(
-      radius: 18.r,
-      backgroundColor: ColorManager.primary,
-      child: SvgPicture.asset(SVGAssets.arrowIcon,width: 30.w,height: 30.h,),
+    leadingWidth: 40.w,
+    leading: Padding(
+      padding:  EdgeInsets.only(left:10.w),
+      child: CircleAvatar(
+        radius: 10.r,
+        backgroundColor: ColorManager.primary,
+        child: SvgPicture.asset(SVGAssets.arrowIcon,width: 15.w,height: 15.h,),
+      ),
     ),
   );
 }

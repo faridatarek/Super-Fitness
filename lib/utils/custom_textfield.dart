@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'color_manager.dart';
 
@@ -39,28 +40,31 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: _obscureText,
-      validator: widget.validator,
-      readOnly: widget.readOnly ?? false,
-      onChanged: widget.onChange,
-      controller: widget.controller,
-      style: const TextStyle(color: ColorManager.white),
-      decoration: InputDecoration(
-        errorText: widget.errorText,
-        filled: true,
-        fillColor: Colors.transparent,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
-          borderSide: const BorderSide(color: ColorManager.white, width: 1.5),
+    return SizedBox(
+      height: 45.h,
+      child: TextFormField(
+        obscureText: _obscureText,
+        validator: widget.validator,
+        readOnly: widget.readOnly ?? false,
+        onChanged: widget.onChange,
+        controller: widget.controller,
+        style: const TextStyle(color: ColorManager.white),
+        decoration: InputDecoration(
+          errorText: widget.errorText,
+          filled: true,
+          fillColor: Colors.transparent,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: const BorderSide(color: ColorManager.white, width: 1.5),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: const BorderSide(color: ColorManager.white, width: 2),
+          ),
+          prefixIcon: Icon(widget.prefixIcon, color: ColorManager.white),
+          hintText: widget.hint,
+          hintStyle: const TextStyle(color: ColorManager.white),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
-          borderSide: const BorderSide(color: ColorManager.white, width: 2),
-        ),
-        prefixIcon: Icon(widget.prefixIcon, color: ColorManager.white),
-        hintText: widget.hint,
-        hintStyle: const TextStyle(color: ColorManager.white),
       ),
     );
   }
