@@ -19,6 +19,7 @@ class AppTextStyles {
       ),
     );
   }
+
   static TextStyle font18W400White({
     Color? color = ColorManager.white,
     double? fontSize,
@@ -32,6 +33,7 @@ class AppTextStyles {
       ),
     );
   }
+
   static TextStyle font24W800White({
     Color? color = ColorManager.white,
     double? fontSize,
@@ -45,6 +47,7 @@ class AppTextStyles {
       ),
     );
   }
+
   static TextStyle font20W800White({
     Color? color = ColorManager.white,
     double? fontSize,
@@ -58,6 +61,7 @@ class AppTextStyles {
       ),
     );
   }
+
   static TextStyle font14W800White({
     Color? color = ColorManager.white,
     double? fontSize,
@@ -71,6 +75,21 @@ class AppTextStyles {
       ),
     );
   }
+
+  static TextStyle font16W500White({
+    Color? color = ColorManager.white,
+    double? fontSize,
+    FontWeight fontWeight = FontWeight.w500,
+  }) {
+    return GoogleFonts.balooThambi2(
+      textStyle: TextStyle(
+        color: color ?? ColorManager.white,
+        fontSize: fontSize ?? AppSize.s16,
+        fontWeight: fontWeight,
+      ),
+    );
+  }
+
   // Title Text Style
   static TextStyle titleFont24W600({
     Color? color = ColorManager.white,
@@ -85,5 +104,4 @@ class AppTextStyles {
       ),
     );
   }
-
 }
