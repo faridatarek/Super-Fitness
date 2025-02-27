@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+// ignore: depend_on_referenced_packages
 import 'package:dio/dio.dart';
-import 'package:super_fitness/core/common/result.dart';
-import 'package:super_fitness/core/network/api_error_handler.dart';
+
+import '../common/result.dart';
+import 'api_error_handler.dart';
 
 
 Future<Result<T>> executeApi<T>(Future<T> Function() apiCall) async {

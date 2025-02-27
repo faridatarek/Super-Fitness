@@ -7,15 +7,15 @@ import 'package:provider/provider.dart';
 import 'package:super_fitness/core/common/bloc_observer.dart';
 import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/providers/user_provider.dart';
-import 'package:super_fitness/core/routes/app_routes.dart';
-import 'package:super_fitness/features/intro/splash_screen/view/splash_screen.dart';
+import 'package:super_fitness/features/forget_password/presentaion/create_new_pass_screen/view/create_new_password_screen.dart';
 import 'package:super_fitness/utils/theme_manger.dart';
 
+import 'core/routes/app_routes.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
+   configureDependencies();
 
   Bloc.observer = SimpleBlocObserver();
   await SystemChrome.setPreferredOrientations([
@@ -45,8 +45,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Super Fitness app',
         theme: ThemeManger.themeManger,
-         onGenerateRoute: manageRoutes,
-         initialRoute: AppRoutes.splashScreen,
+        onGenerateRoute: manageRoutes,
+        initialRoute: AppRoutes.forgetPasswordScreen,
       ),
     );
   }

@@ -31,10 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+  cupertino_icons:
   injectable:
   get_it:
   retrofit:
@@ -42,25 +39,33 @@ dependencies:
   pretty_dio_logger:
   dio:
   flutter_bloc:
-  flutter_svg: ^2.0.17
+  flutter_svg:
   hive_flutter:
   google_fonts:
   provider:
   easy_localization:
   smooth_page_indicator:
   lottie: ^3.3.1
+  pinput:
 
-
-
+  json_annotation:
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints:
   injectable_generator:
   build_runner:
   retrofit_generator:
   hive_generator:
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#1A1A1A80"
+  min_sdk_android: 17
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

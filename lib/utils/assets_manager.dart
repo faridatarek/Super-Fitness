@@ -6,6 +6,7 @@ class ImageAssets {
   static const String onBoarding2 ="${imagePath}O15_30.png";
   static const String onBoarding3 ="${imagePath}O15_31.png";
   static const String backGround ="${imagePath}backGround.png";
+  static const String forgetPassBackground ="${imagePath}forget_pass_background.png";
 
 }
 
@@ -16,6 +17,8 @@ class SVGAssets {
   static const String arrowIcon =
       "${_basePath}arrowIcon.svg";
   static const String appLogo ="${_basePath}logo.svg";
+  static const String mail ="${_basePath}mail.svg";
+  static const String lock ="${_basePath}lock.svg";
 
 }
 

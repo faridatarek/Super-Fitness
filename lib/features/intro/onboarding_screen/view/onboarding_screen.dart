@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/custom_scaffold.dart';
+import 'package:super_fitness/core/widgets/custom_scaffold.dart';
 import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/on_boarding_page.dart';
 import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/onboarding_controls.dart';
 
@@ -19,6 +19,7 @@ class OnboardingScreen extends StatelessWidget {
           final cubit = context.read<OnboardingCubit>();
 
           return CustomScaffold(
+
             body: Column(
               children: [
                 Expanded(
@@ -39,7 +40,7 @@ class OnboardingScreen extends StatelessWidget {
                               );
                             },
                             child: OnboardingPage(
-                              key: ValueKey(index), // Ensures animation works smoothly
+                              key: ValueKey(index),
                               image: OnBoardingData.onboardingData[index]["image"]!,
                               title: OnBoardingData.onboardingData[index]["title"]!,
                               description: OnBoardingData.onboardingData[index]["description"]!,
