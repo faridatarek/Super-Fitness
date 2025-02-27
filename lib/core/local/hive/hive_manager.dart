@@ -30,6 +30,7 @@ class HiveManager {
     return true;
   }
 
+
   Future<CacheUserModel> getUser() async {
     final box = await Hive.openBox('user');
     final user = await box.get('user');

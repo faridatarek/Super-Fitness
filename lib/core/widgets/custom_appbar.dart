@@ -6,7 +6,7 @@ import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
 
-PreferredSizeWidget CustomAppBar({required String title}) {
+PreferredSizeWidget CustomAppBar({required String title,List<Widget>? actions,}) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -24,5 +24,6 @@ PreferredSizeWidget CustomAppBar({required String title}) {
         child: SvgPicture.asset(SVGAssets.arrowIcon,width: 15.w,height: 15.h,),
       ),
     ),
+    actions: actions,
   );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -10,9 +11,8 @@ import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/hive/hive_manager.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
-import 'package:super_fitness/features/auth/domain/models/user.dart';
 import 'package:super_fitness/features/auth/login/data/dataSource/offline_dataSource/cache_user_model.dart';
-
+import 'package:super_fitness/features/auth/login/data/dtos/hive_user_dto.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
@@ -32,11 +32,11 @@ Future<void> main() async {
     debugPrint("tokeeeennnn: $token");
     if (token != null) {
       final userModel = await HiveManager().getUser();
-      debugPrint("userModel: ${userModel.firstName}, ${userModel.email}");
+      final user = HiveUserDto.toEntity(userModel);
       if (userModel != null) {
         UserProvider().login(token);
-        UserProvider().setUser(userModel as User);
-        initialRoute = AppRoutes.homeScreen;
+        UserProvider().setUser(user);
+        initialRoute = AppRoutes.StartchatView;
       } else {
         initialRoute = AppRoutes.loginScreen;
       }
@@ -44,7 +44,7 @@ Future<void> main() async {
       initialRoute = AppRoutes.loginScreen;
     }
   } catch (e, stack) {
-    initialRoute = AppRoutes.homeScreen;
+    initialRoute = AppRoutes.loginScreen;
   }
   runApp(
       ChangeNotifierProvider(

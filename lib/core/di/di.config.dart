@@ -31,6 +31,8 @@ import '../../features/auth/login/presentation/view/login_validator/login_valida
     as _i114;
 import '../../features/auth/login/presentation/viewModel/login_viewModel.dart'
     as _i807;
+import '../../features/home/chatBot/presentation/viewModel/chatBot_viewModel.dart'
+    as _i461;
 import '../local/hive/hive_manager.dart' as _i228;
 import '../local/providers/user_provider.dart' as _i405;
 import '../network/api_manager.dart' as _i119;
@@ -48,8 +50,9 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioModule = _$DioModule();
-    gh.factory<_i114.LoginValidator>(() => _i114.LoginValidator());
     gh.factory<_i405.UserProvider>(() => _i405.UserProvider());
+    gh.factory<_i114.LoginValidator>(() => _i114.LoginValidator());
+    gh.factory<_i461.ChatCubit>(() => _i461.ChatCubit());
     gh.singleton<_i228.HiveManager>(() => _i228.HiveManager());
     gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
     gh.factory<_i1.OfflineDataSource>(

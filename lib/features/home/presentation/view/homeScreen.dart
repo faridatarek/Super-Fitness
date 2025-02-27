@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:super_fitness/core/local/hive/hive_manager.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_appbar.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     String? data ="";
     return Scaffold(
       backgroundColor: ColorManager.black,
       appBar: CustomAppBar(title: "Home"),
@@ -22,13 +24,17 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-          Center(child: Text("Hello This is The Home",style: AppTextStyles.font20W800White(),)),
+          Center(child: Text("Hello $data",style: AppTextStyles.font20W800White(),)),
           SizedBox(height: 30.h,),
           Center(
             child: CustomButton(text: "LOG OuT", onPressed:() async {
-              final cleared = await HiveManager().clearUser();
-              debugPrint("loggedddOutt: $cleared");
-              Navigator.of(context).pushReplacementNamed(AppRoutes.loginScreen);
+              final userData = await  UserProvider().user?.goal;
+              final toto = await  UserProvider().token;
+              data=userData;
+            //  final cleared = await HiveManager().clearUser();
+              debugPrint("loggedddOutt: $userData");
+
+             // Navigator.of(context).pushReplacementNamed(AppRoutes.loginScreen);
 
 
 

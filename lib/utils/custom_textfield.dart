@@ -11,7 +11,7 @@ class CustomTextField extends StatefulWidget {
   final bool? readOnly;
   final String? Function(String?)? validator;
   final String? errorText;
-  final IconData prefixIcon;
+  final IconData ?prefixIcon;
 
   const CustomTextField({
     super.key,
@@ -22,7 +22,7 @@ class CustomTextField extends StatefulWidget {
     required this.controller,
     this.errorText,
     this.readOnly,
-    required this.prefixIcon,
+     this.prefixIcon,
   });
 
   @override
@@ -43,6 +43,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       height: 45.h,
       child: TextFormField(
+
+        keyboardAppearance: Brightness.dark,
         obscureText: _obscureText,
         validator: widget.validator,
         readOnly: widget.readOnly ?? false,
@@ -50,6 +52,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         style: const TextStyle(color: ColorManager.white),
         decoration: InputDecoration(
+
           errorText: widget.errorText,
           filled: true,
           fillColor: Colors.transparent,

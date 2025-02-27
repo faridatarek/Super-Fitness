@@ -9,6 +9,7 @@ class SVGAssets {
   static const String arrowIcon =
       "${_basePath}arrowIcon.svg";
   static const String logo ="${_basePath}logo.svg";
+  static const String optionsIcon ="${_basePath}optionsIcon.svg";
 
 }
 
@@ -30,5 +31,14 @@ class PNGAssets {
       "${_basePath}background1.png";
   static const String logo =
       "${_basePath}logo.png";
+  static const String chatBackground =
+      "${_basePath}chatBackground.png";
+  static const String chatBotImg =
+      "${_basePath}chatBotImg.png";
+  static const String girlprofile =
+      "${_basePath}girlprofile.png";
+  static const String startChat =
+      "${_basePath}startChat.png";
+
 
 }
