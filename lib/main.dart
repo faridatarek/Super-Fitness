@@ -15,28 +15,25 @@ import 'core/routes/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   configureDependencies();
+  configureDependencies();
 
   Bloc.observer = SimpleBlocObserver();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(
-      ChangeNotifierProvider(
-          create: (BuildContext context) {
-            return UserProvider();
-          },
-          child: const MyApp()));
+  runApp(ChangeNotifierProvider(
+      create: (BuildContext context) {
+        return UserProvider();
+      },
+      child: const MyApp()));
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(411, 890),
       minTextAdapt: true,
@@ -46,7 +43,7 @@ class MyApp extends StatelessWidget {
         title: 'Super Fitness app',
         theme: ThemeManger.themeManger,
         onGenerateRoute: manageRoutes,
-        initialRoute: AppRoutes.forgetPasswordScreen,
+        initialRoute: AppRoutes.profile,
       ),
     );
   }

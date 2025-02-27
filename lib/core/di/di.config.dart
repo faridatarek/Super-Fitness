@@ -56,12 +56,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i129.ForgetPasswordRepository>(() =>
         _i787.ForgetPasswordRepositoryImpl(
             gh<_i274.ForgetPasswordOnlineDatasource>()));
+    gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
+        _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i535.ForgetPasswordUseCase>(() =>
         _i535.ForgetPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i248.ResetCodeUseCase>(
         () => _i248.ResetCodeUseCase(gh<_i129.ForgetPasswordRepository>()));
-    gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
-        _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i362.CreateNewPassWordViewModel>(() =>
         _i362.CreateNewPassWordViewModel(
             gh<_i1065.CreateNewPasswordUseCase>()));
