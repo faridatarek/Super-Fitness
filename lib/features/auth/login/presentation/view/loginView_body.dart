@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/core/widgets/custom_textfield.dart';
 import 'package:super_fitness/features/auth/login/presentation/view/login_validator/login_validator_types_enum.dart';
@@ -139,7 +140,7 @@ class LoginViewBody extends StatelessWidget {
                                         "Forget Password?",
                                         style: AppTextStyles.font14W500BaseColor(),
                                       ),
-                                      onPressed: () {},
+                                        onPressed: ()=>    Navigator.pushReplacementNamed(context, AppRoutes.forgetPasswordScreen),
                                     ),
                                   ],
                                 ),
