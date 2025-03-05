@@ -17,27 +17,33 @@ import 'package:super_fitness/utils/theme_manger.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
+  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(CacheUserModelAdapter());
-  configureDependencies();
   Bloc.observer = SimpleBlocObserver();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
+  final userProvider = getIt<UserProvider>();
   String initialRoute;
+
+
   try {
     final token = await HiveManager().getToken();
     debugPrint("tokeeeennnn: $token");
     if (token != null) {
       final userModel = await HiveManager().getUser();
-      final user = HiveUserDto.toEntity(userModel);
       if (userModel != null) {
-        UserProvider().login(token);
-        UserProvider().setUser(user);
-        initialRoute = AppRoutes.StartchatView;
+        final user = HiveUserDto.toEntity(userModel);
+        userProvider.login(token);
+        userProvider.setUser(user);
+        debugPrint("tokeeeennnn: ${user.firstName}");
+        debugPrint("tokeee ${userProvider.user?.firstName}");
+        debugPrint("UserProvider in main: ${identityHashCode(getIt<UserProvider>())}");
+
+        initialRoute = AppRoutes.homeScreen;
       } else {
         initialRoute = AppRoutes.loginScreen;
       }
@@ -54,9 +60,9 @@ Future<void> main() async {
           },
           child:  MyApp(initialRoute: initialRoute)));
 }
+
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
 GlobalKey<ScaffoldMessengerState>();
-
 
 class MyApp extends StatelessWidget {
   final String initialRoute;
@@ -65,7 +71,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(411, 890),
       minTextAdapt: true,
@@ -75,7 +80,6 @@ class MyApp extends StatelessWidget {
         scaffoldMessengerKey: scaffoldMessengerKey,
         title: 'Super Fitness app',
         theme: ThemeManger.themeManger,
-
         onGenerateRoute: manageRoutes,
         initialRoute: initialRoute,
       ),
