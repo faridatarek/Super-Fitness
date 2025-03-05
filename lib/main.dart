@@ -13,6 +13,7 @@ import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/features/auth/login/data/dataSource/offline_dataSource/cache_user_model.dart';
 import 'package:super_fitness/features/auth/login/data/dtos/hive_user_dto.dart';
+import 'package:super_fitness/utils/theme_manger.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
@@ -73,14 +74,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         scaffoldMessengerKey: scaffoldMessengerKey,
         title: 'Super Fitness app',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color(0xffFF4100),
-              primary: const Color(0xffFF4100),
-              onError: Colors.red,
-              secondary: const Color(0xffA6A6A6)),
-          useMaterial3: true,
-        ),
+        theme:  ThemeManger.themeManger,
 
         onGenerateRoute: manageRoutes,
         initialRoute: initialRoute,

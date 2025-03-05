@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../utils/values_manager.dart';
+import '../../../../../utils/values_manager.dart';
 
 import 'base_states.dart';
 
@@ -59,7 +59,7 @@ class BaseWidgets {
       context: context,
       builder: (context) => AlertDialog(
         actions: actions,
-        backgroundColor: Colors.black.withOpacity(0.7),
+        backgroundColor: Colors.white,
         content: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
