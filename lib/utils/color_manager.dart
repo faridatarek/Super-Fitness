@@ -7,6 +7,9 @@ class ColorManager {
   static const Color chatColor =Color(0xffFF6A00);
   static const Color chatBotmessage =Color(0xff242424);
   static const Color black = Color(0xff000000);
+
+  static const Color grey = Color(0xff1A1A1A80);
+  static const Color lightGrey = Color(0xffD9D9D9);
   static const Color white = Color(0xFFFFFFFF);
   static const Color error = Color(0xffe61f34);
   static const Color transparent = Colors.transparent;

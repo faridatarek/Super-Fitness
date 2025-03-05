@@ -9,5 +9,7 @@ class Success<T> extends Result<T> {
 class Fail<T> extends Result<T> {
   Exception? exception;
 
-  Fail(this.exception);
+  T? data;
+
+  Fail(this.exception, {this.data});
 }
