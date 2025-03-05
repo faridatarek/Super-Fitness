@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness/core/di/di.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/utils/assets_manager.dart';
@@ -10,7 +12,8 @@ import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
 class StartchatView extends StatelessWidget {
-  const StartchatView({super.key});
+  final userProvider = getIt<UserProvider>();
+   StartchatView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class StartchatView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                  Text("Hi ,Farida",style: AppTextStyles.font24W500White(fontSize: 18.sp),),
+                  Text("Hi ,${userProvider.user?.firstName}",style: AppTextStyles.font24W500White(fontSize: 18.sp),),
                   Text("I Am your smart coach",style: AppTextStyles.font24W500White(fontSize: 20.sp,fontWeight: FontWeight.w700),),
 
                 ],),

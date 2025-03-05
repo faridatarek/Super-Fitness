@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:super_fitness/core/di/di.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
 class Message extends StatelessWidget {
+  final userProvider = getIt<UserProvider>();
   final String text;
   final bool sender;
   final bool hasImage;
@@ -67,7 +70,7 @@ class Message extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 23.r,
                       backgroundColor: ColorManager.primary,
-                      backgroundImage: AssetImage(PNGAssets.girlprofile),
+                      backgroundImage: NetworkImage(userProvider.user?.photo?? "https://thumbs.dreamstime.com/b/strong-muscle-illustration-60892521.jpg"),
                     ),
                   ),
               ],
