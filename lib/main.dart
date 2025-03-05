@@ -17,6 +17,7 @@ import 'package:super_fitness/utils/theme_manger.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(CacheUserModelAdapter());
@@ -37,6 +38,11 @@ Future<void> main() async {
       if (userModel != null) {
         UserProvider().login(token);
         UserProvider().setUser(user);
+        debugPrint("tokeeeennnn: ${user.firstName}");
+        final userProvider = await UserProvider();
+
+        debugPrint("tokeeeennnn: ${userProvider.user?.firstName}");
+
         initialRoute = AppRoutes.StartchatView;
       } else {
         initialRoute = AppRoutes.loginScreen;

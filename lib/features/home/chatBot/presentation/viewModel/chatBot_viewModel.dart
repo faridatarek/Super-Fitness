@@ -26,9 +26,10 @@ class ChatCubit  extends BaseCubit {
     }
   }
 
+
   void sendMessage() async {
     if (controller.text.isNotEmpty || file != null) {
-      final userProvider = UserProvider();
+      final userProvider = await UserProvider();
       final userInfo = _getUserInfo(userProvider);
 
       final String userMessage = controller.text;
@@ -41,7 +42,8 @@ class ChatCubit  extends BaseCubit {
         "hasImage": file != null,
       });
       emit(ChatMessageAdded(messages.last));
-
+      debugPrint("tokeeeennnn: $userInfo");
+      debugPrint("tokeeeennnn: ${userProvider.user?.firstName}");
 
       Gemini gemini = Gemini.instance;
       if (file != null) {

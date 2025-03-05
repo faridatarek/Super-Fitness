@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/features/auth/domain/models/user.dart';
 
-@lazySingleton // Or @singleton if you want a single instance globally
+@lazySingleton
 class UserProvider extends ChangeNotifier {
   User? _user;
   String? _token;
