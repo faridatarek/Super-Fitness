@@ -49,6 +49,9 @@ dependencies:
   easy_localization:
   smooth_page_indicator:
   lottie: 
+  font_awesome_flutter: ^10.8.0
+  wheel_slider: ^1.2.2
+  percent_indicator: ^4.2.4
 
 
 

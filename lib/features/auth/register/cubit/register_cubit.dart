@@ -1,10 +1,7 @@
-// Register Cubit (Cubit)
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/core/common/result.dart';
 import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart';
-import 'package:super_fitness/features/auth/register/domain/repos/register_repo.dart';
-import 'package:super_fitness/features/auth/register/domain/models/register_response_entity.dart';
 import 'package:super_fitness/features/auth/register/domain/usecases/register_usecase.dart';
 import 'package:super_fitness/features/base/base_cubit.dart';
 import 'package:super_fitness/features/base/base_states.dart';
@@ -23,10 +20,16 @@ class RegisterState extends BaseState {
   final RegisterStep step;
   final Map<String, dynamic> userData;
 
-  RegisterState(
-      {required this.step, this.userData = const {}, super.displayType});
+  RegisterState({
+    required this.step,
+    this.userData = const {},
+    super.displayType,
+  });
 
-  RegisterState copyWith({RegisterStep? step, Map<String, dynamic>? userData}) {
+  RegisterState copyWith({
+    RegisterStep? step,
+    Map<String, dynamic>? userData,
+  }) {
     return RegisterState(
       step: step ?? this.step,
       userData: userData ?? this.userData,
@@ -40,11 +43,34 @@ class RegisterCubit extends BaseCubit {
 
   RegisterCubit(this._registerUsecase) : super();
 
+  // Controllers
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final rePasswordController = TextEditingController();
+
   @override
   void start() {
     emit(RegisterState(step: RegisterStep.initial));
   }
 
+  @override
+  Future<void> close() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    rePasswordController.dispose();
+    return super.close();
+  }
+
+  /// Get the total number of steps
+  int get totalSteps => 6; // Fixed total steps
+  /// Get the current step index
+  int get currentStepIndex => (state as RegisterState).step.index;
+
+  /// Updates user data in the state.
   void updateUserData(String key, dynamic value) {
     final currentState = state as RegisterState;
     final updatedUserData = Map<String, dynamic>.from(currentState.userData);
@@ -52,6 +78,7 @@ class RegisterCubit extends BaseCubit {
     emit(currentState.copyWith(userData: updatedUserData));
   }
 
+  /// Moves to the next step in the registration process.
   void nextStep() {
     final currentState = state as RegisterState;
     final currentStep = currentState.step;
@@ -84,6 +111,39 @@ class RegisterCubit extends BaseCubit {
     emit(currentState.copyWith(step: nextStep));
   }
 
+  /// Moves to the previous step in the registration process.
+  void previousStep() {
+    final currentState = state as RegisterState;
+    final currentStep = currentState.step;
+
+    RegisterStep previousStep;
+    switch (currentStep) {
+      case RegisterStep.ageSelection:
+        previousStep = RegisterStep.initial;
+        break;
+      case RegisterStep.weightSelection:
+        previousStep = RegisterStep.ageSelection;
+        break;
+      case RegisterStep.heightSelection:
+        previousStep = RegisterStep.weightSelection;
+        break;
+      case RegisterStep.genderSelection:
+        previousStep = RegisterStep.heightSelection;
+        break;
+      case RegisterStep.goalSelection:
+        previousStep = RegisterStep.genderSelection;
+        break;
+      case RegisterStep.levelSelection:
+        previousStep = RegisterStep.goalSelection;
+        break;
+      default:
+        previousStep = RegisterStep.initial;
+    }
+
+    emit(currentState.copyWith(step: previousStep));
+  }
+
+  /// Submits the registration data to the server.
   void submit() async {
     final currentState = state as RegisterState;
     emitLoading();

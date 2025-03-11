@@ -15,7 +15,8 @@ class BackgroundContainer extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.2), // Adjust opacity as needed
+            color:
+                Color(0xFF242424).withOpacity(0.1), // Adjust opacity as needed
           ),
           child: child,
         ),

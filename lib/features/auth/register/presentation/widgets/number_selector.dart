@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
+import 'package:super_fitness/utils/text_style.dart';
+import 'package:wheel_slider/wheel_slider.dart';
 
-class NumberSelector extends StatefulWidget {
+class NumberSelector extends StatelessWidget {
   final int min;
   final int max;
   final String labelText;
   final Color selectedColor;
   final Color unselectedColor;
-  final void Function(int selectedValue)? onNextPressed; // Updated here
+  final void Function(int selectedValue)? onNextPressed;
 
   const NumberSelector({
     Key? key,
@@ -20,129 +26,66 @@ class NumberSelector extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NumberSelectorState createState() => _NumberSelectorState();
-}
-
-class _NumberSelectorState extends State<NumberSelector> {
-  late int selectedNumber;
-  final ScrollController _scrollController = ScrollController();
-  late List<int> numbers;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedNumber = widget.min;
-    numbers = List.generate(widget.max - widget.min + 1, (i) => i + widget.min);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BackgroundContainer(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 40),
-            Text(
-              widget.labelText,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 60,
-              child: ListView.builder(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                itemCount: numbers.length,
-                itemBuilder: (context, index) {
-                  final number = numbers[index];
-                  final isSelected = number == selectedNumber;
+    final provider = Provider.of<NumberSelectorProvider>(context);
 
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedNumber = number;
-                      });
-                      // Animate to center the selected number
-                      _scrollController.animateTo(
-                        (index * 60.0) -
-                            (MediaQuery.of(context).size.width / 2) +
-                            30,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    child: Container(
-                      width: 60,
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            number.toString(),
-                            style: TextStyle(
-                              color: isSelected
-                                  ? widget.selectedColor
-                                  : widget.unselectedColor,
-                              fontSize: isSelected ? 24 : 20,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                            ),
-                          ),
-                          if (isSelected)
-                            Icon(
-                              Icons.text_rotation_angleup_sharp,
-                              size: 12,
-                              color: widget.selectedColor,
-                            ),
-                        ],
-                      ),
-                    ),
-                  );
+    return Center(
+      child: BackgroundContainer(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 20.h),
+              Text(labelText, style: AppTextStyles.font12W300White()),
+              SizedBox(height: 20.h),
+
+              // WheelSlider instead of ListView
+              WheelSlider.number(
+                itemSize: 60.w,
+                perspective: 0.005,
+                listWidth: 200.w,
+                initValue: provider.selectedNumber,
+                totalCount: max,
+                unSelectedNumberStyle: AppTextStyles.font33W900White(),
+                selectedNumberStyle: AppTextStyles.font44W900Primary(),
+                onValueChanged: (value) {
+                  provider.selectNumber(value);
                 },
+                currentIndex: provider.selectedNumber,
               ),
-            ),
-            const SizedBox(height: 40),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (widget.onNextPressed != null) {
-                    widget.onNextPressed!(
-                        selectedNumber); // Pass selected number here
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: widget.selectedColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  'Next',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+
+              SizedBox(height: 10.h),
+              SvgPicture.asset(
+                'assets/svg/triangle.svg',
+                height: 10.h,
+              ),
+              SizedBox(height: 20.h),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomButton(
+                  onPressed: () => onNextPressed?.call(provider.selectedNumber),
+                  text: 'Next',
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+}
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
+class NumberSelectorProvider extends ChangeNotifier {
+  int selectedNumber;
+
+  NumberSelectorProvider({required int initialValue})
+      : selectedNumber = initialValue;
+
+  void selectNumber(int number) {
+    selectedNumber = number;
+    notifyListeners();
   }
 }

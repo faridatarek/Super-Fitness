@@ -3,12 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:super_fitness/core/common/result.dart';
 import 'package:super_fitness/core/network/api_constants.dart';
 import 'package:super_fitness/core/providers/user_provider.dart';
 import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart';
 import 'package:super_fitness/features/auth/register/data/models/response/register_response/register_response.dart';
-import 'package:super_fitness/features/auth/register/domain/models/register_response_entity.dart';
 part 'api_manager.g.dart';
 
 @singleton

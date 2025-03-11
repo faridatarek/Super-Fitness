@@ -29,8 +29,6 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => GenderProvider()),
-        ChangeNotifierProvider(create: (_) => GoalsProvider()),
       ],
       child: const MyApp(),
     ),

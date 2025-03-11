@@ -104,4 +104,46 @@ class AppTextStyles {
       ),
     );
   }
+
+  static TextStyle font12W300White({
+    Color? color = ColorManager.primary,
+    double? fontSize,
+    FontWeight fontWeight = FontWeight.w300,
+  }) {
+    return GoogleFonts.balooThambi2(
+      textStyle: TextStyle(
+        color: color ?? ColorManager.primary,
+        fontSize: fontSize ?? AppSize.s12,
+        fontWeight: fontWeight,
+      ),
+    );
+  }
+
+  static TextStyle font44W900Primary({
+    Color? color = ColorManager.primary,
+    double? fontSize,
+    FontWeight fontWeight = FontWeight.w900,
+  }) {
+    return GoogleFonts.balooThambi2(
+      textStyle: TextStyle(
+        color: color ?? ColorManager.white,
+        fontSize: fontSize ?? AppSize.s45,
+        fontWeight: fontWeight,
+      ),
+    );
+  }
+
+  static TextStyle font33W900White({
+    Color? color = ColorManager.white,
+    double? fontSize,
+    FontWeight fontWeight = FontWeight.w900,
+  }) {
+    return GoogleFonts.balooThambi2(
+      textStyle: TextStyle(
+        color: color ?? ColorManager.white,
+        fontSize: fontSize ?? AppSize.s34,
+        fontWeight: fontWeight,
+      ),
+    );
+  }
 }

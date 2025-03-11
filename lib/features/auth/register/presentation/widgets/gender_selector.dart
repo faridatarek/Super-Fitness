@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
+import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
 
 class GenderSelection extends StatelessWidget {
   final void Function()? onNextPressed;
@@ -13,107 +14,106 @@ class GenderSelection extends StatelessWidget {
     return Consumer<GenderProvider>(
       builder: (context, genderProvider, _) {
         return Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 300),
-            decoration: const BoxDecoration(
-              color: Colors.black87,
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Select Gender',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  GestureDetector(
-                    onTap: () {
-                      genderProvider.setGender('male');
-                      if (onGenderSelected != null) {
-                        onGenderSelected!('male');
-                      }
-                    },
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: genderProvider.selectedGender == 'male'
-                            ? Colors.deepOrange
-                            : Colors.white24,
-                      ),
-                      child: const Icon(
-                        Icons.male,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Male',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  GestureDetector(
-                    onTap: () {
-                      genderProvider.setGender('female');
-                      if (onGenderSelected != null) {
-                        onGenderSelected!('female');
-                      }
-                    },
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: genderProvider.selectedGender == 'female'
-                            ? Colors.deepOrange
-                            : Colors.white24,
-                      ),
-                      child: const Icon(
-                        Icons.female,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Female',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-                  if (genderProvider.selectedGender != null)
-                    CustomButton(
-                      text: 'Next',
-                      onPressed: () {
-                        // Use the selected gender when pressing Next
-                        if (onNextPressed != null) {
-                          onNextPressed!();
-                        }
+          child: BackgroundContainer(
+            child: SizedBox(
+              width: double.infinity, // Ensure widget fills screen width
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Male Selection
+                    GestureDetector(
+                      onTap: () {
+                        genderProvider.setGender('male');
+                        onGenderSelected?.call('male');
                       },
+                      child: CircleGenderOption(
+                        icon: Icons.male,
+                        label: 'Male',
+                        isSelected: genderProvider.selectedGender == 'male',
+                      ),
                     ),
-                ],
+                    const SizedBox(height: 40),
+
+                    // Female Selection
+                    GestureDetector(
+                      onTap: () {
+                        genderProvider.setGender('female');
+                        onGenderSelected?.call('female');
+                      },
+                      child: CircleGenderOption(
+                        icon: Icons.female,
+                        label: 'Female',
+                        isSelected: genderProvider.selectedGender == 'female',
+                      ),
+                    ),
+                    const SizedBox(height: 60),
+
+                    // "Next" Button (Only shown after selection)
+                    if (genderProvider.selectedGender != null)
+                      SizedBox(
+                        width: double.infinity, // Ensure full-width button
+                        child: CustomButton(
+                          text: 'Next',
+                          onPressed: onNextPressed,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
         );
       },
+    );
+  }
+}
+
+// Keeps gender selection buttons as circular
+class CircleGenderOption extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+
+  const CircleGenderOption({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isSelected ? Colors.deepOrange : Colors.transparent,
+        border: Border.all(
+          color: isSelected ? Colors.deepOrange : Colors.white,
+          width: 1,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: Colors.white, size: 30),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
