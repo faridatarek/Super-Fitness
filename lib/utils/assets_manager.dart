@@ -9,11 +9,7 @@ class ImageAssets {
   static const String forgetPassBackground =
       "${imagePath}forget_pass_background.png";
 
-  static const String logo = "${imagePath}logo.png";
-  static const String onBoarding1 = "${imagePath}O15_29.png";
-  static const String onBoarding2 = "${imagePath}O15_30.png";
-  static const String onBoarding3 = "${imagePath}O15_31.png";
-  static const String backGround = "${imagePath}background1.png";
+  static const String backGround1 = "${imagePath}background1.png";
 }
 
 class SVGAssets {
@@ -25,11 +21,8 @@ class SVGAssets {
   static const String mail = "${_basePath}mail.svg";
   static const String lock = "${_basePath}lock.svg";
 
-  static const String arrowIcon = "${_basePath}arrowIcon.svg";
-  static const String appLogo = "${_basePath}logo.svg";
   static const String user = "${_basePath}user.svg";
-  static const String mail = "${_basePath}mail.svg";
-  static const String lock = "${_basePath}lock.svg";
+
   static const String male = "${_basePath}male.svg";
   static const String female = "${_basePath}female.svg";
   static const String facebookCircle = "${_basePath}facebook circle.svg";

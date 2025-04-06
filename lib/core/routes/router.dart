@@ -39,7 +39,7 @@ Route manageRoutes(RouteSettings settings) {
     case AppRoutes.createNewPasswordScreen:
       return MaterialPageRoute(
         builder: (context) => const CreateNewPasswordScreen(),
-        builder: (context) => OnboardingScreen(),
+        // builder: (context) => OnboardingScreen(),
       );
     default:
       return MaterialPageRoute(

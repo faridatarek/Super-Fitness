@@ -45,7 +45,7 @@ class RegisterView extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    ImageAssets.backGround,
+                    ImageAssets.backGround1,
                     fit: BoxFit.cover,
                   ),
                 ),

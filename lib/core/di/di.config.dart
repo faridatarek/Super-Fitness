@@ -12,6 +12,16 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/auth/register/cubit/register_cubit.dart' as _i250;
+import '../../features/auth/register/data/contracts/register_online_datasource.dart'
+    as _i305;
+import '../../features/auth/register/data/data_sources/register_online_datasource_impl.dart'
+    as _i155;
+import '../../features/auth/register/data/repos/register_repo_impl.dart'
+    as _i566;
+import '../../features/auth/register/domain/repos/register_repo.dart' as _i369;
+import '../../features/auth/register/domain/usecases/register_usecase.dart'
+    as _i276;
 import '../../features/forget_password/data/contracts/forget_password_online_datasource.dart'
     as _i274;
 import '../../features/forget_password/data/data_sources/forget_password_online_datasource_impl.dart'
@@ -51,17 +61,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
     gh.lazySingleton<_i26.UserProvider>(() => _i26.UserProvider());
     gh.singleton<_i119.ApiManager>(() => _i119.ApiManager(gh<_i361.Dio>()));
+    gh.factory<_i305.RegisterOnlineDataSource>(
+        () => _i155.RegisterOnlineDatasourceImpl(gh<_i119.ApiManager>()));
+    gh.factory<_i369.RegisterRepo>(
+        () => _i566.RegisterRepoImpl(gh<_i305.RegisterOnlineDataSource>()));
     gh.factory<_i274.ForgetPasswordOnlineDatasource>(
         () => _i505.ForgetPasswordOnlineDatasourceImpl(gh<_i119.ApiManager>()));
     gh.factory<_i129.ForgetPasswordRepository>(() =>
         _i787.ForgetPasswordRepositoryImpl(
             gh<_i274.ForgetPasswordOnlineDatasource>()));
+    gh.factory<_i276.RegisterUsecase>(
+        () => _i276.RegisterUsecase(gh<_i369.RegisterRepo>()));
+    gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
+        _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i535.ForgetPasswordUseCase>(() =>
         _i535.ForgetPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i248.ResetCodeUseCase>(
         () => _i248.ResetCodeUseCase(gh<_i129.ForgetPasswordRepository>()));
-    gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
-        _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i362.CreateNewPassWordViewModel>(() =>
         _i362.CreateNewPassWordViewModel(
             gh<_i1065.CreateNewPasswordUseCase>()));
@@ -69,6 +85,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i535.ForgetPasswordUseCase>(),
           gh<_i248.ResetCodeUseCase>(),
         ));
+    gh.factory<_i250.RegisterCubit>(
+        () => _i250.RegisterCubit(gh<_i276.RegisterUsecase>()));
     gh.factory<_i885.ForgetPassWordViewModel>(
         () => _i885.ForgetPassWordViewModel(gh<_i535.ForgetPasswordUseCase>()));
     return this;

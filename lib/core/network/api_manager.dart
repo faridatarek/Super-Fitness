@@ -25,10 +25,11 @@ part 'api_manager.g.dart';
 @RestApi(baseUrl: ApiConstants.baseUrl)
 abstract class ApiManager {
   @factoryMethod
-  factory ApiManager(Dio dio, ) {
+  factory ApiManager(
+    Dio dio,
+  ) {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
-
         return handler.next(options);
       },
       onError: (DioException e, handler) {
@@ -46,7 +47,6 @@ abstract class ApiManager {
     return _ApiManager(dio);
   }
 
-
   @POST(ApiConstants.forgetPassword)
   Future<ForgotPasswordResponse> forgotPassword(
       @Body() ForgotPasswordRequest request);
@@ -58,7 +58,7 @@ abstract class ApiManager {
   @PUT(ApiConstants.createNewPassword)
   Future<CreateNewPassResponse> createNewPassword(
       @Body() CreateNewPassWordRequest request);
-}
+
   @POST(ApiConstants.signup)
   Future<RegisterResponse?> register(@Body() RegisterRequest request);
 }

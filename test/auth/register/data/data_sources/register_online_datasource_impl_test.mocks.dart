@@ -3,14 +3,26 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:super_fitness/core/network/api_manager.dart' as _i2;
+import 'package:super_fitness/core/network/api_manager.dart' as _i5;
 import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart'
-    as _i5;
+    as _i11;
 import 'package:super_fitness/features/auth/register/data/models/response/register_response/register_response.dart'
+    as _i10;
+import 'package:super_fitness/features/forget_password/data/models/requests/create_newpass_request.dart'
+    as _i9;
+import 'package:super_fitness/features/forget_password/data/models/requests/forgot_password_request.dart'
+    as _i7;
+import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart'
+    as _i8;
+import 'package:super_fitness/features/forget_password/data/models/responses/Create_new_pass_respones.dart'
     as _i4;
+import 'package:super_fitness/features/forget_password/data/models/responses/forgot_password_response.dart'
+    as _i2;
+import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart'
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,21 +37,108 @@ import 'package:super_fitness/features/auth/register/data/models/response/regist
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeForgotPasswordResponse_0 extends _i1.SmartFake
+    implements _i2.ForgotPasswordResponse {
+  _FakeForgotPasswordResponse_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeOtpVerifyResetCodeResponse_1 extends _i1.SmartFake
+    implements _i3.OtpVerifyResetCodeResponse {
+  _FakeOtpVerifyResetCodeResponse_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCreateNewPassResponse_2 extends _i1.SmartFake
+    implements _i4.CreateNewPassResponse {
+  _FakeCreateNewPassResponse_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ApiManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiManager extends _i1.Mock implements _i2.ApiManager {
+class MockApiManager extends _i1.Mock implements _i5.ApiManager {
   MockApiManager() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.RegisterResponse?> register(_i5.RegisterRequest? request) =>
+  _i6.Future<_i2.ForgotPasswordResponse> forgotPassword(
+          _i7.ForgotPasswordRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #forgotPassword,
+          [request],
+        ),
+        returnValue: _i6.Future<_i2.ForgotPasswordResponse>.value(
+            _FakeForgotPasswordResponse_0(
+          this,
+          Invocation.method(
+            #forgotPassword,
+            [request],
+          ),
+        )),
+      ) as _i6.Future<_i2.ForgotPasswordResponse>);
+
+  @override
+  _i6.Future<_i3.OtpVerifyResetCodeResponse> resetCode(
+          _i8.OtpVerifyResetCodeRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetCode,
+          [request],
+        ),
+        returnValue: _i6.Future<_i3.OtpVerifyResetCodeResponse>.value(
+            _FakeOtpVerifyResetCodeResponse_1(
+          this,
+          Invocation.method(
+            #resetCode,
+            [request],
+          ),
+        )),
+      ) as _i6.Future<_i3.OtpVerifyResetCodeResponse>);
+
+  @override
+  _i6.Future<_i4.CreateNewPassResponse> createNewPassword(
+          _i9.CreateNewPassWordRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createNewPassword,
+          [request],
+        ),
+        returnValue: _i6.Future<_i4.CreateNewPassResponse>.value(
+            _FakeCreateNewPassResponse_2(
+          this,
+          Invocation.method(
+            #createNewPassword,
+            [request],
+          ),
+        )),
+      ) as _i6.Future<_i4.CreateNewPassResponse>);
+
+  @override
+  _i6.Future<_i10.RegisterResponse?> register(_i11.RegisterRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #register,
           [request],
         ),
-        returnValue: _i3.Future<_i4.RegisterResponse?>.value(),
-      ) as _i3.Future<_i4.RegisterResponse?>);
+        returnValue: _i6.Future<_i10.RegisterResponse?>.value(),
+      ) as _i6.Future<_i10.RegisterResponse?>);
 }

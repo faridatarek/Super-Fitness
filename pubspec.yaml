@@ -45,13 +45,12 @@ dependencies:
   provider:
   easy_localization:
   smooth_page_indicator:
-  lottie: ^3.3.1
+  lottie:
   pinput:
-  lottie: 
-  font_awesome_flutter: ^10.8.0
-  wheel_slider: ^1.2.2
-  percent_indicator: ^4.2.4
-  mockito: ^5.4.4
+  font_awesome_flutter:
+  wheel_slider:
+  percent_indicator:
+  mockito:
 
   json_annotation:
   flutter_launcher_icons: ^0.14.3
