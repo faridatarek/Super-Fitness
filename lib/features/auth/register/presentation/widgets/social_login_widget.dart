@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
+import 'package:super_fitness/utils/assets_manager.dart';
+import 'package:super_fitness/utils/values_manager.dart';
 
 class SocialLoginWidget extends StatelessWidget {
   const SocialLoginWidget({super.key});
@@ -13,21 +16,21 @@ class SocialLoginWidget extends StatelessWidget {
           children: [
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(left: 40.0),
-                child: Divider(color: Colors.white, thickness: 1),
+                padding: EdgeInsets.only(left: AppPadding.p40),
+                child: Divider(color: Colors.white, thickness: AppSize.s1),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
               child: Text(
-                "Or",
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                StringsManager.or,
+                style: TextStyle(color: Colors.white, fontSize: AppSize.s16),
               ),
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: 40.0),
-                child: Divider(color: Colors.white, thickness: 1),
+                padding: EdgeInsets.only(right: AppPadding.p40),
+                child: Divider(color: Colors.white, thickness: AppSize.s1),
               ),
             ),
           ],
@@ -35,11 +38,11 @@ class SocialLoginWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildSocialButton("assets/svg/facebook circle.svg"),
-            const SizedBox(width: 16),
-            _buildSocialButton("assets/svg/google circle.svg"),
-            const SizedBox(width: 16),
-            _buildSocialButton("assets/svg/apple circle.svg"),
+            _buildSocialButton(SVGAssets.facebookCircle),
+            const SizedBox(width: AppSize.s16),
+            _buildSocialButton(SVGAssets.googleCircle),
+            const SizedBox(width: AppSize.s16),
+            _buildSocialButton(SVGAssets.appleCircle),
           ],
         ),
       ],
@@ -48,12 +51,12 @@ class SocialLoginWidget extends StatelessWidget {
 
   Widget _buildSocialButton(String assetName) {
     return SizedBox(
-      width: 50,
-      height: 50,
+      width: AppSize.s50,
+      height: AppSize.s50,
       child: Center(
         child: SvgPicture.asset(
           assetName,
-          width: 32,
+          width: AppSize.s32,
         ),
       ),
     );

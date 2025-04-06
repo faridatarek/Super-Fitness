@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/text_style.dart';
+import 'package:super_fitness/utils/values_manager.dart';
 
 class ProgressArc extends StatelessWidget {
   final int current;
@@ -12,21 +15,17 @@ class ProgressArc extends StatelessWidget {
     double progress = current / total;
 
     return CircularPercentIndicator(
-      radius: 50.0,
-      lineWidth: 10.0,
+      radius: AppSize.s20,
+      lineWidth: AppSize.s5,
       percent: progress,
       center: Text(
         "$current/$total",
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
+        style: AppTextStyles.font14W800White(),
       ),
-      progressColor: Colors.red,
+      progressColor: ColorManager.primary,
       backgroundColor: Colors.transparent,
-      circularStrokeCap: CircularStrokeCap.round,
-      startAngle: 180,
+      circularStrokeCap: CircularStrokeCap.square,
+      startAngle: AppSize.s180,
     );
   }
 }

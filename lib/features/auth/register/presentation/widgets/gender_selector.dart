@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
+import 'package:super_fitness/utils/text_style.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
+import 'package:super_fitness/utils/assets_manager.dart';
+import 'package:super_fitness/utils/values_manager.dart';
 
 class GenderSelection extends StatelessWidget {
   final void Function()? onNextPressed;
@@ -16,9 +21,9 @@ class GenderSelection extends StatelessWidget {
         return Center(
           child: BackgroundContainer(
             child: SizedBox(
-              width: double.infinity, // Ensure widget fills screen width
+              width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(AppPadding.p20),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,37 +31,43 @@ class GenderSelection extends StatelessWidget {
                     // Male Selection
                     GestureDetector(
                       onTap: () {
-                        genderProvider.setGender('male');
-                        onGenderSelected?.call('male');
+                        genderProvider
+                            .setGender(StringsManager.male.toLowerCase());
+                        onGenderSelected
+                            ?.call(StringsManager.male.toLowerCase());
                       },
                       child: CircleGenderOption(
-                        icon: Icons.male,
-                        label: 'Male',
-                        isSelected: genderProvider.selectedGender == 'male',
+                        svgPath: SVGAssets.male,
+                        label: StringsManager.male,
+                        isSelected: genderProvider.selectedGender ==
+                            StringsManager.male.toLowerCase(),
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: AppSize.s40),
 
                     // Female Selection
                     GestureDetector(
                       onTap: () {
-                        genderProvider.setGender('female');
-                        onGenderSelected?.call('female');
+                        genderProvider
+                            .setGender(StringsManager.female.toLowerCase());
+                        onGenderSelected
+                            ?.call(StringsManager.female.toLowerCase());
                       },
                       child: CircleGenderOption(
-                        icon: Icons.female,
-                        label: 'Female',
-                        isSelected: genderProvider.selectedGender == 'female',
+                        svgPath: SVGAssets.female,
+                        label: StringsManager.female,
+                        isSelected: genderProvider.selectedGender ==
+                            StringsManager.female.toLowerCase(),
                       ),
                     ),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: AppSize.s60),
 
                     // "Next" Button (Only shown after selection)
                     if (genderProvider.selectedGender != null)
                       SizedBox(
-                        width: double.infinity, // Ensure full-width button
+                        width: double.infinity,
                         child: CustomButton(
-                          text: 'Next',
+                          text: StringsManager.next,
                           onPressed: onNextPressed,
                         ),
                       ),
@@ -71,15 +82,14 @@ class GenderSelection extends StatelessWidget {
   }
 }
 
-// Keeps gender selection buttons as circular
 class CircleGenderOption extends StatelessWidget {
-  final IconData icon;
+  final String svgPath;
   final String label;
   final bool isSelected;
 
   const CircleGenderOption({
     super.key,
-    required this.icon,
+    required this.svgPath,
     required this.label,
     required this.isSelected,
   });
@@ -87,29 +97,31 @@ class CircleGenderOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
-      height: 80,
+      width: AppSize.s100,
+      height: AppSize.s100,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: isSelected ? Colors.deepOrange : Colors.transparent,
         border: Border.all(
           color: isSelected ? Colors.deepOrange : Colors.white,
-          width: 1,
+          width: AppSize.s1,
         ),
       ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: Colors.white, size: 30),
-            const SizedBox(height: 4),
+            SvgPicture.asset(
+              svgPath,
+              width: AppSize.s30,
+              height: AppSize.s30,
+              colorFilter:
+                  const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+            ),
+            const SizedBox(height: AppSize.s4),
             Text(
               label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.font14W800White(),
             ),
           ],
         ),

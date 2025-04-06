@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:super_fitness/utils/values_manager.dart';
 
 class BackgroundContainer extends StatelessWidget {
   final Widget child;
@@ -10,9 +11,9 @@ class BackgroundContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(AppSize.s50),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        filter: ImageFilter.blur(sigmaX: AppSize.s10, sigmaY: AppSize.s10),
         child: Container(
           decoration: BoxDecoration(
             color:

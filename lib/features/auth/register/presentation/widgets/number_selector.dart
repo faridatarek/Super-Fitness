@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
 import 'package:super_fitness/utils/text_style.dart';
+import 'package:super_fitness/utils/values_manager.dart';
 import 'package:wheel_slider/wheel_slider.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
 
 class NumberSelector extends StatelessWidget {
   final int min;
@@ -32,42 +34,43 @@ class NumberSelector extends StatelessWidget {
     return Center(
       child: BackgroundContainer(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.w),
+          padding: EdgeInsets.symmetric(vertical: AppPadding.p20.w),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 20.h),
+              SizedBox(height: AppSize.s20.h),
               Text(labelText, style: AppTextStyles.font12W300White()),
-              SizedBox(height: 20.h),
+              SizedBox(height: AppSize.s20.h),
 
               // WheelSlider instead of ListView
               WheelSlider.number(
-                itemSize: 60.w,
-                perspective: 0.005,
-                listWidth: 200.w,
+                itemSize: AppSize.s60.w,
+                perspective: 0.003,
+                listWidth: AppSize.s200.w,
                 initValue: provider.selectedNumber,
                 totalCount: max,
                 unSelectedNumberStyle: AppTextStyles.font33W900White(),
-                selectedNumberStyle: AppTextStyles.font44W900Primary(),
+                selectedNumberStyle:
+                    AppTextStyles.font33W900White(color: selectedColor),
                 onValueChanged: (value) {
                   provider.selectNumber(value);
                 },
                 currentIndex: provider.selectedNumber,
               ),
 
-              SizedBox(height: 10.h),
+              SizedBox(height: AppSize.s10.h),
               SvgPicture.asset(
                 'assets/svg/triangle.svg',
-                height: 10.h,
+                height: AppSize.s10.h,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: AppSize.s20.h),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
                 child: CustomButton(
                   onPressed: () => onNextPressed?.call(provider.selectedNumber),
-                  text: 'Next',
+                  text: StringsManager.next,
                 ),
               ),
             ],
