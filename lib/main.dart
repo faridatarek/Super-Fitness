@@ -13,6 +13,7 @@ import 'package:super_fitness/features/auth/register/presentation/widgets/goals.
 import 'package:super_fitness/features/intro/splash_screen/view/splash_screen.dart';
 import 'package:super_fitness/utils/theme_manger.dart';
 
+import 'core/routes/app_routes.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
