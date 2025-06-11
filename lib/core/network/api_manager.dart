@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:super_fitness/features/edit_profile/data/models/request/edit_profile_request.dart';
+import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/edit_profile_response.dart';
 import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart';
 import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart';
 
@@ -30,6 +32,9 @@ abstract class ApiManager {
   ) {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
+        final token =
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdiNjJiYWI5MWJiYTMxOTJjNzY2MTg1IiwiaWF0IjoxNzQ3NjY1NjgxfQ.b_NhTNfSr6Ea_Wjby-OvgdG59J2w3ZeP6y0_ptxqJAQ';
+        options.headers['Authorization'] = 'Bearer $token';
         return handler.next(options);
       },
       onError: (DioException e, handler) {
@@ -61,4 +66,6 @@ abstract class ApiManager {
 
   @POST(ApiConstants.signup)
   Future<RegisterResponse?> register(@Body() RegisterRequest request);
+  @PUT(ApiConstants.editProfile)
+  Future<EditProfileResponse?> editProfile(@Body() EditProfileRequest request);
 }

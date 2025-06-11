@@ -34,7 +34,7 @@ class LevelSelectionStep extends StatelessWidget {
             padding: const EdgeInsets.only(left: AppPadding.p16),
             child: Align(
               alignment: Alignment.topLeft,
-              child: Text(StringsManager.yourActivityLevel,
+              child: Text(StringsManager.regularYourActivityLevel,
                   style: AppTextStyles.font20W800White()
                       .copyWith(fontWeight: FontWeight.w900)),
             ),

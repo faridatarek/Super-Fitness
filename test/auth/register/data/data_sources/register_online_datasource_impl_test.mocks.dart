@@ -11,6 +11,10 @@ import 'package:super_fitness/features/auth/register/data/models/request/registe
     as _i11;
 import 'package:super_fitness/features/auth/register/data/models/response/register_response/register_response.dart'
     as _i10;
+import 'package:super_fitness/features/edit_profile/data/models/request/edit_profile_request.dart'
+    as _i13;
+import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/edit_profile_response.dart'
+    as _i12;
 import 'package:super_fitness/features/forget_password/data/models/requests/create_newpass_request.dart'
     as _i9;
 import 'package:super_fitness/features/forget_password/data/models/requests/forgot_password_request.dart'
@@ -141,4 +145,15 @@ class MockApiManager extends _i1.Mock implements _i5.ApiManager {
         ),
         returnValue: _i6.Future<_i10.RegisterResponse?>.value(),
       ) as _i6.Future<_i10.RegisterResponse?>);
+
+  @override
+  _i6.Future<_i12.EditProfileResponse?> editProfile(
+          _i13.EditProfileRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #editProfile,
+          [request],
+        ),
+        returnValue: _i6.Future<_i12.EditProfileResponse?>.value(),
+      ) as _i6.Future<_i12.EditProfileResponse?>);
 }

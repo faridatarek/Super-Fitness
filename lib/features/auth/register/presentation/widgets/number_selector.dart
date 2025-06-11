@@ -16,7 +16,7 @@ class NumberSelector extends StatelessWidget {
   final Color selectedColor;
   final Color unselectedColor;
   final void Function(int selectedValue)? onNextPressed;
-
+  final String buttonText;
   const NumberSelector({
     Key? key,
     required this.min,
@@ -25,6 +25,7 @@ class NumberSelector extends StatelessWidget {
     this.selectedColor = Colors.deepOrange,
     this.unselectedColor = Colors.white,
     this.onNextPressed,
+    required this.buttonText,
   }) : super(key: key);
 
   @override
@@ -40,7 +41,7 @@ class NumberSelector extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: AppSize.s20.h),
-              Text(labelText, style: AppTextStyles.font12W300White()),
+              Text(labelText, style: AppTextStyles.font12W300Primary()),
               SizedBox(height: AppSize.s20.h),
 
               // WheelSlider instead of ListView
@@ -70,7 +71,7 @@ class NumberSelector extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
                 child: CustomButton(
                   onPressed: () => onNextPressed?.call(provider.selectedNumber),
-                  text: StringsManager.next,
+                  text: buttonText,
                 ),
               ),
             ],

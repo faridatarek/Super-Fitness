@@ -96,11 +96,22 @@ class StringsManager {
   static const String kg = 'Kg';
 
   // Level selection
-  static const String yourActivityLevel =
+  static const String regularYourActivityLevel =
       'Your regular physical \nactivity level?';
   static const String rookie = 'Rookie';
   static const String beginner = 'Beginner';
   static const String intermediate = 'Intermediate';
   static const String advance = 'Advance';
   static const String trueBeast = 'True Beast';
+
+    static const String editProfile = 'Edit Profile';
+  static const String yourWeight = 'Your weight';
+  static const String yourGoal = 'Your goal';
+  static const String yourActivityLevel = 'Your activity level';
+  static const String notSet = 'Not set';
+  static const String saveChanges = 'Save Changes';
+  static const String chooseImageSource = 'Choose image source';
+  static const String camera = 'Camera';
+  static const String gallery = 'Gallery';
+  static const String guest = 'Guest';
 }

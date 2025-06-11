@@ -245,7 +245,7 @@ void main() {
 
       expect(
         errorState.errorMessage,
-        "Instance of 'Fail<RegisterResponseEntity?>'",
+        'Exception: Registration failed',
       );
     });
   });

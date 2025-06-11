@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/di/di.dart';
+import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/features/auth/register/cubit/register_cubit.dart';
 import 'package:super_fitness/features/auth/register/presentation/steps/initial_step.dart';
 import 'package:super_fitness/features/auth/register/presentation/steps/age_selection_step.dart';
@@ -39,7 +40,16 @@ class RegisterView extends StatelessWidget {
       child: BlocProvider<RegisterCubit>(
         create: (context) => getIt.get<RegisterCubit>()..start(),
         child: BlocListener<RegisterCubit, BaseState>(
-          listener: baseListener,
+          listener: (context, state) {
+            // Handle navigation for successful registration
+            if (state is RegisterSuccessState && state.shouldNavigate) {
+              Navigator.of(context).pushReplacementNamed(
+                AppRoutes.editProfileScreen,
+              );
+            }
+            // Handle other states with your base listener
+            baseListener(context, state);
+          },
           child: Scaffold(
             body: Stack(
               children: [

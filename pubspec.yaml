@@ -54,6 +54,8 @@ dependencies:
 
   json_annotation:
   flutter_launcher_icons: ^0.14.3
+  image_picker: 
+  path:
 
 dev_dependencies:
   flutter_test:

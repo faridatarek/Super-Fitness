@@ -105,7 +105,7 @@ class AppTextStyles {
     );
   }
 
-  static TextStyle font12W300White({
+  static TextStyle font12W300Primary({
     Color? color = ColorManager.primary,
     double? fontSize,
     FontWeight fontWeight = FontWeight.w300,

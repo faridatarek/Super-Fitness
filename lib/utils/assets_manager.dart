@@ -10,6 +10,8 @@ class ImageAssets {
       "${imagePath}forget_pass_background.png";
 
   static const String backGround1 = "${imagePath}background1.png";
+  static const String editProfileBackground =
+      "${imagePath}edit_profile_background.jpg";
 }
 
 class SVGAssets {
@@ -29,6 +31,7 @@ class SVGAssets {
   static const String googleCircle = "${_basePath}google circle.svg";
   static const String appleCircle = "${_basePath}apple circle.svg";
   static const String triangle = "${_basePath}triangle.svg";
+  static const String edit = "${_basePath}edit.svg";
 }
 
 class LottieAssets {

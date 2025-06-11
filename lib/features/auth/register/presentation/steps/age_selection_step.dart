@@ -62,6 +62,7 @@ class AgeSelectionStep extends StatelessWidget {
               cubit.updateUserData(field, selectedValue);
               cubit.nextStep();
             },
+            buttonText: StringsManager.next,
           ),
         ],
       ),

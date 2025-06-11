@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/routes/route_not_found.dart';
+import 'package:super_fitness/features/edit_profile/presentation/views/edit_profile_view.dart';
 import 'package:super_fitness/features/forget_password/presentaion/create_new_pass_screen/view/create_new_password_screen.dart';
 import 'package:super_fitness/features/forget_password/presentaion/forgot_password_screen/view/forgot_password_screen.dart';
 import 'package:super_fitness/features/forget_password/presentaion/otp_verification_screen/view/otp_verification_screen.dart';
@@ -39,6 +40,11 @@ Route manageRoutes(RouteSettings settings) {
     case AppRoutes.createNewPasswordScreen:
       return MaterialPageRoute(
         builder: (context) => const CreateNewPasswordScreen(),
+        // builder: (context) => OnboardingScreen(),
+      );
+    case AppRoutes.editProfileScreen:
+      return MaterialPageRoute(
+        builder: (context) => const EditProfileView(),
         // builder: (context) => OnboardingScreen(),
       );
     default:
