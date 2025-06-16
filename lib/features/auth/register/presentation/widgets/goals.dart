@@ -10,8 +10,7 @@ class GoalsScreen extends StatelessWidget {
   final List<String> items;
   final void Function(String selectedValue) onNext;
 
-  const GoalsScreen({Key? key, required this.items, required this.onNext})
-      : super(key: key);
+  const GoalsScreen({super.key, required this.items, required this.onNext});
 
   @override
   Widget build(BuildContext context) {

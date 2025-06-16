@@ -47,7 +47,6 @@ class RegisterView extends StatelessWidget {
                 AppRoutes.editProfileScreen,
               );
             }
-            // Handle other states with your base listener
             baseListener(context, state);
           },
           child: Scaffold(

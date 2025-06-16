@@ -24,194 +24,216 @@ class InitialStep extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p16),
-                child: Text(StringsManager.heyThere,
-                    style: AppTextStyles.font18W400White()
-                        .copyWith(fontSize: AppSize.s18.sp)),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p16),
-                child: Text(StringsManager.createAnAccount,
-                    style: AppTextStyles.font20W800White()
-                        .copyWith(fontSize: AppSize.s20.sp)),
-              ),
-            ),
-            BackgroundContainer(
-              child: Padding(
-                padding: EdgeInsets.all(AppPadding.p16.w),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      Text(StringsManager.register,
-                          style: AppTextStyles.font24W800White()
-                              .copyWith(fontSize: AppSize.s24.sp)),
-                      SizedBox(height: AppSize.s16.h),
-                      CustomTextField(
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p12),
-                          child: SvgPicture.asset(
-                            SVGAssets.user,
-                            width: AppSize.s24,
-                            height: AppSize.s24,
-                            colorFilter: const ColorFilter.mode(
-                                Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        hint: StringsManager.firstName,
-                        controller: cubit.firstNameController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return StringsManager.pleaseEnterYourFirstName;
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: AppSize.s16.h),
-                      CustomTextField(
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p12),
-                          child: SvgPicture.asset(
-                            SVGAssets.user,
-                            width: AppSize.s24,
-                            height: AppSize.s24,
-                            colorFilter: const ColorFilter.mode(
-                                Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        hint: StringsManager.lastName,
-                        controller: cubit.lastNameController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return StringsManager.pleaseEnterYourLastName;
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: AppSize.s16.h),
-                      CustomTextField(
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p12),
-                          child: SvgPicture.asset(
-                            SVGAssets.mail,
-                            width: AppSize.s24,
-                            height: AppSize.s24,
-                            colorFilter: const ColorFilter.mode(
-                                Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        hint: StringsManager.email,
-                        controller: cubit.emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return StringsManager.pleaseEnterYourEmail;
-                          }
-                          if (!value.contains('@')) {
-                            return StringsManager.pleaseEnterValidEmail;
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: AppSize.s16.h),
-                      CustomTextField(
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p12),
-                          child: SvgPicture.asset(
-                            SVGAssets.lock,
-                            width: AppSize.s24,
-                            height: AppSize.s24,
-                            colorFilter: const ColorFilter.mode(
-                                Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        hint: StringsManager.password,
-                        controller: cubit.passwordController,
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return StringsManager.pleaseEnterYourPassword;
-                          }
-                          if (value.length < 6) {
-                            return StringsManager.passwordMustBeAtLeast6Chars;
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: AppSize.s16.h),
-                      CustomTextField(
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p12),
-                          child: SvgPicture.asset(
-                            SVGAssets.lock,
-                            width: AppSize.s24,
-                            height: AppSize.s24,
-                            colorFilter: const ColorFilter.mode(
-                                Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        hint: StringsManager.rePassword,
-                        controller: cubit.rePasswordController,
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return StringsManager.pleaseReEnterYourPassword;
-                          }
-                          if (value != cubit.passwordController.text) {
-                            return StringsManager.passwordsDoNotMatch;
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: AppSize.s24.h),
-                      SocialLoginWidget(),
-                      CustomButton(
-                        text: StringsManager.register,
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            cubit.updateUserData(
-                                'firstName', cubit.firstNameController.text);
-                            cubit.updateUserData(
-                                'lastName', cubit.lastNameController.text);
-                            cubit.updateUserData(
-                                'email', cubit.emailController.text);
-                            cubit.updateUserData(
-                                'password', cubit.passwordController.text);
-                            cubit.updateUserData(
-                                'rePassword', cubit.rePasswordController.text);
-                            cubit.nextStep();
-                          }
-                        },
-                      ),
-                      SizedBox(height: AppSize.s8.h),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: StringsManager.alreadyHaveAnAccount,
-                              style: AppTextStyles.font14W800White()
-                                  .copyWith(fontWeight: FontWeight.w400),
-                            ),
-                            TextSpan(
-                                text: StringsManager.login,
-                                style: AppTextStyles.font16W500White()
-                                    .copyWith(color: Colors.orange)),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            )
+            Align(alignment: Alignment.topLeft, child: _buildHeader()),
+            _buildRegistrationForm(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildHeader() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: AppPadding.p16),
+          child: Text(
+            StringsManager.heyThere,
+            style: AppTextStyles.font18W400White(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: AppPadding.p16),
+          child: Text(
+            StringsManager.createAnAccount,
+            style: AppTextStyles.font20W800White(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRegistrationForm() {
+    return BackgroundContainer(
+      child: Padding(
+        padding: EdgeInsets.all(AppPadding.p16.w),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              Text(
+                StringsManager.register,
+                style: AppTextStyles.font24W800White(),
+              ),
+              SizedBox(height: AppSize.s16.h),
+              _buildFormFields(),
+              SizedBox(height: AppSize.s24.h),
+              const SocialLoginWidget(),
+              _buildRegisterButton(),
+              SizedBox(height: AppSize.s8.h),
+              _buildLoginPrompt(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFormFields() {
+    return Column(
+      children: [
+        _buildNameField(
+          controller: cubit.firstNameController,
+          hint: StringsManager.firstName,
+          validator: _validateName,
+        ),
+        SizedBox(height: AppSize.s16.h),
+        _buildNameField(
+          controller: cubit.lastNameController,
+          hint: StringsManager.lastName,
+          validator: _validateName,
+        ),
+        SizedBox(height: AppSize.s16.h),
+        _buildEmailField(),
+        SizedBox(height: AppSize.s16.h),
+        _buildPasswordField(
+          controller: cubit.passwordController,
+          hint: StringsManager.password,
+          validator: _validatePassword,
+        ),
+        SizedBox(height: AppSize.s16.h),
+        _buildPasswordField(
+          controller: cubit.rePasswordController,
+          hint: StringsManager.rePassword,
+          validator: (value) =>
+              _validateRePassword(value, cubit.passwordController.text),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNameField({
+    required TextEditingController controller,
+    required String hint,
+    required String? Function(String?) validator,
+  }) {
+    return CustomTextField(
+      prefixIcon: _buildIcon(SVGAssets.user),
+      hint: hint,
+      controller: controller,
+      validator: validator,
+    );
+  }
+
+  Widget _buildEmailField() {
+    return CustomTextField(
+      prefixIcon: _buildIcon(SVGAssets.mail),
+      hint: StringsManager.email,
+      controller: cubit.emailController,
+      validator: _validateEmail,
+    );
+  }
+
+  Widget _buildPasswordField({
+    required TextEditingController controller,
+    required String hint,
+    required String? Function(String?) validator,
+  }) {
+    return CustomTextField(
+      prefixIcon: _buildIcon(SVGAssets.lock),
+      hint: hint,
+      controller: controller,
+      obscureText: true,
+      validator: validator,
+    );
+  }
+
+  Widget _buildIcon(String asset) {
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p12),
+      child: SvgPicture.asset(
+        asset,
+        width: AppSize.s24,
+        height: AppSize.s24,
+        colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+      ),
+    );
+  }
+
+  Widget _buildRegisterButton() {
+    return CustomButton(
+      text: StringsManager.register,
+      onPressed: _handleRegistration,
+    );
+  }
+
+  Widget _buildLoginPrompt() {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: StringsManager.alreadyHaveAnAccount,
+            style: AppTextStyles.font14W800White()
+                .copyWith(fontWeight: FontWeight.w400),
+          ),
+          TextSpan(
+            text: StringsManager.login,
+            style:
+                AppTextStyles.font16W500White().copyWith(color: Colors.orange),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleRegistration() {
+    if (formKey.currentState!.validate()) {
+      cubit.updateUserData('firstName', cubit.firstNameController.text);
+      cubit.updateUserData('lastName', cubit.lastNameController.text);
+      cubit.updateUserData('email', cubit.emailController.text);
+      cubit.updateUserData('password', cubit.passwordController.text);
+      cubit.updateUserData('rePassword', cubit.rePasswordController.text);
+      cubit.nextStep();
+    }
+  }
+
+  String? _validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return value == cubit.firstNameController.text
+          ? StringsManager.pleaseEnterYourFirstName
+          : StringsManager.pleaseEnterYourLastName;
+    }
+    return null;
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return StringsManager.pleaseEnterYourEmail;
+    }
+    if (!value.contains('@')) {
+      return StringsManager.pleaseEnterValidEmail;
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return StringsManager.pleaseEnterYourPassword;
+    }
+    if (value.length < 6) {
+      return StringsManager.passwordMustBeAtLeast6Chars;
+    }
+    return null;
+  }
+
+  String? _validateRePassword(String? value, String password) {
+    if (value == null || value.isEmpty) {
+      return StringsManager.pleaseReEnterYourPassword;
+    }
+    if (value != password) {
+      return StringsManager.passwordsDoNotMatch;
+    }
+    return null;
   }
 }

@@ -8,15 +8,15 @@ class SelectionButton extends StatelessWidget {
   final String text;
   final bool isSelected;
   final VoidCallback onTap;
-  final bool showRadio; // New optional attribute
+  final bool showRadio;
 
   const SelectionButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.isSelected,
     required this.onTap,
-    this.showRadio = true, // Defaults to true (radio visible)
-  }) : super(key: key);
+    this.showRadio = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class SelectionButton extends StatelessWidget {
                           fontWeight: FontWeight.w700)),
                 ),
               ),
-              if (showRadio) // Only show radio if showRadio is true
+              if (showRadio)
                 Padding(
                   padding: const EdgeInsets.only(right: AppPadding.p16),
                   child: Container(
@@ -56,8 +56,7 @@ class SelectionButton extends StatelessWidget {
                       shape: BoxShape.circle,
                       border:
                           Border.all(color: Colors.white, width: AppSize.s2),
-                      color: Colors
-                          .transparent, // Outer circle is always transparent
+                      color: Colors.transparent,
                     ),
                     child: Center(
                       child: isSelected
@@ -66,11 +65,10 @@ class SelectionButton extends StatelessWidget {
                               height: AppSize.s12,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors
-                                    .white, // Inner circle is white when selected
+                                color: Colors.white,
                               ),
                             )
-                          : null, // No inner circle when not selected
+                          : null,
                     ),
                   ),
                 ),

@@ -7,7 +7,6 @@ import 'package:super_fitness/features/auth/register/presentation/widgets/backgr
 import 'package:super_fitness/utils/text_style.dart';
 import 'package:super_fitness/utils/values_manager.dart';
 import 'package:wheel_slider/wheel_slider.dart';
-import 'package:super_fitness/utils/strings_manager.dart';
 
 class NumberSelector extends StatelessWidget {
   final int min;
@@ -18,7 +17,7 @@ class NumberSelector extends StatelessWidget {
   final void Function(int selectedValue)? onNextPressed;
   final String buttonText;
   const NumberSelector({
-    Key? key,
+    super.key,
     required this.min,
     required this.max,
     required this.labelText,
@@ -26,7 +25,7 @@ class NumberSelector extends StatelessWidget {
     this.unselectedColor = Colors.white,
     this.onNextPressed,
     required this.buttonText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
