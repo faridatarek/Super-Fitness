@@ -33,6 +33,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late bool _obscureText;
+  Color labelColor = ColorManager.white;
 
   @override
   void initState() {
@@ -49,9 +50,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: widget.keyboardType,
-      style: AppTextStyles.font18W400White(
-          color: const Color(0xffD3D3D3), fontSize: 14),
       obscureText: _obscureText,
+      style: AppTextStyles.font18W400White(color: Color(0xffD3D3D3)),
       validator: _validate,
       readOnly: widget.readOnly,
       onChanged: widget.onChange,

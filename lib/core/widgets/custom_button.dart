@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../utils/color_manager.dart';
-import '../../utils/text_style.dart';
+import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/text_style.dart';
 
 class CustomButton extends StatelessWidget {
   final double width;
@@ -13,14 +12,14 @@ class CustomButton extends StatelessWidget {
   final double? radius;
   const CustomButton(
       {super.key,
-        required this.text,
+      required this.text,
         required this.onPressed,
-        this.color,
-        this.width = double.infinity,
-        this.height = 45,
-        this.fontSize = 14,
-        this.fontColor,
-        this.radius});
+      this.color,
+      this.width = double.infinity,
+      this.height = 45,
+      this.fontSize = 14,
+      this.fontColor,
+      this.radius});
   final String text;
   final void Function()? onPressed;
   @override

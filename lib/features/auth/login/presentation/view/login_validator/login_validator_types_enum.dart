@@ -1,0 +1,4 @@
+enum LoginValidatorTypesEnum {
+  email,
+  password,
+}

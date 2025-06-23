@@ -22,6 +22,12 @@ class SVGAssets {
   static const String appLogo = "${_basePath}logo.svg";
   static const String mail = "${_basePath}mail.svg";
   static const String lock = "${_basePath}lock.svg";
+  static const String arrowIcon = "${_basePath}arrowIcon.svg";
+  static const String logo = "${_basePath}logo.svg";
+  static const String optionsIcon = "${_basePath}optionsIcon.svg";
+  static const String appLogo = "${_basePath}logo.svg";
+  static const String mail = "${_basePath}mail.svg";
+  static const String lock = "${_basePath}lock.svg";
 
   static const String user = "${_basePath}user.svg";
 
@@ -43,4 +49,16 @@ class LottieAssets {
   static const String loading = "${_basePath}loading.json";
   static const String success = "${_basePath}success.json";
   static const String error = "${_basePath}error.json";
+}
+
+class PNGAssets {
+  PNGAssets._();
+
+  static const String _basePath = "assets/png/";
+  static const String background1 = "${_basePath}background1.png";
+  static const String logo = "${_basePath}logo.png";
+  static const String chatBackground = "${_basePath}chatBackground.png";
+  static const String chatBotImg = "${_basePath}chatBotImg.png";
+  static const String girlprofile = "${_basePath}girlprofile.png";
+  static const String startChat = "${_basePath}startChat.png";
 }
