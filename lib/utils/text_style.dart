@@ -84,6 +84,21 @@ class AppTextStyles {
         fontWeight: fontWeight,
       ),
     );
+
+  }
+  static TextStyle font14W500BaseColor({
+
+    Color? color = ColorManager.primary,
+    double? fontSize,
+    FontWeight fontWeight = FontWeight.w500,
+  }) {
+    return GoogleFonts.balooThambi2(
+      textStyle: TextStyle(
+        color: color ?? ColorManager.primary,
+        fontSize: fontSize ?? AppSize.s14,
+        fontWeight: fontWeight,
+      ),
+    );
   }
 
 }

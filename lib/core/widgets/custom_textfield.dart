@@ -14,6 +14,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final TextInputType? keyboardType;
 
+
   const CustomTextField({
     super.key,
     required this.hint,
@@ -33,6 +34,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late bool _obscureText;
+  Color labelColor = ColorManager.white;
 
   @override
   void initState() {
@@ -41,6 +43,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   String? _validate(String? value) {
+
     return widget.validator?.call(value) ?? (value?.isEmpty ?? true ? 'This field is required' : null);
   }
 
@@ -48,8 +51,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: widget.keyboardType,
-      style: AppTextStyles.font18W400White(color: const Color(0xffD3D3D3), fontSize: 14),
       obscureText: _obscureText,
+      style: AppTextStyles.font18W400White(color: Color(0xffD3D3D3)),
       validator: _validate,
       readOnly: widget.readOnly,
       onChanged: widget.onChange,
@@ -76,6 +79,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         hintText: widget.hint,
+
         hintStyle: AppTextStyles.font18W400White(fontSize: 14),
         prefixIcon: widget.prefixIcon != null
             ? Padding(

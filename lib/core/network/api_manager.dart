@@ -5,6 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
+import 'package:super_fitness/core/network/api_constants.dart';
+import 'package:super_fitness/features/auth/login/data/models/request/login_request.dart';
+import 'package:super_fitness/features/auth/login/data/models/response/login_response.dart';
 import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart';
 import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart';
 
@@ -21,17 +25,19 @@ part 'api_manager.g.dart';
 @RestApi(baseUrl: ApiConstants.baseUrl)
 abstract class ApiManager {
   @factoryMethod
-  factory ApiManager(Dio dio, ) {
+  factory ApiManager(Dio dio, UserProvider provider) {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
-
+        final token = provider.token;
+        if (token != null) {
+          options.headers['Authorization'] = 'Bearer $token';
+        }
         return handler.next(options);
       },
       onError: (DioException e, handler) {
         return handler.next(e);
       },
     ));
-
     (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
         (HttpClient client) {
       client.badCertificateCallback =
@@ -41,6 +47,9 @@ abstract class ApiManager {
 
     return _ApiManager(dio);
   }
+
+  @POST(ApiConstants.loginPath)
+  Future<LoginResponse> login(@Body() LoginRequest request);
 
 
   @POST(ApiConstants.forgetPassword)
@@ -55,3 +64,4 @@ abstract class ApiManager {
   Future<CreateNewPassResponse> createNewPassword(
       @Body() CreateNewPassWordRequest request);
 }
+
