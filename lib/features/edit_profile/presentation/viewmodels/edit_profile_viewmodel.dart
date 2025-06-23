@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/core/common/result.dart';
-import 'package:super_fitness/core/providers/user_provider.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/features/base/base_cubit.dart';
 import 'package:super_fitness/features/edit_profile/data/models/request/edit_profile_request.dart';
 import 'package:super_fitness/features/edit_profile/data/models/request/uplaod_image_request.dart';

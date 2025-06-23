@@ -3,35 +3,39 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
-import 'dart:io' as _i16;
+import 'dart:async' as _i7;
+import 'dart:io' as _i18;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:super_fitness/core/network/api_manager.dart' as _i5;
+import 'package:super_fitness/core/network/api_manager.dart' as _i6;
 import 'package:super_fitness/core/network/upload_image_api_manager.dart'
-    as _i14;
-import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart'
-    as _i11;
-import 'package:super_fitness/features/auth/register/data/models/response/register_response/register_response.dart'
-    as _i10;
-import 'package:super_fitness/features/edit_profile/data/models/request/edit_profile_request.dart'
-    as _i13;
-import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/edit_profile_response.dart'
-    as _i12;
-import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/upload_image_response.dart'
-    as _i15;
-import 'package:super_fitness/features/forget_password/data/models/requests/create_newpass_request.dart'
-    as _i9;
-import 'package:super_fitness/features/forget_password/data/models/requests/forgot_password_request.dart'
-    as _i7;
-import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart'
+    as _i16;
+import 'package:super_fitness/features/auth/login/data/models/request/login_request.dart'
     as _i8;
-import 'package:super_fitness/features/forget_password/data/models/responses/Create_new_pass_respones.dart'
-    as _i4;
-import 'package:super_fitness/features/forget_password/data/models/responses/forgot_password_response.dart'
+import 'package:super_fitness/features/auth/login/data/models/response/login_response.dart'
     as _i2;
-import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart'
+import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart'
+    as _i13;
+import 'package:super_fitness/features/auth/register/data/models/response/register_response/register_response.dart'
+    as _i12;
+import 'package:super_fitness/features/edit_profile/data/models/request/edit_profile_request.dart'
+    as _i15;
+import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/edit_profile_response.dart'
+    as _i14;
+import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/upload_image_response.dart'
+    as _i17;
+import 'package:super_fitness/features/forget_password/data/models/requests/create_newpass_request.dart'
+    as _i11;
+import 'package:super_fitness/features/forget_password/data/models/requests/forgot_password_request.dart'
+    as _i9;
+import 'package:super_fitness/features/forget_password/data/models/requests/otp_verify_reset_code_request.dart'
+    as _i10;
+import 'package:super_fitness/features/forget_password/data/models/responses/Create_new_pass_respones.dart'
+    as _i5;
+import 'package:super_fitness/features/forget_password/data/models/responses/forgot_password_response.dart'
     as _i3;
+import 'package:super_fitness/features/forget_password/data/models/responses/Otp_verfication_response.dart'
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -46,9 +50,8 @@ import 'package:super_fitness/features/forget_password/data/models/responses/Otp
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeForgotPasswordResponse_0 extends _i1.SmartFake
-    implements _i2.ForgotPasswordResponse {
-  _FakeForgotPasswordResponse_0(
+class _FakeLoginResponse_0 extends _i1.SmartFake implements _i2.LoginResponse {
+  _FakeLoginResponse_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -57,9 +60,9 @@ class _FakeForgotPasswordResponse_0 extends _i1.SmartFake
         );
 }
 
-class _FakeOtpVerifyResetCodeResponse_1 extends _i1.SmartFake
-    implements _i3.OtpVerifyResetCodeResponse {
-  _FakeOtpVerifyResetCodeResponse_1(
+class _FakeForgotPasswordResponse_1 extends _i1.SmartFake
+    implements _i3.ForgotPasswordResponse {
+  _FakeForgotPasswordResponse_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -68,9 +71,20 @@ class _FakeOtpVerifyResetCodeResponse_1 extends _i1.SmartFake
         );
 }
 
-class _FakeCreateNewPassResponse_2 extends _i1.SmartFake
-    implements _i4.CreateNewPassResponse {
-  _FakeCreateNewPassResponse_2(
+class _FakeOtpVerifyResetCodeResponse_2 extends _i1.SmartFake
+    implements _i4.OtpVerifyResetCodeResponse {
+  _FakeOtpVerifyResetCodeResponse_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCreateNewPassResponse_3 extends _i1.SmartFake
+    implements _i5.CreateNewPassResponse {
+  _FakeCreateNewPassResponse_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -82,103 +96,119 @@ class _FakeCreateNewPassResponse_2 extends _i1.SmartFake
 /// A class which mocks [ApiManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiManager extends _i1.Mock implements _i5.ApiManager {
+class MockApiManager extends _i1.Mock implements _i6.ApiManager {
   MockApiManager() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.ForgotPasswordResponse> forgotPassword(
-          _i7.ForgotPasswordRequest? request) =>
+  _i7.Future<_i2.LoginResponse> login(_i8.LoginRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #login,
+          [request],
+        ),
+        returnValue: _i7.Future<_i2.LoginResponse>.value(_FakeLoginResponse_0(
+          this,
+          Invocation.method(
+            #login,
+            [request],
+          ),
+        )),
+      ) as _i7.Future<_i2.LoginResponse>);
+
+  @override
+  _i7.Future<_i3.ForgotPasswordResponse> forgotPassword(
+          _i9.ForgotPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #forgotPassword,
           [request],
         ),
-        returnValue: _i6.Future<_i2.ForgotPasswordResponse>.value(
-            _FakeForgotPasswordResponse_0(
+        returnValue: _i7.Future<_i3.ForgotPasswordResponse>.value(
+            _FakeForgotPasswordResponse_1(
           this,
           Invocation.method(
             #forgotPassword,
             [request],
           ),
         )),
-      ) as _i6.Future<_i2.ForgotPasswordResponse>);
+      ) as _i7.Future<_i3.ForgotPasswordResponse>);
 
   @override
-  _i6.Future<_i3.OtpVerifyResetCodeResponse> resetCode(
-          _i8.OtpVerifyResetCodeRequest? request) =>
+  _i7.Future<_i4.OtpVerifyResetCodeResponse> resetCode(
+          _i10.OtpVerifyResetCodeRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetCode,
           [request],
         ),
-        returnValue: _i6.Future<_i3.OtpVerifyResetCodeResponse>.value(
-            _FakeOtpVerifyResetCodeResponse_1(
+        returnValue: _i7.Future<_i4.OtpVerifyResetCodeResponse>.value(
+            _FakeOtpVerifyResetCodeResponse_2(
           this,
           Invocation.method(
             #resetCode,
             [request],
           ),
         )),
-      ) as _i6.Future<_i3.OtpVerifyResetCodeResponse>);
+      ) as _i7.Future<_i4.OtpVerifyResetCodeResponse>);
 
   @override
-  _i6.Future<_i4.CreateNewPassResponse> createNewPassword(
-          _i9.CreateNewPassWordRequest? request) =>
+  _i7.Future<_i5.CreateNewPassResponse> createNewPassword(
+          _i11.CreateNewPassWordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #createNewPassword,
           [request],
         ),
-        returnValue: _i6.Future<_i4.CreateNewPassResponse>.value(
-            _FakeCreateNewPassResponse_2(
+        returnValue: _i7.Future<_i5.CreateNewPassResponse>.value(
+            _FakeCreateNewPassResponse_3(
           this,
           Invocation.method(
             #createNewPassword,
             [request],
           ),
         )),
-      ) as _i6.Future<_i4.CreateNewPassResponse>);
+      ) as _i7.Future<_i5.CreateNewPassResponse>);
 
   @override
-  _i6.Future<_i10.RegisterResponse?> register(_i11.RegisterRequest? request) =>
+  _i7.Future<_i12.RegisterResponse?> register(_i13.RegisterRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #register,
           [request],
         ),
-        returnValue: _i6.Future<_i10.RegisterResponse?>.value(),
-      ) as _i6.Future<_i10.RegisterResponse?>);
+        returnValue: _i7.Future<_i12.RegisterResponse?>.value(),
+      ) as _i7.Future<_i12.RegisterResponse?>);
 
   @override
-  _i6.Future<_i12.EditProfileResponse?> editProfile(
-          _i13.EditProfileRequest? request) =>
+  _i7.Future<_i14.EditProfileResponse?> editProfile(
+          _i15.EditProfileRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #editProfile,
           [request],
         ),
-        returnValue: _i6.Future<_i12.EditProfileResponse?>.value(),
-      ) as _i6.Future<_i12.EditProfileResponse?>);
+        returnValue: _i7.Future<_i14.EditProfileResponse?>.value(),
+      ) as _i7.Future<_i14.EditProfileResponse?>);
 }
 
 /// A class which mocks [UploadImageApiManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUploadImageApiManager extends _i1.Mock
-    implements _i14.UploadImageApiManager {
+    implements _i16.UploadImageApiManager {
   MockUploadImageApiManager() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i15.UpdateProfileImageResponse?> uploadImage(_i16.File? image) =>
+  _i7.Future<_i17.UpdateProfileImageResponse?> uploadImage(_i18.File? image) =>
       (super.noSuchMethod(
         Invocation.method(
           #uploadImage,
           [image],
         ),
-        returnValue: _i6.Future<_i15.UpdateProfileImageResponse?>.value(),
-      ) as _i6.Future<_i15.UpdateProfileImageResponse?>);
+        returnValue: _i7.Future<_i17.UpdateProfileImageResponse?>.value(),
+      ) as _i7.Future<_i17.UpdateProfileImageResponse?>);
 }

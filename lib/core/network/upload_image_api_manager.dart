@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart' hide DioMediaType;
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
-import 'package:super_fitness/core/providers/user_provider.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/upload_image_response.dart';
 
 @singleton

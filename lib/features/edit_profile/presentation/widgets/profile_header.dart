@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:super_fitness/core/providers/user_provider.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/features/auth/domain/models/user.dart';
 import 'package:super_fitness/features/edit_profile/presentation/viewmodels/edit_profile_viewmodel.dart';
 import 'package:super_fitness/utils/color_manager.dart';

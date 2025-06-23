@@ -53,15 +53,10 @@ class StringsManager {
 
   // Common strings
   static const String next = 'Next';
-  static const String register = 'Register';
-  static const String login = 'Login';
   static const String or = 'Or';
-  static const String heyThere = 'Hey there';
   static const String createAnAccount = 'Create an account';
   static const String firstName = 'First Name';
   static const String lastName = 'Last Name';
-  static const String email = 'Email';
-  static const String password = 'Password';
   static const String rePassword = 'RePassword';
   static const String alreadyHaveAnAccount = 'Already Have An Account ? ';
   static const String pleaseEnterYourFirstName = 'Please enter your first name';

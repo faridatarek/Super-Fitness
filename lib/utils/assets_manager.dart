@@ -22,12 +22,8 @@ class SVGAssets {
   static const String appLogo = "${_basePath}logo.svg";
   static const String mail = "${_basePath}mail.svg";
   static const String lock = "${_basePath}lock.svg";
-  static const String arrowIcon = "${_basePath}arrowIcon.svg";
   static const String logo = "${_basePath}logo.svg";
   static const String optionsIcon = "${_basePath}optionsIcon.svg";
-  static const String appLogo = "${_basePath}logo.svg";
-  static const String mail = "${_basePath}mail.svg";
-  static const String lock = "${_basePath}lock.svg";
 
   static const String user = "${_basePath}user.svg";
 

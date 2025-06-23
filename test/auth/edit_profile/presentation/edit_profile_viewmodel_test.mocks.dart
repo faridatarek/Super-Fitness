@@ -9,7 +9,7 @@ import 'dart:ui' as _i13;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i8;
 import 'package:super_fitness/core/common/result.dart' as _i5;
-import 'package:super_fitness/core/providers/user_provider.dart' as _i11;
+import 'package:super_fitness/core/local/providers/user_provider.dart' as _i11;
 import 'package:super_fitness/features/auth/domain/models/user.dart' as _i12;
 import 'package:super_fitness/features/edit_profile/data/models/request/edit_profile_request.dart'
     as _i7;

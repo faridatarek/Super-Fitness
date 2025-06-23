@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:super_fitness/core/common/result.dart';
-import 'package:super_fitness/core/providers/user_provider.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/features/base/base_states.dart';
 import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/upload_image_response.dart';
 import 'package:super_fitness/features/edit_profile/domain/entity/edit_profile_entity.dart';

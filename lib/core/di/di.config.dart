@@ -80,7 +80,6 @@ import '../local/providers/user_provider.dart' as _i405;
 import '../network/api_manager.dart' as _i119;
 import '../network/network_module.dart' as _i200;
 import '../network/upload_image_api_manager.dart' as _i964;
-import '../providers/user_provider.dart' as _i26;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -105,14 +104,21 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i361.Dio>(),
           gh<_i405.UserProvider>(),
         ));
+    gh.singleton<_i964.UploadImageApiManager>(() => _i964.UploadImageApiManager(
+          gh<_i361.Dio>(),
+          gh<_i405.UserProvider>(),
+        ));
     gh.factory<_i124.OnlineDataSource>(
         () => _i1020.OnlineDataSourceImpl(gh<_i119.ApiManager>()));
-    gh.lazySingleton<_i26.UserProvider>(() => _i26.UserProvider());
-    gh.singleton<_i119.ApiManager>(() => _i119.ApiManager(gh<_i361.Dio>()));
     gh.factory<_i305.RegisterOnlineDataSource>(
         () => _i155.RegisterOnlineDatasourceImpl(gh<_i119.ApiManager>()));
     gh.factory<_i369.RegisterRepo>(
         () => _i566.RegisterRepoImpl(gh<_i305.RegisterOnlineDataSource>()));
+    gh.factory<_i69.EditProfileOnlineDataSource>(
+        () => _i53.EditProfileDataSourceImpl(
+              gh<_i119.ApiManager>(),
+              gh<_i964.UploadImageApiManager>(),
+            ));
     gh.factory<_i274.ForgetPasswordOnlineDatasource>(
         () => _i505.ForgetPasswordOnlineDatasourceImpl(gh<_i119.ApiManager>()));
     gh.factory<_i354.LoginRepository>(() => _i580.LoginRepoImpl(
@@ -123,27 +129,24 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i316.LoginUseCase(gh<_i354.LoginRepository>()));
     gh.factory<_i639.SetCachedUserUseCase>(
         () => _i639.SetCachedUserUseCase(gh<_i354.LoginRepository>()));
+    gh.factory<_i1067.EditProfileRepo>(
+        () => _i98.EditProfileRepoImpl(gh<_i69.EditProfileOnlineDataSource>()));
     gh.factory<_i807.LoginViewModel>(() => _i807.LoginViewModel(
           gh<_i316.LoginUseCase>(),
           gh<_i639.SetCachedUserUseCase>(),
           gh<_i114.LoginValidator>(),
         ));
-    gh.singleton<_i964.UploadImageApiManager>(() => _i964.UploadImageApiManager(
-          gh<_i361.Dio>(),
-          gh<_i26.UserProvider>(),
-        ));
     gh.factory<_i129.ForgetPasswordRepository>(() =>
         _i787.ForgetPasswordRepositoryImpl(
             gh<_i274.ForgetPasswordOnlineDatasource>()));
-    gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
-        _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i276.RegisterUsecase>(
         () => _i276.RegisterUsecase(gh<_i369.RegisterRepo>()));
-    gh.factory<_i69.EditProfileOnlineDataSource>(
-        () => _i53.EditProfileDataSourceImpl(
-              gh<_i119.ApiManager>(),
-              gh<_i964.UploadImageApiManager>(),
-            ));
+    gh.factory<_i790.EditProfileUsecase>(
+        () => _i790.EditProfileUsecase(gh<_i1067.EditProfileRepo>()));
+    gh.factory<_i97.EditProfileViewModel>(() => _i97.EditProfileViewModel(
+          gh<_i790.EditProfileUsecase>(),
+          gh<_i405.UserProvider>(),
+        ));
     gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
         _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i535.ForgetPasswordUseCase>(() =>
@@ -153,8 +156,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i362.CreateNewPassWordViewModel>(() =>
         _i362.CreateNewPassWordViewModel(
             gh<_i1065.CreateNewPasswordUseCase>()));
-    gh.factory<_i1067.EditProfileRepo>(
-        () => _i98.EditProfileRepoImpl(gh<_i69.EditProfileOnlineDataSource>()));
     gh.factory<_i910.OtpVerifyViewModel>(() => _i910.OtpVerifyViewModel(
           gh<_i535.ForgetPasswordUseCase>(),
           gh<_i248.ResetCodeUseCase>(),
@@ -163,12 +164,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i250.RegisterCubit(gh<_i276.RegisterUsecase>()));
     gh.factory<_i885.ForgetPassWordViewModel>(
         () => _i885.ForgetPassWordViewModel(gh<_i535.ForgetPasswordUseCase>()));
-    gh.factory<_i790.EditProfileUsecase>(
-        () => _i790.EditProfileUsecase(gh<_i1067.EditProfileRepo>()));
-    gh.factory<_i97.EditProfileViewModel>(() => _i97.EditProfileViewModel(
-          gh<_i790.EditProfileUsecase>(),
-          gh<_i26.UserProvider>(),
-        ));
     return this;
   }
 }
