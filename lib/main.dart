@@ -29,7 +29,6 @@ Future<void> main() async {
   final userProvider = getIt<UserProvider>();
   String initialRoute;
 
-
   try {
     final token = await HiveManager().getToken();
     debugPrint("tokeeeennnn: $token");
@@ -41,7 +40,8 @@ Future<void> main() async {
         userProvider.setUser(user);
         debugPrint("tokeeeennnn: ${user.firstName}");
         debugPrint("tokeee ${userProvider.user?.firstName}");
-        debugPrint("UserProvider in main: ${identityHashCode(getIt<UserProvider>())}");
+        debugPrint(
+            "UserProvider in main: ${identityHashCode(getIt<UserProvider>())}");
 
         initialRoute = AppRoutes.StartchatView;
       } else {
@@ -53,16 +53,15 @@ Future<void> main() async {
   } catch (e, stack) {
     initialRoute = AppRoutes.loginScreen;
   }
-  runApp(
-      ChangeNotifierProvider(
-          create: (BuildContext context) {
-            return UserProvider();
-          },
-          child:  MyApp(initialRoute: initialRoute)));
+  runApp(ChangeNotifierProvider(
+      create: (BuildContext context) {
+        return UserProvider();
+      },
+      child: MyApp(initialRoute: initialRoute)));
 }
 
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-GlobalKey<ScaffoldMessengerState>();
+    GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatelessWidget {
   final String initialRoute;

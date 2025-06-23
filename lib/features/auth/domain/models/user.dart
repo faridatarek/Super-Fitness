@@ -72,5 +72,40 @@ class User {
       'rePassword': rePassword,
     };
   }
-}
 
+  User copyWith({
+    String? id,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? gender,
+    int? age,
+    int? weight,
+    int? height,
+    String? activityLevel,
+    String? goal,
+    String? photo,
+    String? createdAt,
+    String? token,
+    String? password,
+    String? rePassword,
+  }) {
+    return User(
+      id: id ?? this.id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      gender: gender ?? this.gender,
+      age: age ?? this.age,
+      weight: weight ?? this.weight,
+      height: height ?? this.height,
+      activityLevel: activityLevel ?? this.activityLevel,
+      goal: goal ?? this.goal,
+      photo: photo ?? this.photo,
+      createdAt: createdAt ?? this.createdAt,
+      token: token ?? this.token,
+      password: password ?? this.password,
+      rePassword: rePassword ?? this.rePassword,
+    );
+  }
+}

@@ -14,7 +14,6 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final TextInputType? keyboardType;
 
-
   const CustomTextField({
     super.key,
     required this.hint,
@@ -43,8 +42,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   String? _validate(String? value) {
-
-    return widget.validator?.call(value) ?? (value?.isEmpty ?? true ? 'This field is required' : null);
+    return widget.validator?.call(value) ??
+        (value?.isEmpty ?? true ? 'This field is required' : null);
   }
 
   @override
@@ -79,22 +78,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         hintText: widget.hint,
-
         hintStyle: AppTextStyles.font18W400White(fontSize: 14),
         prefixIcon: widget.prefixIcon != null
             ? Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: widget.prefixIcon,
-        )
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: widget.prefixIcon,
+              )
             : null,
         suffixIcon: widget.obscureText && !widget.readOnly
             ? IconButton(
-          icon: Icon(
-            _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-            color: ColorManager.white,
-          ),
-          onPressed: () => setState(() => _obscureText = !_obscureText),
-        )
+                icon: Icon(
+                  _obscureText
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: ColorManager.white,
+                ),
+                onPressed: () => setState(() => _obscureText = !_obscureText),
+              )
             : null,
       ),
     );

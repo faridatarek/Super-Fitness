@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.5.3
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -51,9 +51,14 @@ dependencies:
   flutter_gemini: ^3.0.0
   smooth_page_indicator:
   pinput:
+  font_awesome_flutter:
+  wheel_slider:
+  percent_indicator:
+  mockito:
 
   json_annotation:
   flutter_launcher_icons: ^0.14.3
+  path:
 
 dev_dependencies:
   flutter_test:
@@ -84,12 +89,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/svg/
     - assets/png/
     - assets/svg/
     - assets/images/
     - assets/lotties/
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

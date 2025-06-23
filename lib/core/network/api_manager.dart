@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:super_fitness/features/edit_profile/data/models/request/edit_profile_request.dart';
+import 'package:super_fitness/features/edit_profile/data/models/response/edit_profile_response/edit_profile_response.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/network/api_constants.dart';
 import 'package:super_fitness/features/auth/login/data/models/request/login_request.dart';
@@ -18,6 +20,9 @@ import '../../features/forget_password/data/models/responses/Create_new_pass_res
 import '../../features/forget_password/data/models/responses/forgot_password_response.dart';
 import 'api_constants.dart';
 
+import 'package:super_fitness/core/network/api_constants.dart';
+import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart';
+import 'package:super_fitness/features/auth/register/data/models/response/register_response/register_response.dart';
 part 'api_manager.g.dart';
 
 @singleton
@@ -51,7 +56,6 @@ abstract class ApiManager {
   @POST(ApiConstants.loginPath)
   Future<LoginResponse> login(@Body() LoginRequest request);
 
-
   @POST(ApiConstants.forgetPassword)
   Future<ForgotPasswordResponse> forgotPassword(
       @Body() ForgotPasswordRequest request);
@@ -63,5 +67,9 @@ abstract class ApiManager {
   @PUT(ApiConstants.createNewPassword)
   Future<CreateNewPassResponse> createNewPassword(
       @Body() CreateNewPassWordRequest request);
-}
 
+  @POST(ApiConstants.signup)
+  Future<RegisterResponse?> register(@Body() RegisterRequest request);
+  @PUT(ApiConstants.editProfile)
+  Future<EditProfileResponse?> editProfile(@Body() EditProfileRequest request);
+}

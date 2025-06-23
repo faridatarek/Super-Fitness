@@ -4,7 +4,6 @@ static const String loginPath ="auth/signin";
   static const String forgetPassword = "auth/forgotPassword";
   static const String restCode = "auth/verifyResetCode";
   static const String createNewPassword = "auth/resetPassword";
-
-
-
+  static const String editProfile = "auth/editProfile";
+  static const String signup = "auth/signup";
 }
