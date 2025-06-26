@@ -17,7 +17,6 @@ import 'package:super_fitness/utils/extract_error_message.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -43,4 +42,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-

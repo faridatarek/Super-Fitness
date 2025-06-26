@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/core/common/result.dart';
+import 'package:super_fitness/core/di/di.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
+import 'package:super_fitness/features/auth/login/domain/usecases/set_cached_user_use_case.dart';
 import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart';
 import 'package:super_fitness/features/auth/register/domain/models/register_response_entity.dart';
 import 'package:super_fitness/features/auth/register/domain/usecases/register_usecase.dart';
@@ -50,8 +53,8 @@ class RegisterSuccessState extends SuccessState {
 @injectable
 class RegisterCubit extends BaseCubit {
   final RegisterUsecase _registerUsecase;
-
-  RegisterCubit(this._registerUsecase) : super();
+  final SetCachedUserUseCase _setCachedUserUseCase;
+  RegisterCubit(this._registerUsecase, this._setCachedUserUseCase) : super();
 
   // Controllers
   final firstNameController = TextEditingController();
@@ -171,6 +174,11 @@ class RegisterCubit extends BaseCubit {
     if (result is Success<RegisterResponseEntity?>) {
       final response = result.data;
       if (response != null && response.user != null) {
+        final cacheResult = await _setCachedUserUseCase.setUser(
+            result.data!.user!, result.data!.token!);
+        getIt<UserProvider>().setUser(result.data!.user!);
+        getIt<UserProvider>().login(result.data!.token!);
+        debugPrint("Cache result: $cacheResult");
         emit(RegisterSuccessState(
           message: "Registration completed!",
           shouldNavigate: true,

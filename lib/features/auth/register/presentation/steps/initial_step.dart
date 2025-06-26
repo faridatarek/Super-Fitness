@@ -1,11 +1,14 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/core/widgets/custom_textfield.dart';
 import 'package:super_fitness/features/auth/register/cubit/register_cubit.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/social_login_widget.dart';
+import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/assets_manager.dart';
@@ -25,7 +28,7 @@ class InitialStep extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Align(alignment: Alignment.topLeft, child: _buildHeader()),
-            _buildRegistrationForm(),
+            _buildRegistrationForm(context),
           ],
         ),
       ),
@@ -54,7 +57,7 @@ class InitialStep extends StatelessWidget {
     );
   }
 
-  Widget _buildRegistrationForm() {
+  Widget _buildRegistrationForm(BuildContext context) {
     return BackgroundContainer(
       child: Padding(
         padding: EdgeInsets.all(AppPadding.p16.w),
@@ -72,7 +75,7 @@ class InitialStep extends StatelessWidget {
               const SocialLoginWidget(),
               _buildRegisterButton(),
               SizedBox(height: AppSize.s8.h),
-              _buildLoginPrompt(),
+              _buildLoginPrompt(context),
             ],
           ),
         ),
@@ -168,7 +171,7 @@ class InitialStep extends StatelessWidget {
     );
   }
 
-  Widget _buildLoginPrompt() {
+  Widget _buildLoginPrompt(BuildContext context) {
     return Text.rich(
       TextSpan(
         children: [
@@ -178,9 +181,13 @@ class InitialStep extends StatelessWidget {
                 .copyWith(fontWeight: FontWeight.w400),
           ),
           TextSpan(
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
+              },
             text: StringsManager.login,
-            style:
-                AppTextStyles.font16W500White().copyWith(color: Colors.orange),
+            style: AppTextStyles.font16W500White()
+                .copyWith(color: ColorManager.primary),
           ),
         ],
       ),

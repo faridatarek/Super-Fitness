@@ -43,21 +43,18 @@ Future<void> main() async {
         debugPrint(
             "UserProvider in main: ${identityHashCode(getIt<UserProvider>())}");
 
-        initialRoute = AppRoutes.StartchatView;
+        initialRoute = AppRoutes.homeScreen;
       } else {
         initialRoute = AppRoutes.loginScreen;
       }
     } else {
-      initialRoute = AppRoutes.loginScreen;
+      initialRoute = AppRoutes.registerScreen;
     }
-  } catch (e, stack) {
+  } catch (e) {
     initialRoute = AppRoutes.loginScreen;
   }
   runApp(ChangeNotifierProvider(
-      create: (BuildContext context) {
-        return UserProvider();
-      },
-      child: MyApp(initialRoute: initialRoute)));
+      create: (_) => UserProvider(), child: MyApp(initialRoute: initialRoute)));
 }
 
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
