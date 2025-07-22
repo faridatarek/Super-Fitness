@@ -1,10 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/common/bloc_observer.dart';
 import 'package:super_fitness/core/di/di.dart';
@@ -17,44 +16,54 @@ import 'package:super_fitness/utils/theme_manger.dart';
 import 'core/routes/router.dart';
 
 Future<void> main() async {
-  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();
+
   Hive.registerAdapter(CacheUserModelAdapter());
+
+  configureDependencies();
+
   Bloc.observer = SimpleBlocObserver();
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
   final userProvider = getIt<UserProvider>();
   String initialRoute;
 
   try {
     final token = await HiveManager().getToken();
-    debugPrint("tokeeeennnn: $token");
     if (token != null) {
       final userModel = await HiveManager().getUser();
       if (userModel != null) {
         final user = HiveUserDto.toEntity(userModel);
         userProvider.login(token);
         userProvider.setUser(user);
-        debugPrint("tokeeeennnn: ${user.firstName}");
-        debugPrint("tokeee ${userProvider.user?.firstName}");
-        debugPrint(
-            "UserProvider in main: ${identityHashCode(getIt<UserProvider>())}");
-
-        initialRoute = AppRoutes.homeScreen;
+        initialRoute = AppRoutes.mainLayout;
       } else {
         initialRoute = AppRoutes.loginScreen;
       }
     } else {
-      initialRoute = AppRoutes.registerScreen;
+      initialRoute = AppRoutes.splashScreen;
     }
   } catch (e) {
     initialRoute = AppRoutes.loginScreen;
   }
-  runApp(ChangeNotifierProvider(
-      create: (_) => UserProvider(), child: MyApp(initialRoute: initialRoute)));
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: ChangeNotifierProvider(
+        create: (_) => userProvider,
+        child: MyApp(initialRoute: initialRoute),
+      ),
+    ),
+  );
 }
 
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
@@ -76,6 +85,9 @@ class MyApp extends StatelessWidget {
         scaffoldMessengerKey: scaffoldMessengerKey,
         title: 'Super Fitness app',
         theme: ThemeManger.themeManger,
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
         onGenerateRoute: manageRoutes,
         initialRoute: initialRoute,
       ),

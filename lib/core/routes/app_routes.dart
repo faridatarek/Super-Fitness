@@ -10,4 +10,8 @@ class AppRoutes {
   static const String otpVerificationScreen = '/otpVerification';
   static const String createNewPasswordScreen = '/createNewPassword';
   static const String editProfileScreen = '/editProfile';
+  static const String mainLayout = '/mainLayout';
+  static const String comingSoonScreen = '/comingSoon';
+  static const String helpScreen = '/help';
+  static const String FAQScreen = '/faq';
 }

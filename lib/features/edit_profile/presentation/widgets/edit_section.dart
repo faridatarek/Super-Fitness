@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/selection_buttom.dart';
-import 'package:super_fitness/features/base/base_states.dart';
-import 'package:super_fitness/features/edit_profile/presentation/viewmodels/edit_profile_viewmodel.dart';
 import 'package:super_fitness/features/edit_profile/presentation/widgets/edit_component.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
@@ -22,45 +19,53 @@ class EditSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        final result = await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EditComponent(
-              type: type,
-              currentValue: value,
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              children: [
+                Text(
+                  title,
+                  style: AppTextStyles.font16W500White(),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  '(',
+                  style: AppTextStyles.font16W500White(),
+                ),
+                Text('Tap to edit', style: AppTextStyles.font14W500BaseColor()),
+                Text(
+                  ')',
+                  style: AppTextStyles.font16W500White(),
+                ),
+              ],
             ),
           ),
-        );
-
-        if (result != null && result != value) {
-          onValueUpdated(result);
-          if (context.mounted) {
-            context.read<EditProfileViewModel>().emit(ContentState());
-          }
-        }
-      },
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Text(
-                title,
-                style: AppTextStyles.font16W500White(),
+        ),
+        SelectionButton(
+          text: value,
+          isSelected: false,
+          onTap: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditComponent(
+                  type: type,
+                  currentValue: value,
+                ),
               ),
-            ),
-          ),
-          SelectionButton(
-            text: value,
-            isSelected: false,
-            onTap: () {},
-            showRadio: false,
-          ),
-        ],
-      ),
+            );
+
+            if (result != null && result != value) {
+              onValueUpdated(result);
+            }
+          },
+          showRadio: false,
+        ),
+      ],
     );
   }
 }

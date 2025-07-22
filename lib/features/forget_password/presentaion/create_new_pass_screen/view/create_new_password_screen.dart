@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
+import 'package:super_fitness/features/auth/login/presentation/view/login_screen.dart';
 import 'package:super_fitness/features/base/base_states.dart';
 import 'package:super_fitness/features/base/cubit_builder.dart';
 import 'package:super_fitness/features/base/cubit_listener.dart';
@@ -16,26 +17,27 @@ class CreateNewPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GetIt.I<CreateNewPassWordViewModel>()..start(),
-      child: BlocConsumer<CreateNewPassWordViewModel , BaseState>(
+      child: BlocConsumer<CreateNewPassWordViewModel, BaseState>(
         listener: (context, state) {
           if (state is SuccessState) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  (route) => false,
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              (route) => false,
             );
           }
 
-
           return baseListener(context, state);
-
         },
         builder: (context, state) {
-          return baseBuilder(context, state, CreateNewPasswordBody(viewModel: CreateNewPassWordViewModel.get(context),));
+          return baseBuilder(
+              context,
+              state,
+              CreateNewPasswordBody(
+                viewModel: CreateNewPassWordViewModel.get(context),
+              ));
         },
-        
       ),
     );
   }
 }
-

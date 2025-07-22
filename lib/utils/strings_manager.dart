@@ -123,4 +123,19 @@ class StringsManager {
   static const String camera = 'Camera';
   static const String gallery = 'Gallery';
   static const String guest = 'Guest';
+  static const String yourRegularActivityLevel =
+      'YOUR REGULAR PHYSICAL \nACTIVITY LEVEL ?';
+  //mainlayout
+  static const String explore = 'Explore';
+  static const String workouts = 'Workouts';
+  static const String chat = 'Chat';
+  static const String profile = 'Profile';
+
+  //profile view
+  static const String changePassword = 'Change Password';
+  static const String slectLanguage = 'Select Language';
+  static const String security = 'Security';
+  static const String privacyPolicy = 'Privacy Policy';
+  static const String help = 'Help';
+  static const logout = 'Logout';
 }

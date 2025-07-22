@@ -5,22 +5,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
-import 'package:super_fitness/features/auth/domain/models/user.dart';
 import 'package:super_fitness/features/edit_profile/presentation/viewmodels/edit_profile_viewmodel.dart';
+import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
+  final bool isEditable;
+
+  const ProfileHeader({super.key, this.isEditable = true});
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = getIt<UserProvider>();
-    final User? user = userProvider.user;
-    final String? imageUrl = user?.photo;
+    final userProvider = context.watch<UserProvider>();
+    final user = userProvider.user;
+    final imageUrl = user?.photo;
+    final displayPlaceholder = imageUrl == null ||
+        imageUrl.isEmpty ||
+        imageUrl == "default-profile.png";
 
     return Column(
       children: [
@@ -45,29 +49,39 @@ class ProfileHeader extends StatelessWidget {
             CircleAvatar(
               radius: 50.r,
               backgroundColor: Colors.grey[300],
-              backgroundImage: imageUrl != null && imageUrl.isNotEmpty
-                  ? NetworkImage(imageUrl)
-                  : const AssetImage('assets/images/avatar_placeholder.png')
-                      as ImageProvider,
+              backgroundImage: !displayPlaceholder
+                  ? (imageUrl.startsWith('http')
+                      ? NetworkImage(imageUrl)
+                      : FileImage(File(imageUrl)))
+                  : null,
+              child: displayPlaceholder
+                  ? SvgPicture.asset(
+                      SVGAssets.userPlaceholder,
+                      width: 120.w,
+                      height: 120.h,
+                      fit: BoxFit.contain,
+                    )
+                  : null,
             ),
-            Container(
-              width: 100.w,
-              height: 100.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.black54.withOpacity(0.5),
-              ),
-              child: Center(
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/svg/edit.svg',
-                    width: 30.w,
-                    height: 30.h,
+            if (isEditable)
+              Container(
+                width: 100.w,
+                height: 100.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black54.withOpacity(0.5),
+                ),
+                child: Center(
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/svg/edit.svg',
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                    onPressed: () => _pickAndUploadImage(context),
                   ),
-                  onPressed: () => _pickAndUploadImage(context),
                 ),
               ),
-            ),
           ],
         ),
         const SizedBox(height: 10),

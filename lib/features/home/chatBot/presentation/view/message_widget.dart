@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:super_fitness/core/di/di.dart';
@@ -13,21 +15,29 @@ class Message extends StatelessWidget {
   final bool hasImage;
   final dynamic file;
 
-  Message({required this.text, required this.sender, required this.hasImage, this.file});
+  Message(
+      {required this.text,
+      required this.sender,
+      required this.hasImage,
+      this.file});
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: sender ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
-        crossAxisAlignment: sender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            sender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           if (file != null)
             Container(
               height: 200,
               width: 300,
               decoration: BoxDecoration(
-                image: file != null ? DecorationImage(image: FileImage(file), fit: BoxFit.contain) : null,
+                image: file != null
+                    ? DecorationImage(
+                        image: FileImage(file), fit: BoxFit.contain)
+                    : null,
                 color: ColorManager.chatColor.withOpacity(0.4),
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -37,11 +47,12 @@ class Message extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: sender ? MainAxisAlignment.end : MainAxisAlignment.start,
+              mainAxisAlignment:
+                  sender ? MainAxisAlignment.end : MainAxisAlignment.start,
               children: [
                 if (!sender)
                   Padding(
-                    padding:  EdgeInsets.only(left: 8.0.w,right: 3.w),
+                    padding: EdgeInsets.only(left: 8.0.w, right: 3.w),
                     child: CircleAvatar(
                       radius: 23.r,
                       backgroundColor: ColorManager.primary,
@@ -52,25 +63,41 @@ class Message extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: sender ? ColorManager.chatColor.withOpacity(0.7) : ColorManager.chatBotmessage.withOpacity(0.8),
+                      color: sender
+                          ? ColorManager.chatColor.withOpacity(0.7)
+                          : ColorManager.chatBotmessage.withOpacity(0.8),
                       borderRadius: sender
-                          ? BorderRadius.only(bottomLeft: Radius.circular(20), topLeft: Radius.circular(20), bottomRight: Radius.circular(20))
-                          : BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
+                          ? BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              topLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20))
+                          : BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
                     ),
                     child: Text(
                       text,
-                      style: AppTextStyles.font18W400White(fontWeight: FontWeight.w500),
+                      style: AppTextStyles.font18W400White(
+                          fontWeight: FontWeight.w500),
                       softWrap: true,
                     ),
                   ),
                 ),
                 if (sender)
                   Padding(
-                    padding:EdgeInsets.only(right: 8.0.w,left: 3.w),
+                    padding: EdgeInsets.only(right: 8.0.w, left: 3.w),
                     child: CircleAvatar(
                       radius: 23.r,
                       backgroundColor: ColorManager.primary,
-                      backgroundImage: NetworkImage(userProvider.user?.photo?? "https://thumbs.dreamstime.com/b/strong-muscle-illustration-60892521.jpg"),
+                      backgroundImage: userProvider.user?.photo != null &&
+                              userProvider.user!.photo!.isNotEmpty
+                          ? (userProvider.user!.photo!.startsWith('http')
+                              ? NetworkImage(userProvider.user!.photo!)
+                              : FileImage(File(userProvider.user!.photo!)))
+                          : const NetworkImage(
+                                  "https://thumbs.dreamstime.com/b/strong-muscle-illustration-60892521.jpg")
+                              as ImageProvider,
                     ),
                   ),
               ],

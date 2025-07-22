@@ -151,7 +151,7 @@ class EditComponent extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringsManager.yourActivityLevel,
+              StringsManager.yourRegularActivityLevel,
               style: AppTextStyles.font20W800White()
                   .copyWith(fontWeight: FontWeight.w900),
             ),

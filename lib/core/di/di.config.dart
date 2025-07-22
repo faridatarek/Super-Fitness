@@ -143,10 +143,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i276.RegisterUsecase(gh<_i369.RegisterRepo>()));
     gh.factory<_i790.EditProfileUsecase>(
         () => _i790.EditProfileUsecase(gh<_i1067.EditProfileRepo>()));
-    gh.factory<_i97.EditProfileViewModel>(() => _i97.EditProfileViewModel(
-          gh<_i790.EditProfileUsecase>(),
-          gh<_i405.UserProvider>(),
-        ));
     gh.factory<_i1065.CreateNewPasswordUseCase>(() =>
         _i1065.CreateNewPasswordUseCase(gh<_i129.ForgetPasswordRepository>()));
     gh.factory<_i535.ForgetPasswordUseCase>(() =>
@@ -159,6 +155,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i250.RegisterCubit>(() => _i250.RegisterCubit(
           gh<_i276.RegisterUsecase>(),
           gh<_i639.SetCachedUserUseCase>(),
+        ));
+    gh.factory<_i97.EditProfileViewModel>(() => _i97.EditProfileViewModel(
+          gh<_i790.EditProfileUsecase>(),
+          gh<_i405.UserProvider>(),
+          gh<_i228.HiveManager>(),
         ));
     gh.factory<_i910.OtpVerifyViewModel>(() => _i910.OtpVerifyViewModel(
           gh<_i535.ForgetPasswordUseCase>(),

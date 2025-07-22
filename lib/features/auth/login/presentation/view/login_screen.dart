@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               SnackBar(content: Text(message)),
             );
           } else if (state is LoginSuccessState) {
-            Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+            Navigator.of(context).pushReplacementNamed(AppRoutes.mainLayout);
           }
         },
         child: LoginViewBody(),

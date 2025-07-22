@@ -135,7 +135,7 @@ class LoginViewBody extends StatelessWidget {
                                     style: AppTextStyles.font14W500BaseColor(),
                                   ),
                                   onPressed: () {
-                                    Navigator.pushReplacementNamed(context,
+                                    Navigator.pushNamed(context,
                                         AppRoutes.forgetPasswordScreen);
                                   },
                                 ),

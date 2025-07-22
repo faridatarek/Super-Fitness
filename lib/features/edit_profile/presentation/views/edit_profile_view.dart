@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:super_fitness/core/di/di.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 
 import 'package:super_fitness/core/widgets/custom_appbar.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
@@ -57,9 +59,16 @@ class EditProfileView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 15.h),
-                        CustomAppBar(title: StringsManager.editProfile),
+                        CustomAppBar(
+                            title: StringsManager.editProfile,
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
                         SizedBox(height: 10.h),
-                        const Center(child: ProfileHeader()),
+                        Center(
+                            child: ChangeNotifierProvider.value(
+                                value: getIt<UserProvider>(),
+                                child: const ProfileHeader())),
                         SizedBox(height: 20.h),
                         _buildFormFields(context),
                         SizedBox(height: 20.h),
@@ -107,6 +116,14 @@ class EditProfileView extends StatelessWidget {
             controller: emailController,
             prefixIcon: SvgPicture.asset(SVGAssets.mail),
             onChange: (value) => viewModel.updateField('email', value),
+            validator: (value) {
+              if (value != null &&
+                  value.isNotEmpty &&
+                  !viewModel.isEmailValid(value)) {
+                return 'Please enter a valid email';
+              }
+              return null;
+            },
           ),
         ],
       ),
@@ -133,6 +150,7 @@ class EditProfileView extends StatelessWidget {
                 onValueUpdated: (value) {
                   final weight = int.tryParse(value.split(' ')[0]);
                   if (weight != null) {
+                    viewModel.updateWeightImmediately(weight);
                     viewModel.updateField('weight', weight);
                   }
                 },
@@ -142,15 +160,23 @@ class EditProfileView extends StatelessWidget {
                 title: StringsManager.yourGoal,
                 value: viewModel.goal ?? StringsManager.notSet,
                 type: EditType.goal,
-                onValueUpdated: (value) => viewModel.updateField('goal', value),
+                onValueUpdated: (value) {
+                  viewModel.updateGoalImmediately(value);
+                  viewModel.updateField('goal', value);
+                },
               ),
               const SizedBox(height: 16),
               EditSection(
                 title: StringsManager.yourActivityLevel,
-                value: viewModel.activityLevel ?? StringsManager.notSet,
+                value:
+                    viewModel.getDisplayActivityLevel(viewModel.activityLevel),
                 type: EditType.activityLevel,
-                onValueUpdated: (value) =>
-                    viewModel.updateField('activityLevel', value),
+                onValueUpdated: (value) {
+                  final backendValue =
+                      viewModel.activityLevelMap[value] ?? 'level1';
+                  viewModel.updateActivityLevelImmediately(backendValue);
+                  viewModel.updateField('activityLevel', backendValue);
+                },
               ),
             ],
           ),
