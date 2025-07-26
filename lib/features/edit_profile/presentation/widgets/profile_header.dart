@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -86,7 +87,7 @@ class ProfileHeader extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          '${user?.firstName ?? StringsManager.guest} ${user?.lastName ?? ''}',
+          '${user?.firstName ?? StringsManager.guest.tr()} ${user?.lastName ?? ''}',
           style: AppTextStyles.font20W800White(),
         ),
       ],
@@ -108,13 +109,13 @@ class ProfileHeader extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(StringsManager.chooseImageSource,
+              Text(StringsManager.chooseImageSource.tr(),
                   style: AppTextStyles.font44W900Primary()
                       .copyWith(fontSize: 20.sp)),
               const SizedBox(height: 10),
               ListTile(
                 leading: const Icon(Icons.camera_alt, color: Colors.white),
-                title: Text(StringsManager.camera,
+                title: Text(StringsManager.camera.tr(),
                     style: AppTextStyles.font16W500White()),
                 onTap: () async {
                   Navigator.pop(context);
@@ -123,7 +124,7 @@ class ProfileHeader extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library, color: Colors.white),
-                title: Text(StringsManager.gallery,
+                title: Text(StringsManager.gallery.tr(),
                     style: AppTextStyles.font16W500White()),
                 onTap: () async {
                   Navigator.pop(context);

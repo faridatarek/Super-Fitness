@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,13 +14,20 @@ class MainLayOutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => MainLayoutViewModel(),
-      child: const _MainLayoutBody(),
+      child: Builder(
+        builder: (context) {
+          final locale = context.locale;
+          return _MainLayoutBody(
+            key: ValueKey(locale.toString()),
+          );
+        },
+      ),
     );
   }
 }
 
 class _MainLayoutBody extends StatelessWidget {
-  const _MainLayoutBody();
+  const _MainLayoutBody({super.key});
 
   @override
   Widget build(BuildContext context) {

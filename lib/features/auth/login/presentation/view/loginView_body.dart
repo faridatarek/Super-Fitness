@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,11 +62,11 @@ class LoginViewBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  StringsManager.heyThere,
+                  StringsManager.heyThere.tr(),
                   style: AppTextStyles.font18W400White(),
                 ),
                 Text(
-                  StringsManager.welcomeBack,
+                  StringsManager.welcomeBack.tr(),
                   style: AppTextStyles.font20W800White(),
                 )
               ],
@@ -92,7 +93,7 @@ class LoginViewBody extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              StringsManager.login,
+                              StringsManager.login.tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -103,7 +104,7 @@ class LoginViewBody extends StatelessWidget {
 
                             // Email Field
                             CustomTextField(
-                              hint: StringsManager.email,
+                              hint: StringsManager.email.tr(),
                               controller: loginValidator.emailController,
                               validator: loginValidator
                                   .validate(LoginValidatorTypesEnum.email),
@@ -115,7 +116,7 @@ class LoginViewBody extends StatelessWidget {
                             SizedBox(height: 20.h),
 
                             CustomTextField(
-                              hint: StringsManager.password,
+                              hint: StringsManager.password.tr(),
                               controller: loginValidator.passwordController,
                               validator: loginValidator
                                   .validate(LoginValidatorTypesEnum.password),
@@ -149,7 +150,7 @@ class LoginViewBody extends StatelessWidget {
                                   return const CircularProgressIndicator();
                                 }
                                 return CustomButton(
-                                  text: StringsManager.login,
+                                  text: StringsManager.login.tr(),
                                   color: areAllFieldsFilled
                                       ? ColorManager.primary
                                       : Colors.grey,
@@ -163,7 +164,7 @@ class LoginViewBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  StringsManager.alreadyHaveAccount,
+                                  StringsManager.alreadyHaveAccount.tr(),
                                   style: AppTextStyles.font18W400White(
                                       fontSize: 14.sp),
                                 ),
@@ -173,7 +174,7 @@ class LoginViewBody extends StatelessWidget {
                                         context, AppRoutes.registerScreen);
                                   },
                                   child: Text(
-                                    StringsManager.register,
+                                    StringsManager.register.tr(),
                                     style: AppTextStyles.font14W800White(
                                         color: ColorManager.primary),
                                   ),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
 class StartchatView extends StatelessWidget {
@@ -40,11 +42,11 @@ class StartchatView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Hi ,${userProvider.user?.firstName}",
+                      "${StringsManager.hi}${userProvider.user?.firstName}",
                       style: AppTextStyles.font24W500White(fontSize: 18.sp),
                     ),
                     Text(
-                      "I Am your smart coach",
+                      StringsManager.iAmYourSmartCoach.tr(),
                       style: AppTextStyles.font24W500White(
                           fontSize: 20.sp, fontWeight: FontWeight.w700),
                     ),
@@ -94,15 +96,15 @@ class StartchatView extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Text("How Can I Assist You",
+                      Text(StringsManager.howCanIAssistYou.tr(),
                           style: AppTextStyles.font24W800White(fontSize: 18)),
-                      Text("Today ?",
+                      Text(StringsManager.today.tr(),
                           style: AppTextStyles.font24W800White(fontSize: 18)),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 30.w, vertical: 20.h),
                         child: CustomButton(
-                          text: "Get Started",
+                          text: StringsManager.getStarted.tr(),
                           onPressed: () => Navigator.pushReplacementNamed(
                               context, AppRoutes.ChatScreen),
                         ),

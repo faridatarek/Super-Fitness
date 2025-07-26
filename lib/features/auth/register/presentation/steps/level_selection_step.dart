@@ -1,20 +1,21 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:super_fitness/features/auth/register/presentation/steps/register_step_widget.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/goals.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 
 class LevelSelectionStep extends RegisterStepWidget {
-  final Map<String, String> levelMap = const {
-    StringsManager.rookie: 'level1',
-    StringsManager.beginner: 'level2',
-    StringsManager.intermediate: 'level3',
-    StringsManager.advance: 'level4',
-    StringsManager.trueBeast: 'level5',
+  final Map<String, String> levelMap = {
+    StringsManager.rookie.tr(): 'level1',
+    StringsManager.beginner.tr(): 'level2',
+    StringsManager.intermediate.tr(): 'level3',
+    StringsManager.advance.tr(): 'level4',
+    StringsManager.trueBeast.tr(): 'level5',
   };
 
-  const LevelSelectionStep({super.key, required super.cubit})
+  LevelSelectionStep({super.key, required super.cubit})
       : super(
-          title: StringsManager.regularYourActivityLevel,
+          title: StringsManager.regularYourActivityLevel.tr(),
           subtitle: '',
         );
 

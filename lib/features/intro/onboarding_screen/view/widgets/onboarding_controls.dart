@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
+import 'package:super_fitness/core/widgets/validators.dart';
 import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/blured_countainer.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
@@ -45,7 +47,7 @@ class OnboardingControls extends StatelessWidget {
                     if (pageIndex > 0)
                       _buildAnimatedButton(
                         context,
-                        text: StringsManager.onboardingBack,
+                        text: StringsManager.onboardingBack.tr(),
                         color: ColorManager.transparent,
                         borderColor: ColorManager.primary,
                         onPressed: () {
@@ -59,7 +61,7 @@ class OnboardingControls extends StatelessWidget {
                       Expanded(
                         child: _buildButton(
                           context,
-                          text: StringsManager.onboardingNext,
+                          text: StringsManager.onboardingNext.tr(),
                           color: ColorManager.primary,
                           onPressed: () {
                             pageController.nextPage(
@@ -73,8 +75,8 @@ class OnboardingControls extends StatelessWidget {
                       _buildAnimatedButton(
                         context,
                         text: pageIndex == totalPages - 1
-                            ? StringsManager.onboardingDoIt
-                            : StringsManager.onboardingNext,
+                            ? StringsManager.onboardingDoIt.tr()
+                            : StringsManager.onboardingNext.tr(),
                         color: ColorManager.primary,
                         onPressed: () {
                           if (pageIndex == totalPages - 1) {
@@ -188,7 +190,7 @@ class SkipButton extends StatelessWidget {
           );
         },
         child: Text(
-          StringsManager.onboardingSkip,
+          StringsManager.onboardingSkip.tr(),
           style: AppTextStyles.font18W400White(
             fontSize: AppSize.s14,
             color: ColorManager.lightGrey,

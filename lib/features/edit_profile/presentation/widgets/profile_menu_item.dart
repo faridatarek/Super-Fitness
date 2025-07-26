@@ -46,21 +46,21 @@ class MenuItemsList extends StatelessWidget {
     return Column(
       children: [
         ProfileMenuItem(
-          title: StringsManager.editProfile,
+          title: StringsManager.editProfile.tr(),
           leadingIcon: SVGAssets.profilemenu,
           onTap: () {
             Navigator.pushNamed(context, AppRoutes.editProfileScreen);
           },
         ),
         ProfileMenuItem(
-          title: StringsManager.changePassword,
+          title: StringsManager.changePassword.tr(),
           leadingIcon: SVGAssets.change,
           onTap: () {
             Navigator.pushNamed(context, AppRoutes.forgetPasswordScreen);
           },
         ),
         ProfileMenuItem(
-            title: StringsManager.slectLanguage,
+            title: StringsManager.slectLanguage.tr(),
             leadingIcon: SVGAssets.language,
             onTap: () {
               showDialog(
@@ -100,14 +100,14 @@ class MenuItemsList extends StatelessWidget {
         //   routeName: AppRoutes.forgetPasswordScreen,
         // ),
         ProfileMenuItem(
-          title: StringsManager.help,
+          title: StringsManager.help.tr(),
           leadingIcon: SVGAssets.help,
           onTap: () {
             Navigator.pushNamed(context, AppRoutes.helpScreen);
           },
         ),
         ProfileMenuItem(
-          title: StringsManager.logout,
+          title: StringsManager.logout.tr(),
           leadingIcon: SVGAssets.logout,
           onTap: () {
             // Handle logout logic here

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
 class ComingSoonScreen extends StatelessWidget {
@@ -21,7 +23,7 @@ class ComingSoonScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                'This feature is\ncoming soon!',
+                StringsManager.thisFeatureIsComingSoon.tr(),
                 textAlign: TextAlign.center,
                 style: AppTextStyles.font24W800White(
                   color: ColorManager.primary,
@@ -29,7 +31,7 @@ class ComingSoonScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'We’re working hard to bring this to you.\nStay tuned for updates!',
+                StringsManager.stayTuned.tr(),
                 textAlign: TextAlign.center,
                 style: AppTextStyles.font16W500White().copyWith(
                   color: Colors.grey[600],

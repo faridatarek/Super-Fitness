@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
 import 'dart:ui';
@@ -60,13 +62,14 @@ class HomeViewBody extends StatelessWidget {
             child: const GreetingHeader(),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text('Categories', style: AppTextStyles.font24W500White()),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(StringsManager.categories.tr(),
+                style: AppTextStyles.font24W500White()),
           ),
-          const CategoryList(),
+          CategoryList(),
           Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text('Recommendation Today',
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(StringsManager.recommendation.tr(),
                 style: AppTextStyles.font24W500White()),
           ),
           const SizedBox(height: 8),
@@ -102,11 +105,11 @@ class GreetingHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hi $fullName,',
+                '${StringsManager.hi.tr()} $fullName,',
                 style: AppTextStyles.font16W500White(),
               ),
               Text(
-                "Let's Start Your Day",
+                StringsManager.letsStartYourDay.tr(),
                 style: AppTextStyles.font24W800White(),
               ),
             ],
@@ -132,26 +135,26 @@ class GreetingHeader extends StatelessWidget {
 }
 
 class CategoryList extends StatelessWidget {
-  const CategoryList({super.key});
+  CategoryList({super.key});
 
-  final List<Map<String, String>> categories = const [
+  final List<Map<String, String>> categories = [
     {
-      'title': 'Gym',
+      'title': StringsManager.gym.tr(),
       'icon': 'assets/png/gym_figure.png',
       'routeName': AppRoutes.comingSoonScreen,
     },
     {
-      'title': 'Yoga',
+      'title': StringsManager.yoga.tr(),
       'icon': 'assets/png/yoga_figure.png',
       'routeName': AppRoutes.comingSoonScreen,
     },
     {
-      'title': 'Aerobics',
+      'title': StringsManager.aerobics.tr(),
       'icon': 'assets/png/Aerobics_figure.png',
       'routeName': AppRoutes.comingSoonScreen,
     },
     {
-      'title': 'Trainer',
+      'title': StringsManager.trainer.tr(),
       'icon': 'assets/png/triner_figure.png',
       'routeName': AppRoutes.StartchatView,
     },
@@ -160,8 +163,8 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    const horizontalPadding = 8.0 * 2; // left and right
-    const separatorWidth = 16.0 * 3; // 3 separators * margin
+    const horizontalPadding = 8.0 * 2;
+    const separatorWidth = 16.0 * 3;
     final itemWidth =
         (screenWidth - horizontalPadding - separatorWidth) / categories.length;
 
@@ -256,6 +259,20 @@ class RecommendationCubit extends Cubit<List<Workout>> {
         imagePath: "assets/images/Blog_Resistance_Bands_Squat1.jpg"),
     Workout(title: "Plank", imagePath: "assets/images/details-plank.jpg"),
     Workout(title: "Crunch", imagePath: "assets/images/crunches.jpeg"),
+    Workout(
+        title: "Lunges",
+        imagePath: "assets/images/8-around-the-clock-lunge.jpg"),
+    Workout(
+        title: "High Knees",
+        imagePath: "assets/images/How-to-do-High-Knees.jpg"),
+    Workout(title: "Jumping Jacks", imagePath: "assets/images/OIP.jpg"),
+    Workout(
+        title: "Bicycle Crunches",
+        imagePath: "assets/images/body-weight-brutality.jpg"),
+    Workout(title: "Leg Raises", imagePath: "assets/images/leg_rases.jpg"),
+    Workout(title: "Tricep Dips", imagePath: "assets/images/IMG_0606.jpg"),
+    Workout(title: "Wall Sit", imagePath: "assets/images/walls-sits.jpg"),
+    Workout(title: "Bridge", imagePath: "assets/images/R.jpeg"),
   ];
 
   void _generateDailyRecommendations() {
@@ -281,7 +298,10 @@ class RecommendedWorkoutList extends StatelessWidget {
             children: workouts.map((w) {
               return Container(
                 width: 120,
-                margin: const EdgeInsets.only(right: 12),
+                height: 120,
+                margin: const EdgeInsets.only(
+                  right: 12,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
@@ -291,7 +311,6 @@ class RecommendedWorkoutList extends StatelessWidget {
                 ),
                 child: Container(
                   alignment: Alignment.bottomCenter,
-                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     gradient: LinearGradient(
@@ -303,9 +322,23 @@ class RecommendedWorkoutList extends StatelessWidget {
                       ],
                     ),
                   ),
-                  child: Text(w.title,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                      color: Colors.black.withOpacity(0.3),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: Text(
+                      w.title,
                       style: AppTextStyles.font16W500White(),
-                      textAlign: TextAlign.center),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               );
             }).toList(),

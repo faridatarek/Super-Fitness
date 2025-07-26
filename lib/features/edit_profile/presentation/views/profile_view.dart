@@ -1,9 +1,11 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
+import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_appbar.dart';
 import 'package:super_fitness/features/edit_profile/presentation/widgets/profile_header.dart';
 import 'package:super_fitness/features/edit_profile/presentation/widgets/profile_menu.dart';
@@ -36,7 +38,13 @@ class ProfileView extends StatelessWidget {
           SafeArea(
             child: Column(
               children: [
-                CustomAppBar(title: StringsManager.profile),
+                CustomAppBar(
+                  title: StringsManager.profile.tr(),
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, AppRoutes.mainLayout, (route) => false);
+                  },
+                ),
                 Center(
                     child: ChangeNotifierProvider.value(
                         value: getIt<UserProvider>(),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
@@ -11,23 +12,24 @@ class SocialLoginWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
+            const Expanded(
               child: Padding(
                 padding: EdgeInsets.only(left: AppPadding.p40),
                 child: Divider(color: Colors.white, thickness: AppSize.s1),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
               child: Text(
-                StringsManager.or,
-                style: TextStyle(color: Colors.white, fontSize: AppSize.s16),
+                StringsManager.or.tr(),
+                style:
+                    const TextStyle(color: Colors.white, fontSize: AppSize.s16),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Padding(
                 padding: EdgeInsets.only(right: AppPadding.p40),
                 child: Divider(color: Colors.white, thickness: AppSize.s1),

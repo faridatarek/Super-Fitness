@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:super_fitness/features/edit_profile/presentation/views/profile_view.dart';
@@ -28,7 +29,7 @@ class MainLayoutViewModel extends ChangeNotifier {
       TabItem(
         icon: SVGAssets.homeTab,
         label: Text(
-          StringsManager.explore,
+          StringsManager.explore.tr(),
           style: AppTextStyles.font12W300Primary(),
         ),
         screen: HomeView(),
@@ -36,7 +37,7 @@ class MainLayoutViewModel extends ChangeNotifier {
       TabItem(
         icon: SVGAssets.gymTab,
         label: Text(
-          StringsManager.workouts,
+          StringsManager.workouts.tr(),
           style: AppTextStyles.font12W300Primary(),
         ),
         screen: ComingSoonScreen(),
@@ -44,7 +45,7 @@ class MainLayoutViewModel extends ChangeNotifier {
       TabItem(
         icon: SVGAssets.profileTab,
         label: Text(
-          StringsManager.profile,
+          StringsManager.profile.tr(),
           style: AppTextStyles.font12W300Primary(),
         ),
         screen: ProfileView(),
@@ -52,7 +53,7 @@ class MainLayoutViewModel extends ChangeNotifier {
       TabItem(
         icon: SVGAssets.chatTab,
         label: Text(
-          StringsManager.chat,
+          StringsManager.chat.tr(),
           style: AppTextStyles.font12W300Primary(),
         ),
         screen: StartchatView(),

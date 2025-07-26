@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -13,6 +14,7 @@ import 'package:super_fitness/features/home/presentation/view/homeScreen.dart';
 import 'package:super_fitness/features/mian_lay_out_screen/mian_lay_out_view/mian_lay_out_screen.dart';
 import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/strings_manager.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -44,7 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           SafeArea(
             child: CustomAppBar(
-              title: "Smart Coach",
+              title: StringsManager.smartCoach.tr(),
               onTap: () {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
@@ -140,7 +142,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   color: ColorManager.white,
                                                   width: 2),
                                             ),
-                                            hintText: "Type your message...",
+                                            hintText: StringsManager
+                                                .typeYourMessage
+                                                .tr(),
                                             hintStyle: const TextStyle(
                                                 color: ColorManager.white),
                                           ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:super_fitness/features/forget_password/data/models/requests/forgot_password_request.dart';
@@ -27,7 +28,7 @@ class ForgetPasswordBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 18.0),
             child: Text(
-              StringsManager.enterYourEmail,
+              StringsManager.enterYourEmail.tr(),
               style: AppTextStyles.font18W400White(),
             ),
           ),
@@ -35,7 +36,7 @@ class ForgetPasswordBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 18.0),
             child: Text(
-              StringsManager.forgetPassword,
+              StringsManager.forgetPassword.tr(),
               style: AppTextStyles.font20W800White(),
             ),
           ),
@@ -47,12 +48,12 @@ class ForgetPasswordBody extends StatelessWidget {
                 CustomTextField(
                   keyboardType: TextInputType.emailAddress,
                   prefixIcon: SvgPicture.asset(SVGAssets.mail),
-                  hint: StringsManager.emailHint,
+                  hint: StringsManager.emailHint.tr(),
                   controller: viewModel.forgetPassWordTextField,
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
-                  text: StringsManager.sendOtp,
+                  text: StringsManager.sendOtp.tr(),
                   onPressed: () {
                     viewModel.forgetPassWord(ForgotPasswordRequest(
                         email: viewModel.forgetPassWordTextField.text));

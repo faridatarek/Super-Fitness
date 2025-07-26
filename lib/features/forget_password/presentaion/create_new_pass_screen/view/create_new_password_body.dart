@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:super_fitness/core/widgets/validators.dart';
@@ -31,7 +32,7 @@ class CreateNewPasswordBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 18.0),
               child: Text(
-                StringsManager.ensurePassWordText,
+                StringsManager.ensurePassWordText.tr(),
                 style: AppTextStyles.font18W400White(),
               ),
             ),
@@ -39,7 +40,7 @@ class CreateNewPasswordBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 18.0),
               child: Text(
-                StringsManager.passWordText,
+                StringsManager.passWordText.tr(),
                 style: AppTextStyles.font20W800White(),
               ),
             ),
@@ -51,7 +52,7 @@ class CreateNewPasswordBody extends StatelessWidget {
                   CustomTextField(
                     keyboardType: TextInputType.emailAddress,
                     prefixIcon: SvgPicture.asset(SVGAssets.mail),
-                    hint: StringsManager.emailHint,
+                    hint: StringsManager.emailHint.tr(),
                     controller: viewModel.emailController,
                     validator: AppValidators.validateEmail,
                   ),
@@ -59,14 +60,14 @@ class CreateNewPasswordBody extends StatelessWidget {
                   CustomTextField(
                     keyboardType: TextInputType.visiblePassword,
                     prefixIcon: SvgPicture.asset(SVGAssets.lock),
-                    hint: StringsManager.passwordHint,
+                    hint: StringsManager.passwordHint.tr(),
                     controller: viewModel.passWordController,
                     obscureText: true,
                     validator: AppValidators.validatePassword,
                   ),
                   const SizedBox(height: 20),
                   CustomButton(
-                    text: StringsManager.done,
+                    text: StringsManager.done.tr(),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         viewModel.createNewPassWord(CreateNewPassWordRequest(

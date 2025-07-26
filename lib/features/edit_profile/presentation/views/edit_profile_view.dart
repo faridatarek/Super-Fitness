@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +61,7 @@ class EditProfileView extends StatelessWidget {
                       children: [
                         SizedBox(height: 15.h),
                         CustomAppBar(
-                            title: StringsManager.editProfile,
+                            title: StringsManager.editProfile.tr(),
                             onTap: () {
                               Navigator.pop(context);
                             }),
@@ -98,21 +99,21 @@ class EditProfileView extends StatelessWidget {
       child: Column(
         children: [
           CustomTextField(
-            hint: StringsManager.firstName,
+            hint: StringsManager.firstName.tr(),
             controller: firstNameController,
             prefixIcon: SvgPicture.asset(SVGAssets.user),
             onChange: (value) => viewModel.updateField('firstName', value),
           ),
           const SizedBox(height: 8),
           CustomTextField(
-            hint: StringsManager.lastName,
+            hint: StringsManager.lastName.tr(),
             controller: lastNameController,
             prefixIcon: SvgPicture.asset(SVGAssets.user),
             onChange: (value) => viewModel.updateField('lastName', value),
           ),
           const SizedBox(height: 8),
           CustomTextField(
-            hint: StringsManager.email,
+            hint: StringsManager.email.tr(),
             controller: emailController,
             prefixIcon: SvgPicture.asset(SVGAssets.mail),
             onChange: (value) => viewModel.updateField('email', value),
@@ -142,10 +143,10 @@ class EditProfileView extends StatelessWidget {
           child: Column(
             children: [
               EditSection(
-                title: StringsManager.yourWeight,
+                title: StringsManager.yourWeight.tr(),
                 value: viewModel.weight != null
                     ? '${viewModel.weight} kg'
-                    : StringsManager.notSet,
+                    : StringsManager.notSet.tr(),
                 type: EditType.weight,
                 onValueUpdated: (value) {
                   final weight = int.tryParse(value.split(' ')[0]);
@@ -157,8 +158,8 @@ class EditProfileView extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               EditSection(
-                title: StringsManager.yourGoal,
-                value: viewModel.goal ?? StringsManager.notSet,
+                title: StringsManager.yourGoal.tr(),
+                value: viewModel.goal ?? StringsManager.notSet.tr(),
                 type: EditType.goal,
                 onValueUpdated: (value) {
                   viewModel.updateGoalImmediately(value);
@@ -167,7 +168,7 @@ class EditProfileView extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               EditSection(
-                title: StringsManager.yourActivityLevel,
+                title: StringsManager.yourActivityLevel.tr(),
                 value:
                     viewModel.getDisplayActivityLevel(viewModel.activityLevel),
                 type: EditType.activityLevel,
@@ -191,7 +192,7 @@ class EditProfileView extends StatelessWidget {
       child: CustomButton(
         onPressed: () =>
             context.read<EditProfileViewModel>().submitProfileChanges(),
-        text: StringsManager.saveChanges,
+        text: StringsManager.saveChanges.tr(),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,14 +43,14 @@ class InitialStep extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: AppPadding.p16),
           child: Text(
-            StringsManager.heyThere,
+            StringsManager.heyThere.tr(),
             style: AppTextStyles.font18W400White(),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: AppPadding.p16),
           child: Text(
-            StringsManager.createAnAccount,
+            StringsManager.createAnAccount.tr(),
             style: AppTextStyles.font20W800White(),
           ),
         ),
@@ -66,7 +67,7 @@ class InitialStep extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                StringsManager.register,
+                StringsManager.register.tr(),
                 style: AppTextStyles.font24W800White(),
               ),
               SizedBox(height: AppSize.s16.h),
@@ -88,13 +89,13 @@ class InitialStep extends StatelessWidget {
       children: [
         _buildNameField(
           controller: cubit.firstNameController,
-          hint: StringsManager.firstName,
+          hint: StringsManager.firstName.tr(),
           validator: _validateName,
         ),
         SizedBox(height: AppSize.s16.h),
         _buildNameField(
           controller: cubit.lastNameController,
-          hint: StringsManager.lastName,
+          hint: StringsManager.lastName.tr(),
           validator: _validateName,
         ),
         SizedBox(height: AppSize.s16.h),
@@ -102,13 +103,13 @@ class InitialStep extends StatelessWidget {
         SizedBox(height: AppSize.s16.h),
         _buildPasswordField(
           controller: cubit.passwordController,
-          hint: StringsManager.password,
+          hint: StringsManager.password.tr(),
           validator: _validatePassword,
         ),
         SizedBox(height: AppSize.s16.h),
         _buildPasswordField(
           controller: cubit.rePasswordController,
-          hint: StringsManager.rePassword,
+          hint: StringsManager.rePassword.tr(),
           validator: (value) =>
               _validateRePassword(value, cubit.passwordController.text),
         ),
@@ -132,7 +133,7 @@ class InitialStep extends StatelessWidget {
   Widget _buildEmailField() {
     return CustomTextField(
       prefixIcon: _buildIcon(SVGAssets.mail),
-      hint: StringsManager.email,
+      hint: StringsManager.email.tr(),
       controller: cubit.emailController,
       validator: _validateEmail,
     );
@@ -166,7 +167,7 @@ class InitialStep extends StatelessWidget {
 
   Widget _buildRegisterButton() {
     return CustomButton(
-      text: StringsManager.register,
+      text: StringsManager.register.tr(),
       onPressed: _handleRegistration,
     );
   }
@@ -176,7 +177,7 @@ class InitialStep extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(
-            text: StringsManager.alreadyHaveAnAccount,
+            text: StringsManager.alreadyHaveAnAccount.tr(),
             style: AppTextStyles.font14W800White()
                 .copyWith(fontWeight: FontWeight.w400),
           ),
@@ -185,7 +186,7 @@ class InitialStep extends StatelessWidget {
               ..onTap = () {
                 Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
               },
-            text: StringsManager.login,
+            text: StringsManager.login.tr(),
             style: AppTextStyles.font16W500White()
                 .copyWith(color: ColorManager.primary),
           ),
@@ -208,38 +209,38 @@ class InitialStep extends StatelessWidget {
   String? _validateName(String? value) {
     if (value == null || value.isEmpty) {
       return value == cubit.firstNameController.text
-          ? StringsManager.pleaseEnterYourFirstName
-          : StringsManager.pleaseEnterYourLastName;
+          ? StringsManager.pleaseEnterYourFirstName.tr()
+          : StringsManager.pleaseEnterYourLastName.tr();
     }
     return null;
   }
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return StringsManager.pleaseEnterYourEmail;
+      return StringsManager.pleaseEnterYourEmail.tr();
     }
     if (!value.contains('@')) {
-      return StringsManager.pleaseEnterValidEmail;
+      return StringsManager.pleaseEnterValidEmail.tr();
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return StringsManager.pleaseEnterYourPassword;
+      return StringsManager.pleaseEnterYourPassword.tr();
     }
     if (value.length < 6) {
-      return StringsManager.passwordMustBeAtLeast6Chars;
+      return StringsManager.passwordMustBeAtLeast6Chars.tr();
     }
     return null;
   }
 
   String? _validateRePassword(String? value, String password) {
     if (value == null || value.isEmpty) {
-      return StringsManager.pleaseReEnterYourPassword;
+      return StringsManager.pleaseReEnterYourPassword.tr();
     }
     if (value != password) {
-      return StringsManager.passwordsDoNotMatch;
+      return StringsManager.passwordsDoNotMatch.tr();
     }
     return null;
   }

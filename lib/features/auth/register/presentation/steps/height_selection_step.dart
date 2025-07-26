@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/features/auth/register/presentation/steps/register_step_widget.dart';
@@ -5,10 +6,10 @@ import 'package:super_fitness/features/auth/register/presentation/widgets/number
 import 'package:super_fitness/utils/strings_manager.dart';
 
 class HeightSelectionStep extends RegisterStepWidget {
-  const HeightSelectionStep({super.key, required super.cubit})
+  HeightSelectionStep({super.key, required super.cubit})
       : super(
-          title: StringsManager.whatIsYourHeight,
-          subtitle: StringsManager.heightPersonalizedPlan,
+          title: StringsManager.whatIsYourHeight.tr(),
+          subtitle: StringsManager.heightPersonalizedPlan.tr(),
         );
 
   @override
@@ -18,12 +19,12 @@ class HeightSelectionStep extends RegisterStepWidget {
       child: NumberSelector(
         min: 30,
         max: 250,
-        labelText: StringsManager.cm,
+        labelText: StringsManager.cm.tr(),
         onNextPressed: (selectedValue) {
           cubit.updateUserData('height', selectedValue);
           cubit.nextStep();
         },
-        buttonText: StringsManager.next,
+        buttonText: StringsManager.next.tr(),
       ),
     );
   }
