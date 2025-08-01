@@ -44,7 +44,7 @@ class RegisterView extends StatelessWidget {
             // Handle navigation for successful registration
             if (state is RegisterSuccessState && state.shouldNavigate) {
               Navigator.of(context).pushReplacementNamed(
-                AppRoutes.homeScreen,
+                AppRoutes.mainLayout,
               );
             }
             baseListener(context, state);

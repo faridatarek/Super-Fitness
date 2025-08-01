@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
+import 'package:super_fitness/core/widgets/custom_appbar.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
@@ -15,6 +16,7 @@ import 'package:super_fitness/utils/text_style.dart';
 import 'dart:ui';
 import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/values_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -75,6 +77,20 @@ class HomeViewBody extends StatelessWidget {
           const SizedBox(height: 8),
           const RecommendedWorkoutList(),
           const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text('Recommendations Yor You',
+                style: AppTextStyles.font24W500White()),
+          ),
+          SizedBox(height: 16),
+          Center(
+              child: Icon(Icons.food_bank_outlined,
+                  color: ColorManager.primary, size: 80)),
+          Center(
+            child: Text('Meal Plans Coming Soon..',
+                style:
+                    AppTextStyles.font24W500White(color: ColorManager.primary)),
+          ),
         ],
       ),
     );
@@ -242,42 +258,125 @@ class CategoryItem extends StatelessWidget {
 class Workout {
   final String title;
   final String imagePath;
+  final String gifPath;
+  final String videoUrl;
+  final String tutorial;
 
-  Workout({required this.title, required this.imagePath});
+  Workout({
+    required this.title,
+    required this.imagePath,
+    required this.gifPath,
+    required this.videoUrl,
+    this.tutorial = '',
+  });
 }
 
 class RecommendationCubit extends Cubit<List<Workout>> {
   RecommendationCubit() : super([]) {
     _generateDailyRecommendations();
   }
-
   final List<Workout> allWorkouts = [
-    Workout(title: "Jogging", imagePath: "assets/images/jogging.jpeg"),
-    Workout(title: "Push-Up", imagePath: "assets/images/push_ups.jpeg"),
+    Workout(
+        title: "Jogging",
+        imagePath: "assets/images/jogging.jpeg",
+        gifPath: "assets/images/tutorials/ezgif-86539e826dedd6.gif",
+        videoUrl: "https://www.youtube.com/shorts/A5uZobDo80Q",
+        tutorial:
+            "Start by standing upright with your feet hip-width apart. Keep your chest lifted, shoulders back, and arms relaxed by your sides. Begin jogging slowly, landing softly on the balls of your feet. Your knees should lift slightly and your arms should swing naturally in opposition to your legs. Maintain a tall posture and keep your gaze forward. Breathe rhythmically and increase pace gradually as you warm up."),
+    Workout(
+        title: "Push-Up",
+        imagePath: "assets/images/push_ups.jpeg",
+        gifPath: "assets/images/tutorials/anim-push-ups.gif",
+        videoUrl: "https://youtube.com/shorts/GHJgsTIW_bQ?si=787FbrT8OuGd9-pc",
+        tutorial:
+            "Begin in a high plank position with your hands placed slightly wider than shoulder-width apart and your body forming a straight line from head to heels. Engage your core and glutes. Lower your body by bending your elbows to about 90 degrees, keeping them close to your body. Your chest should almost touch the floor. Push through your palms to return to the starting position. Keep your neck neutral and avoid arching your back."),
     Workout(
         title: "Squat",
-        imagePath: "assets/images/Blog_Resistance_Bands_Squat1.jpg"),
-    Workout(title: "Plank", imagePath: "assets/images/details-plank.jpg"),
-    Workout(title: "Crunch", imagePath: "assets/images/crunches.jpeg"),
+        imagePath: "assets/images/Blog_Resistance_Bands_Squat1.jpg",
+        gifPath: "assets/images/tutorials/squat.gif",
+        videoUrl: "https://www.youtube.com/shorts/Bjfefk24UXM",
+        tutorial:
+            "Stand with your feet shoulder-width apart and toes slightly turned out. Engage your core and keep your chest up. Push your hips back and bend your knees to lower into a squat as if sitting on a chair. Go down until your thighs are parallel to the floor. Keep your knees aligned with your toes. Push through your heels to stand back up. Avoid leaning forward or letting your knees cave inward."),
+    Workout(
+        title: "Plank",
+        imagePath: "assets/images/details-plank.jpg",
+        gifPath:
+            "assets/images/tutorials/weighted-front-plank-removebg-preview.png",
+        videoUrl: "https://www.youtube.com/shorts/N7gBsBHnjcw",
+        tutorial:
+            "Start in a forearm plank position with your elbows directly under your shoulders and your body in a straight line from head to heels. Engage your core, glutes, and thighs. Avoid letting your hips sag or pike up. Keep your neck neutral and gaze slightly forward. Breathe steadily and hold the position for as long as you can maintain proper form."),
+    Workout(
+        title: "Crunch",
+        imagePath: "assets/images/crunches.jpeg",
+        gifPath: "assets/images/tutorials/Crunch.gif",
+        videoUrl:
+            "https://example.com/crunch_video.mp4", // Replace with the actual video URL
+        tutorial:
+            "Lie flat on your back with your knees bent and feet flat on the floor. Place your hands lightly behind your head without pulling your neck. Engage your core and lift your upper back off the floor using your abdominal muscles. Keep your lower back in contact with the ground. Pause at the top, then slowly lower back down. Avoid using momentum or straining your neck."),
     Workout(
         title: "Lunges",
-        imagePath: "assets/images/8-around-the-clock-lunge.jpg"),
+        imagePath: "assets/images/8-around-the-clock-lunge.jpg",
+        gifPath: "assets/images/tutorials/bodyweight-forward-lunge.gif",
+        videoUrl: "https://www.youtube.com/shorts/05Hf8gM_KmM",
+        tutorial:
+            "Stand upright with your feet hip-width apart. Take a big step forward with your right leg and lower your hips until both knees are bent at 90 degrees. The back knee should hover just above the floor, and the front knee should not pass your toes. Push through your front heel to return to the starting position. Repeat on the other leg. Keep your upper body upright and your core tight throughout the movement."),
     Workout(
         title: "High Knees",
-        imagePath: "assets/images/How-to-do-High-Knees.jpg"),
-    Workout(title: "Jumping Jacks", imagePath: "assets/images/OIP.jpg"),
+        imagePath: "assets/images/How-to-do-High-Knees.jpg",
+        gifPath: "assets/images/tutorials/High-Knee-Run.gif",
+        videoUrl: "https://www.youtube.com/shorts/LJMrXG_vPQ8",
+        tutorial:
+            "Stand tall with your feet hip-width apart. Begin by jogging in place while driving your knees up toward your chest as high as possible. Pump your arms rapidly in rhythm with your legs. Stay light on your feet and land softly with each step. Keep your chest lifted and core engaged. Increase your speed to raise your heart rate."),
+    // Workout(
+    //     title: "Jumping Jacks",
+    //     imagePath: "assets/images/OIP.jpg",
+    //     gifPath: "assets/images/tutorials/jumping_jacks.gif",
+    //     videoUrl: "https://example.com/jumping_jacks_video.mp4",
+    //     tutorial:
+    //         "Start standing upright with your arms at your sides. Jump up and simultaneously spread your legs out to the sides while raising your arms overhead. Quickly reverse the motion to return to the starting position. Continue the movement at a steady pace. Keep your core engaged and knees slightly bent to absorb impact."),
     Workout(
         title: "Bicycle Crunches",
-        imagePath: "assets/images/body-weight-brutality.jpg"),
-    Workout(title: "Leg Raises", imagePath: "assets/images/leg_rases.jpg"),
-    Workout(title: "Tricep Dips", imagePath: "assets/images/IMG_0606.jpg"),
-    Workout(title: "Wall Sit", imagePath: "assets/images/walls-sits.jpg"),
-    Workout(title: "Bridge", imagePath: "assets/images/R.jpeg"),
+        imagePath: "assets/images/body-weight-brutality.jpg",
+        gifPath: "assets/images/tutorials/bicycle_crunch.gif",
+        videoUrl: "https://www.youtube.com/shorts/bhCHYOlmcLI",
+        tutorial:
+            "Lie on your back with your hands behind your head and legs lifted. Bring your right elbow toward your left knee while extending the right leg out straight. Switch sides by bringing your left elbow toward your right knee while extending the left leg. Continue alternating in a pedaling motion. Keep your lower back on the floor and avoid pulling your head forward."),
+    Workout(
+        title: "Leg Raises",
+        imagePath: "assets/images/leg_rases.jpg",
+        gifPath: "assets/images/tutorials/supine-leg-raises.gif",
+        videoUrl:
+            "https://www.youtube.com/watch?v=G7LdiX_jba4&ab_channel=DEMIC",
+        tutorial:
+            "Lie on your back with your legs straight and arms by your sides. Keeping your legs together, lift them slowly until they form a 90-degree angle with your torso. Slowly lower them back down without letting them touch the floor. Engage your core throughout the movement and avoid arching your lower back."),
+    Workout(
+        title: "Tricep Dips",
+        imagePath: "assets/images/IMG_0606.jpg",
+        gifPath: "assets/images/tutorials/Triceps-Dips-on-Floor.gif",
+        videoUrl: "https://www.youtube.com/shorts/4ua3MzaU0QU",
+        tutorial:
+            "Sit on the floor with your knees bent and hands behind you, fingers pointing toward your body. Lift your hips off the ground and bend your elbows to lower your body until your arms form 90-degree angles. Push through your palms to return to the top. Keep your elbows pointing backward and core engaged throughout the movement."),
+    Workout(
+        title: "Wall Sit",
+        imagePath: "assets/images/walls-sits.jpg",
+        gifPath: "assets/images/tutorials/goblet-wall-sit-muscles.gif",
+        videoUrl: "https://www.youtube.com/shorts/mDdLC-yKudY",
+        tutorial:
+            "Stand with your back against a wall and slide down until your thighs are parallel to the floor. Your knees should be directly above your ankles, and your back should be flat against the wall. Hold the position for as long as you can while keeping your core tight and breathing steadily."),
+    Workout(
+        title: "Bridge",
+        imagePath: "assets/images/R.jpeg",
+        gifPath: "assets/images/tutorials/glutes_bridge.gif",
+        videoUrl:
+            "https://www.youtube.com/watch?v=SKOMwg1JLrU&ab_channel=NationalAcademyofSportsMedicine%28NASM%29",
+        tutorial:
+            "Lie on your back with your knees bent and feet flat on the floor, hip-width apart. Place your arms at your sides. Engage your glutes and lift your hips toward the ceiling until your body forms a straight line from shoulders to knees. Pause at the top, then slowly lower your hips back down. Avoid overarching your back and keep your core engaged throughout the exercise."),
   ];
 
   void _generateDailyRecommendations() {
-    final today = DateTime.now().day;
-    final random = Random(today);
+    final now = DateTime.now();
+    final seed = now.year * 10000 + now.month * 100 + now.day;
+    final random = Random(seed);
 
     final shuffled = List<Workout>.from(allWorkouts)..shuffle(random);
     emit(shuffled.take(3).toList());
@@ -296,47 +395,56 @@ class RecommendedWorkoutList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: workouts.map((w) {
-              return Container(
-                width: 120,
-                height: 120,
-                margin: const EdgeInsets.only(
-                  right: 12,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    image: AssetImage(w.imagePath),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => WorkoutDetailScreen(workout: w),
+                    ),
+                  );
+                },
                 child: Container(
-                  alignment: Alignment.bottomCenter,
+                  width: 120,
+                  height: 120,
+                  margin: const EdgeInsets.only(
+                    right: 12,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black.withOpacity(0.6)
-                      ],
+                    image: DecorationImage(
+                      image: AssetImage(w.imagePath),
+                      fit: BoxFit.cover,
                     ),
                   ),
                   child: Container(
-                    width: double.infinity,
+                    alignment: Alignment.bottomCenter,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withOpacity(0.6)
+                        ],
                       ),
-                      color: Colors.black.withOpacity(0.3),
                     ),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    child: Text(
-                      w.title,
-                      style: AppTextStyles.font16W500White(),
-                      textAlign: TextAlign.center,
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        ),
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      child: Text(
+                        w.title,
+                        style: AppTextStyles.font16W500White(),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
@@ -345,6 +453,94 @@ class RecommendedWorkoutList extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class WorkoutDetailScreen extends StatelessWidget {
+  final Workout workout;
+
+  const WorkoutDetailScreen({super.key, required this.workout});
+
+  Future<void> _launchYouTube(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(children: [
+        Positioned.fill(
+          child: Image.asset(
+            ImageAssets.editProfileBackground,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned.fill(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: AppSize.s5, sigmaY: AppSize.s5),
+            child: Container(
+              color: Colors.grey.withOpacity(0.1),
+            ),
+          ),
+        ),
+        ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            CustomAppBar(
+                title: workout.title,
+                onTap: () {
+                  Navigator.pop(context);
+                }),
+            if (workout.tutorial.isNotEmpty)
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorManager.darkGrey.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    workout.tutorial,
+                    style: AppTextStyles.font16W500White(),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            const SizedBox(height: 16),
+            Center(
+              child: Text(
+                'Animated Tutorial',
+                style: AppTextStyles.font18W400White(),
+              ),
+            ),
+            const SizedBox(height: 8),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                workout.gifPath,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: () => _launchYouTube(workout.videoUrl),
+              icon: const Icon(Icons.play_circle),
+              label: const Text("Watch on YouTube"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorManager.primary,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                textStyle: AppTextStyles.font16W500White(),
+              ),
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }
