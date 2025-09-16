@@ -8,7 +8,6 @@ import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/core/widgets/custom_textfield.dart';
 import 'package:super_fitness/features/auth/register/cubit/register_cubit.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
-import 'package:super_fitness/features/auth/register/presentation/widgets/social_login_widget.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
@@ -73,7 +72,7 @@ class InitialStep extends StatelessWidget {
               SizedBox(height: AppSize.s16.h),
               _buildFormFields(),
               SizedBox(height: AppSize.s24.h),
-              const SocialLoginWidget(),
+              // const SocialLoginWidget(),
               _buildRegisterButton(),
               SizedBox(height: AppSize.s8.h),
               _buildLoginPrompt(context),

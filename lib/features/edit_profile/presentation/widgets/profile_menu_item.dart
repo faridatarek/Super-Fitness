@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness/core/local/hive/hive_manager.dart';
+import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/color_manager.dart';
@@ -66,19 +68,31 @@ class MenuItemsList extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: Text('Select Language'),
+                  backgroundColor: ColorManager.black,
+                  title: Text('Select Language',
+                      style: AppTextStyles.font20W800White().copyWith(
+                        color: ColorManager.primary,
+                      )),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ListTile(
-                        title: const Text('English'),
+                        title: Text(
+                          'English',
+                          style: AppTextStyles.font16W500White().copyWith(
+                            color: ColorManager.primary,
+                          ),
+                        ),
                         onTap: () {
                           context.setLocale(const Locale('en'));
                           Navigator.pop(context);
                         },
                       ),
                       ListTile(
-                        title: const Text('العربية'),
+                        title: Text('العربية',
+                            style: AppTextStyles.font16W500White().copyWith(
+                              color: ColorManager.primary,
+                            )),
                         onTap: () {
                           context.setLocale(const Locale('ar'));
                           Navigator.pop(context);
@@ -110,12 +124,20 @@ class MenuItemsList extends StatelessWidget {
           title: StringsManager.logout.tr(),
           leadingIcon: SVGAssets.logout,
           onTap: () {
-            // Handle logout logic here
+            _logout(context);
+
             Navigator.pushNamedAndRemoveUntil(
                 context, AppRoutes.loginScreen, (route) => false);
           },
         )
       ],
     );
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    UserProvider().logout();
+    await HiveManager().clearUser();
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pushReplacementNamed(AppRoutes.splashScreen);
   }
 }

@@ -38,15 +38,11 @@ Future<void> main() async {
     final token = await HiveManager().getToken();
     if (token != null) {
       final userModel = await HiveManager().getUser();
-      if (userModel != null) {
-        final user = HiveUserDto.toEntity(userModel);
-        userProvider.login(token);
-        userProvider.setUser(user);
-        initialRoute = AppRoutes.mainLayout;
-      } else {
-        initialRoute = AppRoutes.loginScreen;
-      }
-    } else {
+      final user = HiveUserDto.toEntity(userModel);
+      userProvider.login(token);
+      userProvider.setUser(user);
+      initialRoute = AppRoutes.mainLayout;
+        } else {
       initialRoute = AppRoutes.splashScreen;
     }
   } catch (e) {

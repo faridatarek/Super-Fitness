@@ -22,19 +22,19 @@ Route manageRoutes(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.splashScreen:
       return MaterialPageRoute(
-        builder: (context) => SplashScreen(),
+        builder: (context) => const SplashScreen(),
       );
     case AppRoutes.homeScreen:
       return MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => const HomeScreen(),
       );
     case AppRoutes.loginScreen:
       return MaterialPageRoute(
-        builder: (context) => LoginScreen(),
+        builder: (context) => const LoginScreen(),
       );
     case AppRoutes.ChatScreen:
       return MaterialPageRoute(
-        builder: (context) => ChatScreen(),
+        builder: (context) => const ChatScreen(),
       );
     case AppRoutes.StartchatView:
       return MaterialPageRoute(

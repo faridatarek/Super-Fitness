@@ -18,9 +18,7 @@ import '../../features/forget_password/data/models/requests/create_newpass_reque
 import '../../features/forget_password/data/models/requests/forgot_password_request.dart';
 import '../../features/forget_password/data/models/responses/Create_new_pass_respones.dart';
 import '../../features/forget_password/data/models/responses/forgot_password_response.dart';
-import 'api_constants.dart';
 
-import 'package:super_fitness/core/network/api_constants.dart';
 import 'package:super_fitness/features/auth/register/data/models/request/register_request.dart';
 import 'package:super_fitness/features/auth/register/data/models/response/register_response/register_response.dart';
 part 'api_manager.g.dart';

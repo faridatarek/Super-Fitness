@@ -24,7 +24,7 @@ class StartchatView extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              '${PNGAssets.chatBackground}',
+              PNGAssets.chatBackground,
               fit: BoxFit.cover,
             ),
           ),

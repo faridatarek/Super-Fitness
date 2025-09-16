@@ -16,7 +16,7 @@ class Message extends StatelessWidget {
   final dynamic file;
 
   Message(
-      {required this.text,
+      {super.key, required this.text,
       required this.sender,
       required this.hasImage,
       this.file});
@@ -56,22 +56,22 @@ class Message extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 23.r,
                       backgroundColor: ColorManager.primary,
-                      backgroundImage: AssetImage(PNGAssets.chatBotImg),
+                      backgroundImage: const AssetImage(PNGAssets.chatBotImg),
                     ),
                   ),
                 Flexible(
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: sender
                           ? ColorManager.chatColor.withOpacity(0.7)
                           : ColorManager.chatBotmessage.withOpacity(0.8),
                       borderRadius: sender
-                          ? BorderRadius.only(
+                          ? const BorderRadius.only(
                               bottomLeft: Radius.circular(20),
                               topLeft: Radius.circular(20),
                               bottomRight: Radius.circular(20))
-                          : BorderRadius.only(
+                          : const BorderRadius.only(
                               bottomLeft: Radius.circular(20),
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20)),

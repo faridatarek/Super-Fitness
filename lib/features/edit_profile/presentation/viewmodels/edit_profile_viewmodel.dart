@@ -104,6 +104,7 @@ class EditProfileViewModel extends BaseCubit {
       emitError(errorMessage: 'Please enter a valid email address');
       return;
     }
+    emit(LoadingState());
     final currentUser = _userProvider.user;
     final request = EditProfileRequest(
       firstName: firstName ?? currentUser!.firstName,

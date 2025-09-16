@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
@@ -24,26 +25,37 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              ImageAssets.editProfileBackground,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: AppSize.s5, sigmaY: AppSize.s5),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Stack(
+          children: [
+            Positioned.fill(
               child: Container(
-                color: Colors.grey.withOpacity(0.1),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(ImageAssets.editProfileBackground),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
-          const SafeArea(
-            child: HomeViewBody(),
-          ),
-        ],
+            // Blur Effect
+            Positioned.fill(
+              child: BackdropFilter(
+                filter:
+                    ImageFilter.blur(sigmaX: AppSize.s5, sigmaY: AppSize.s5),
+                child: Container(
+                  color: Colors.grey.withOpacity(0.1),
+                ),
+              ),
+            ),
+            // Content
+            const SafeArea(
+              child: HomeViewBody(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -54,44 +66,56 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return BlocProvider(
       create: (_) => RecommendationCubit(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ChangeNotifierProvider.value(
-            value: getIt<UserProvider>(),
-            child: const GreetingHeader(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(StringsManager.categories.tr(),
-                style: AppTextStyles.font24W500White()),
-          ),
-          CategoryList(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(StringsManager.recommendation.tr(),
-                style: AppTextStyles.font24W500White()),
-          ),
-          const SizedBox(height: 8),
-          const RecommendedWorkoutList(),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text('Recommendations Yor You',
-                style: AppTextStyles.font24W500White()),
-          ),
-          SizedBox(height: 16),
-          Center(
-              child: Icon(Icons.food_bank_outlined,
-                  color: ColorManager.primary, size: 80)),
-          Center(
-            child: Text('Meal Plans Coming Soon..',
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ChangeNotifierProvider.value(
+              value: getIt<UserProvider>(),
+              child: const GreetingHeader(),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+              child: Text(StringsManager.categories.tr(),
+                  style: AppTextStyles.font24W500White()),
+            ),
+            SizedBox(height: screenHeight * 0.01),
+            CategoryList(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+              child: Text(StringsManager.recommendation.tr(),
+                  style: AppTextStyles.font24W500White()),
+            ),
+            SizedBox(height: screenHeight * 0.01),
+            const RecommendedWorkoutList(),
+            SizedBox(height: screenHeight * 0.02),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+              child: Text(StringsManager.recommendationForYou.tr(),
+                  style: AppTextStyles.font24W500White()),
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Center(
+              child: SvgPicture.asset('assets/svg/dish-plate-svgrepo-com.svg',
+                  width: screenWidth * 0.1, height: screenHeight * 0.1),
+            ),
+            SizedBox(height: screenHeight * 0.01),
+            Center(
+              child: Text(
+                StringsManager.mealPlans.tr(),
                 style:
-                    AppTextStyles.font24W500White(color: ColorManager.primary)),
-          ),
-        ],
+                    AppTextStyles.font24W500White(color: ColorManager.primary),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.05),
+          ],
+        ),
       ),
     );
   }
@@ -102,6 +126,7 @@ class GreetingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final user = context.watch<UserProvider>().user;
     final String fullName =
         '${user?.firstName ?? 'Guest'} ${user?.lastName ?? ''}'.trim();
@@ -113,26 +138,30 @@ class GreetingHeader extends StatelessWidget {
         photo != null && photo.isNotEmpty && !photo.startsWith('http');
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.04, vertical: screenWidth * 0.05),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${StringsManager.hi.tr()} $fullName,',
-                style: AppTextStyles.font16W500White(),
-              ),
-              Text(
-                StringsManager.letsStartYourDay.tr(),
-                style: AppTextStyles.font24W800White(),
-              ),
-            ],
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${StringsManager.hi.tr()} $fullName,',
+                  style: AppTextStyles.font16W500White(),
+                ),
+                SizedBox(height: screenWidth * 0.01),
+                Text(
+                  StringsManager.letsStartYourDay.tr(),
+                  style: AppTextStyles.font24W800White(),
+                ),
+              ],
+            ),
           ),
           // Profile Image
           CircleAvatar(
-            radius: 28,
+            radius: screenWidth * 0.07,
             backgroundColor: Colors.grey[300],
             backgroundImage: hasNetworkImage
                 ? NetworkImage(photo)
@@ -140,8 +169,8 @@ class GreetingHeader extends StatelessWidget {
                     ? FileImage(File(photo)) as ImageProvider
                     : null,
             child: (photo == null || photo.isEmpty)
-                ? const Icon(Icons.person,
-                    size: 28, color: ColorManager.primary)
+                ? Icon(Icons.person,
+                    size: screenWidth * 0.07, color: ColorManager.primary)
                 : null,
           ),
         ],
@@ -179,20 +208,22 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     const horizontalPadding = 8.0 * 2;
     const separatorWidth = 16.0 * 3;
     final itemWidth =
         (screenWidth - horizontalPadding - separatorWidth) / categories.length;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(screenWidth * 0.02),
       child: Container(
         decoration: BoxDecoration(
           color: ColorManager.darkGrey,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(screenWidth * 0.05),
         ),
-        height: MediaQuery.of(context).size.height * 0.12,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        height: screenHeight * 0.14,
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.02, vertical: screenHeight * 0.01),
         child: ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
@@ -210,12 +241,12 @@ class CategoryList extends StatelessWidget {
           },
           separatorBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
               child: Container(
                 width: 1,
-                height: MediaQuery.of(context).size.height * 0.08,
+                height: screenHeight * 0.08,
                 color: ColorManager.lightGrey.withOpacity(0.2),
-                margin: const EdgeInsets.symmetric(horizontal: 8),
+                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
               ),
             );
           },
@@ -226,29 +257,42 @@ class CategoryList extends StatelessWidget {
 }
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem(
-      {super.key,
-      required this.title,
-      required this.iconPath,
-      required this.routeName});
+  const CategoryItem({
+    super.key,
+    required this.title,
+    required this.iconPath,
+    required this.routeName,
+  });
+
   final String title;
   final String iconPath;
   final String routeName;
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(routeName);
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(iconPath, fit: BoxFit.cover, width: 60, height: 60),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: AppTextStyles.font16W500White(),
-          ),
+          Image.asset(iconPath,
+              fit: BoxFit.cover,
+              width: screenWidth * 0.15,
+              height: screenWidth * 0.15),
+          SizedBox(height: screenWidth * 0.02),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              title,
+              style: AppTextStyles.font16W500White(),
+              textAlign: TextAlign.center,
+            ),
+          )
         ],
       ),
     );
@@ -388,13 +432,19 @@ class RecommendedWorkoutList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return BlocBuilder<RecommendationCubit, List<Workout>>(
       builder: (context, workouts) {
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: workouts.map((w) {
+        return SizedBox(
+          height: screenHeight * 0.18,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+            itemCount: workouts.length,
+            itemBuilder: (context, index) {
+              final w = workouts[index];
               return GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
@@ -404,13 +454,11 @@ class RecommendedWorkoutList extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  width: 120,
-                  height: 120,
-                  margin: const EdgeInsets.only(
-                    right: 12,
-                  ),
+                  width: screenWidth * 0.35,
+                  height: screenHeight * 0.15,
+                  margin: EdgeInsets.only(right: screenWidth * 0.03),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(screenWidth * 0.05),
                     image: DecorationImage(
                       image: AssetImage(w.imagePath),
                       fit: BoxFit.cover,
@@ -419,7 +467,7 @@ class RecommendedWorkoutList extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.05),
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -432,24 +480,27 @@ class RecommendedWorkoutList extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(screenWidth * 0.05),
+                          bottomRight: Radius.circular(screenWidth * 0.05),
                         ),
                         color: Colors.black.withOpacity(0.3),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.02,
+                          vertical: screenHeight * 0.01),
                       child: Text(
                         w.title,
                         style: AppTextStyles.font16W500White(),
                         textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ),
                 ),
               );
-            }).toList(),
+            },
           ),
         );
       },
@@ -473,74 +524,98 @@ class WorkoutDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Stack(children: [
-        Positioned.fill(
-          child: Image.asset(
-            ImageAssets.editProfileBackground,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Positioned.fill(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: AppSize.s5, sigmaY: AppSize.s5),
-            child: Container(
-              color: Colors.grey.withOpacity(0.1),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Stack(children: [
+          Positioned.fill(
+            child: Image.asset(
+              ImageAssets.editProfileBackground,
+              fit: BoxFit.cover,
             ),
           ),
-        ),
-        ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          children: [
-            CustomAppBar(
-                title: workout.title,
-                onTap: () {
-                  Navigator.pop(context);
-                }),
-            if (workout.tutorial.isNotEmpty)
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.darkGrey.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: AppSize.s5, sigmaY: AppSize.s5),
+              child: Container(
+                color: Colors.grey.withOpacity(0.1),
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                CustomAppBar(
+                    title: workout.title,
+                    onTap: () {
+                      Navigator.pop(context);
+                    }),
+                if (workout.tutorial.isNotEmpty)
+                  Container(
+                    margin: EdgeInsets.all(screenWidth * 0.04),
+                    decoration: BoxDecoration(
+                      color: ColorManager.darkGrey.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                    ),
+                    padding: EdgeInsets.all(screenWidth * 0.04),
+                    child: Text(
+                      workout.tutorial,
+                      style: AppTextStyles.font16W500White(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                SizedBox(height: screenHeight * 0.02),
+                Center(
                   child: Text(
-                    workout.tutorial,
-                    style: AppTextStyles.font16W500White(),
-                    textAlign: TextAlign.center,
+                    'Animated Tutorial',
+                    style: AppTextStyles.font18W400White(),
                   ),
                 ),
-              ),
-            const SizedBox(height: 16),
-            Center(
-              child: Text(
-                'Animated Tutorial',
-                style: AppTextStyles.font18W400White(),
-              ),
+                SizedBox(height: screenHeight * 0.02),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                    child: Image.asset(
+                      workout.gifPath,
+                      fit: BoxFit.contain,
+                      width: double.infinity,
+                      height: screenHeight * 0.3,
+                    ),
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.04),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
+                  child: ElevatedButton.icon(
+                    onPressed: () => _launchYouTube(workout.videoUrl),
+                    icon: Icon(Icons.play_circle, size: screenWidth * 0.06),
+                    label: Text(
+                      "Watch on YouTube",
+                      style: AppTextStyles.font16W500White(),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorManager.primary,
+                      padding: EdgeInsets.symmetric(
+                        vertical: screenHeight * 0.02,
+                        horizontal: screenWidth * 0.04,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.04),
+              ],
             ),
-            const SizedBox(height: 8),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                workout.gifPath,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: () => _launchYouTube(workout.videoUrl),
-              icon: const Icon(Icons.play_circle),
-              label: const Text("Watch on YouTube"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorManager.primary,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                textStyle: AppTextStyles.font16W500White(),
-              ),
-            ),
-          ],
-        ),
-      ]),
+          ),
+        ]),
+      ),
     );
   }
 }

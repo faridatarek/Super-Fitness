@@ -63,7 +63,7 @@ class SelectionButton extends StatelessWidget {
                           ? Container(
                               width: AppSize.s12,
                               height: AppSize.s12,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                               ),

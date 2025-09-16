@@ -51,7 +51,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       keyboardType: widget.keyboardType,
       obscureText: _obscureText,
-      style: AppTextStyles.font18W400White(color: Color(0xffD3D3D3)),
+      style: AppTextStyles.font18W400White(color: const Color(0xffD3D3D3)),
       validator: _validate,
       readOnly: widget.readOnly,
       onChanged: widget.onChange,

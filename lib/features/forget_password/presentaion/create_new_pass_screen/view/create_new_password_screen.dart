@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/features/auth/login/presentation/view/login_screen.dart';
 import 'package:super_fitness/features/base/base_states.dart';
 import 'package:super_fitness/features/base/cubit_builder.dart';
 import 'package:super_fitness/features/base/cubit_listener.dart';
-import '../../../../home/presentation/view/homeScreen.dart';
 import '../view_model/create_new_password_view_model.dart';
 import 'create_new_password_body.dart';
 

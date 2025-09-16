@@ -12,7 +12,6 @@ import '../../../../../utils/assets_manager.dart';
 import '../../../../../utils/color_manager.dart';
 import '../../../../../utils/strings_manager.dart';
 import '../../../../../utils/text_style.dart';
-import '../../../data/models/requests/otp_verify_reset_code_request.dart';
 
 class OtpVerificationBody extends StatelessWidget {
   const OtpVerificationBody({super.key, required this.viewModel});

@@ -32,7 +32,7 @@ class MainLayoutViewModel extends ChangeNotifier {
           StringsManager.explore.tr(),
           style: AppTextStyles.font12W300Primary(),
         ),
-        screen: HomeView(),
+        screen: const HomeView(),
       ),
       TabItem(
         icon: SVGAssets.gymTab,
@@ -40,7 +40,7 @@ class MainLayoutViewModel extends ChangeNotifier {
           StringsManager.workouts.tr(),
           style: AppTextStyles.font12W300Primary(),
         ),
-        screen: ComingSoonScreen(),
+        screen: const ComingSoonScreen(),
       ),
       TabItem(
         icon: SVGAssets.profileTab,
@@ -48,7 +48,7 @@ class MainLayoutViewModel extends ChangeNotifier {
           StringsManager.profile.tr(),
           style: AppTextStyles.font12W300Primary(),
         ),
-        screen: ProfileView(),
+        screen: const ProfileView(),
       ),
       TabItem(
         icon: SVGAssets.chatTab,

@@ -16,7 +16,7 @@ class ComingSoonScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.construction,
                 size: 100,
                 color: ColorManager.primary,

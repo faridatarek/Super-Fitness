@@ -18,6 +18,8 @@ import 'package:super_fitness/utils/text_style.dart';
 import '../../../../../utils/assets_manager.dart';
 
 class LoginViewBody extends StatelessWidget {
+  const LoginViewBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     final viewModel = BlocProvider.of<LoginViewModel>(context);
@@ -35,7 +37,7 @@ class LoginViewBody extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              '${PNGAssets.background1}',
+              PNGAssets.background1,
               fit: BoxFit.cover,
             ),
           ),
@@ -47,7 +49,7 @@ class LoginViewBody extends StatelessWidget {
             padding: EdgeInsets.only(
               top: 50.h,
             ),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image(
@@ -80,7 +82,7 @@ class LoginViewBody extends StatelessWidget {
               child: BackgroundContainer(
                 child: Container(
                   height: 450.h,
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50.r),
                   ),
@@ -94,13 +96,13 @@ class LoginViewBody extends StatelessWidget {
                           children: [
                             Text(
                               StringsManager.login.tr(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
 
                             // Email Field
                             CustomTextField(
@@ -108,7 +110,7 @@ class LoginViewBody extends StatelessWidget {
                               controller: loginValidator.emailController,
                               validator: loginValidator
                                   .validate(LoginValidatorTypesEnum.email),
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.email_outlined,
                                 color: ColorManager.white,
                               ),
@@ -120,7 +122,7 @@ class LoginViewBody extends StatelessWidget {
                               controller: loginValidator.passwordController,
                               validator: loginValidator
                                   .validate(LoginValidatorTypesEnum.password),
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.lock_outline,
                                 color: ColorManager.white,
                               ),
@@ -129,10 +131,10 @@ class LoginViewBody extends StatelessWidget {
 
                             Row(
                               children: [
-                                Spacer(),
+                                const Spacer(),
                                 TextButton(
                                   child: Text(
-                                    "Forget Password?",
+                                    StringsManager.forgetPasswordQ.tr(),
                                     style: AppTextStyles.font14W500BaseColor(),
                                   ),
                                   onPressed: () {
