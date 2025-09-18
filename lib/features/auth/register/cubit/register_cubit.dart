@@ -185,10 +185,12 @@ class RegisterCubit extends BaseCubit {
         ));
       } else {
         emitError(errorMessage: "Registration data incomplete");
+        emit(RegisterState(step: RegisterStep.initial));
       }
     } else if (result is Fail<RegisterResponseEntity?>) {
       emitError(
           errorMessage: result.exception?.toString() ?? "Registration failed");
+      emit(RegisterState(step: RegisterStep.initial));
     }
   }
 }

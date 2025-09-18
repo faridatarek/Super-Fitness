@@ -163,14 +163,26 @@ class GreetingHeader extends StatelessWidget {
           CircleAvatar(
             radius: screenWidth * 0.07,
             backgroundColor: Colors.grey[300],
-            backgroundImage: hasNetworkImage
-                ? NetworkImage(photo)
-                : hasFileImage
-                    ? FileImage(File(photo)) as ImageProvider
-                    : null,
-            child: (photo == null || photo.isEmpty)
-                ? Icon(Icons.person,
-                    size: screenWidth * 0.07, color: ColorManager.primary)
+            backgroundImage: (photo != null &&
+                    photo.isNotEmpty &&
+                    photo != "default-profile.png")
+                ? (hasNetworkImage
+                    ? NetworkImage(photo)
+                    : hasFileImage
+                        ? FileImage(File(photo)) as ImageProvider
+                        : null)
+                : null,
+            child: (photo == null ||
+                    photo.isEmpty ||
+                    photo == "default-profile.png")
+                ? ClipOval(
+                    child: SvgPicture.asset(
+                      SVGAssets.userPlaceholder,
+                      width: screenWidth * 0.14,
+                      height: screenWidth * 0.14,
+                      fit: BoxFit.cover,
+                    ),
+                  )
                 : null,
           ),
         ],
