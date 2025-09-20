@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -32,15 +33,15 @@ class GenderSelection extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         genderProvider
-                            .setGender(StringsManager.male.toLowerCase());
+                            .setGender(StringsManager.male.toLowerCase().tr());
                         onGenderSelected
-                            ?.call(StringsManager.male.toLowerCase());
+                            ?.call(StringsManager.male.toLowerCase().tr());
                       },
                       child: CircleGenderOption(
                         svgPath: SVGAssets.male,
-                        label: StringsManager.male,
+                        label: StringsManager.male.tr(),
                         isSelected: genderProvider.selectedGender ==
-                            StringsManager.male.toLowerCase(),
+                            StringsManager.male.toLowerCase().tr(),
                       ),
                     ),
                     const SizedBox(height: AppSize.s40),
@@ -48,16 +49,16 @@ class GenderSelection extends StatelessWidget {
                     // Female Selection
                     GestureDetector(
                       onTap: () {
-                        genderProvider
-                            .setGender(StringsManager.female.toLowerCase());
+                        genderProvider.setGender(
+                            StringsManager.female.toLowerCase().tr());
                         onGenderSelected
-                            ?.call(StringsManager.female.toLowerCase());
+                            ?.call(StringsManager.female.toLowerCase().tr());
                       },
                       child: CircleGenderOption(
                         svgPath: SVGAssets.female,
-                        label: StringsManager.female,
+                        label: StringsManager.female.tr(),
                         isSelected: genderProvider.selectedGender ==
-                            StringsManager.female.toLowerCase(),
+                            StringsManager.female.toLowerCase().tr(),
                       ),
                     ),
                     const SizedBox(height: AppSize.s60),
@@ -67,7 +68,7 @@ class GenderSelection extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: CustomButton(
-                          text: StringsManager.next,
+                          text: StringsManager.next.tr(),
                           onPressed: onNextPressed,
                         ),
                       ),

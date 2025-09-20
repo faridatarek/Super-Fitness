@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/core/common/result.dart';
+import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/features/auth/login/data/models/request/login_request.dart';
 import 'package:super_fitness/features/auth/login/data/models/response/login_response.dart';
@@ -17,10 +18,10 @@ class LoginViewModel extends BaseCubit {
   final LoginValidator loginValidator;
 
   LoginViewModel(
-      this.loginUsecase,
-      this._setCachedUserUseCase,
-      this.loginValidator,
-      ) : super() {
+    this.loginUsecase,
+    this._setCachedUserUseCase,
+    this.loginValidator,
+  ) : super() {
     loginValidator.attachListeners(_onFieldsChanged);
   }
 
@@ -41,36 +42,45 @@ class LoginViewModel extends BaseCubit {
     }
   }
 
-
   Future<void> _handleLogin(LoginIntent intent) async {
     debugPrint("Start Login");
     emit(LoadingState());
+
     final result = await loginUsecase.login(LoginRequest(
       email: loginValidator.emailController.text,
       password: loginValidator.passwordController.text,
     ));
+
     debugPrint("Login result: $result");
+
     switch (result) {
       case Success<LoginResponse?>():
-        UserProvider().setUser(result.data!.user!);
-        UserProvider().login(result.data!.token!);
-        final cacheResult = await _setCachedUserUseCase.setUser(
-            result.data!.user!, result.data!.token!);
+        final user = result.data!.user!;
+        final token = result.data!.token!;
+
+        final cacheResult = await _setCachedUserUseCase.setUser(user, token);
+
+        getIt<UserProvider>().setUser(user);
+        getIt<UserProvider>().login(token);
+
         debugPrint("Cache result: $cacheResult");
+
         emit(LoginSuccessState(result.data));
         break;
+
       case Fail<LoginResponse?>():
         debugPrint("Login Failed");
-        emit(ErrorState(result.exception.toString()));
+
+        final message = result.data?.message ?? result.exception.toString();
+
+        emit(ErrorState(message));
+        emitError(errorMessage: message);
         break;
-
     }
-
   }
 
   @override
-  void start() {
-  }
+  void start() {}
 }
 
 sealed class LoginScreenIntent {}
@@ -92,6 +102,3 @@ class LoginSuccessState extends LoginState {
   final LoginResponse? loginResponse;
   LoginSuccessState(this.loginResponse);
 }
-
-
-

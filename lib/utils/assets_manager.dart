@@ -34,6 +34,18 @@ class SVGAssets {
   static const String appleCircle = "${_basePath}apple circle.svg";
   static const String triangle = "${_basePath}triangle.svg";
   static const String edit = "${_basePath}edit.svg";
+  static const String userPlaceholder = "${_basePath}user_placeholder.svg";
+  static const String homeTab = "${_basePath}hometap.svg";
+  static const String chatTab = "${_basePath}chat_ai.svg";
+  static const String gymTab = "${_basePath}gym.svg";
+  static const String profileTab = "${_basePath}profile.svg";
+  static const String change = "${_basePath}Change.svg";
+  static const String help = "${_basePath}Help.svg";
+  static const String language = "${_basePath}Language.svg";
+  static const String lockSetting = "${_basePath}Lock_Setting.svg";
+  static const String logout = "${_basePath}logout.svg";
+  static const String profilemenu = "${_basePath}profile_menu.svg";
+  static const String securityWarning = "${_basePath}Security_Warning.svg";
 }
 
 class LottieAssets {

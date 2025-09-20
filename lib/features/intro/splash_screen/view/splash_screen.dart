@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:super_fitness/utils/color_manager.dart';
 import '../../../../utils/assets_manager.dart';
 import '../../onboarding_screen/view/onboarding_screen.dart';
-import '../../onboarding_screen/view_model/onboarding_view_model.dart';
 import '../view_model/splash_state.dart';
 import '../view_model/splash_view_model.dart';
 

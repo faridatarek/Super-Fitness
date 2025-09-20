@@ -5,8 +5,8 @@ import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
-
-PreferredSizeWidget CustomAppBar({required String title,List<Widget>? actions,}) {
+PreferredSizeWidget CustomAppBar(
+    {required String title, List<Widget>? actions, VoidCallback? onTap}) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -17,11 +17,18 @@ PreferredSizeWidget CustomAppBar({required String title,List<Widget>? actions,})
     ),
     leadingWidth: 40.w,
     leading: Padding(
-      padding:  EdgeInsets.only(left:10.w),
-      child: CircleAvatar(
-        radius: 10.r,
-        backgroundColor: ColorManager.primary,
-        child: SvgPicture.asset(SVGAssets.arrowIcon,width: 15.w,height: 15.h,),
+      padding: EdgeInsets.only(left: 10.w),
+      child: InkWell(
+        onTap: onTap,
+        child: CircleAvatar(
+          radius: 10.r,
+          backgroundColor: ColorManager.primary,
+          child: SvgPicture.asset(
+            SVGAssets.arrowIcon,
+            width: 15.w,
+            height: 15.h,
+          ),
+        ),
       ),
     ),
     actions: actions,

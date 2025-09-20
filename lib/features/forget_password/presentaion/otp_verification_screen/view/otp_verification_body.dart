@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:super_fitness/features/forget_password/data/models/requests/forgot_password_request.dart';
@@ -11,7 +12,6 @@ import '../../../../../utils/assets_manager.dart';
 import '../../../../../utils/color_manager.dart';
 import '../../../../../utils/strings_manager.dart';
 import '../../../../../utils/text_style.dart';
-import '../../../data/models/requests/otp_verify_reset_code_request.dart';
 
 class OtpVerificationBody extends StatelessWidget {
   const OtpVerificationBody({super.key, required this.viewModel});
@@ -29,7 +29,7 @@ class OtpVerificationBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 18.0),
             child: Text(
-              StringsManager.otpCode,
+              StringsManager.otpCode.tr(),
               style: AppTextStyles.font14W800White(fontSize: 20),
             ),
           ),
@@ -37,7 +37,7 @@ class OtpVerificationBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 18.0),
             child: Text(
-              StringsManager.enterYourOtp,
+              StringsManager.enterYourOtp.tr(),
               style: AppTextStyles.font18W400White(),
             ),
           ),
@@ -110,19 +110,19 @@ class OtpVerificationBody extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: CustomButton(
                     onPressed: () {},
-                    text: StringsManager.confirm,
+                    text: StringsManager.confirm.tr(),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  StringsManager.didntReceiveCode,
+                  StringsManager.didntReceiveCode.tr(),
                   style: AppTextStyles.font18W400White(fontSize: 16),
                 ),
                 TextButton(
                   onPressed: () => viewModel.forgetPassword(
                       ForgotPasswordRequest(email: DataIntent.getUserMail()!)),
                   child: Text(
-                    StringsManager.resendCode,
+                    StringsManager.resendCode.tr(),
                     style: AppTextStyles.font20W800White(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

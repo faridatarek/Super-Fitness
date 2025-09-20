@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:super_fitness/utils/color_manager.dart';
 
 class CustomBlurContainer extends StatelessWidget {
   final Widget child;

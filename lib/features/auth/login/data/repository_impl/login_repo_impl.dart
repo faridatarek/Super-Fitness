@@ -1,6 +1,6 @@
-
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/core/common/result.dart';
+import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/features/auth/domain/models/user.dart';
 import 'package:super_fitness/features/auth/login/data/contracts/offline_dataSource.dart';
@@ -26,14 +26,13 @@ class LoginRepoImpl implements LoginRepository {
     }
   }
 
-
   @override
   Future<Result<String?>> checkCachedUser() async {
     final result = await _offlineDataSource.checkUser();
     switch (result) {
       case Success<String?>():
         if (result.data != null) {
-          UserProvider().login(result.data!);
+          getIt<UserProvider>().login(result.data!);
         }
         return result;
       case Fail<String?>():
@@ -46,7 +45,7 @@ class LoginRepoImpl implements LoginRepository {
     final result = await _offlineDataSource.getUser();
     switch (result) {
       case Success<User>():
-        UserProvider().setUser(result.data!);
+        getIt<UserProvider>().setUser(result.data!);
         return result;
       case Fail<User>():
         return result;

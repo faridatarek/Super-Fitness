@@ -123,4 +123,43 @@ class StringsManager {
   static const String camera = 'Camera';
   static const String gallery = 'Gallery';
   static const String guest = 'Guest';
+  static const String yourRegularActivityLevel =
+      'YOUR REGULAR PHYSICAL \nACTIVITY LEVEL ?';
+  //mainlayout
+  static const String explore = 'Explore';
+  static const String workouts = 'Workouts';
+  static const String chat = 'Chat';
+  static const String profile = 'Profile';
+
+  //profile view
+  static const String changePassword = 'Change Password';
+  static const String slectLanguage = 'Select Language';
+  static const String security = 'Security';
+  static const String privacyPolicy = 'Privacy Policy';
+  static const String help = 'Help';
+  static const logout = 'Logout';
+
+  //chat view
+  static const String smartCoach = 'Smart Coach';
+  static const String typeYourMessage = 'Type your message...';
+  static const String iAmYourSmartCoach = 'I Am your smart coach';
+  static const String hi = 'Hi ,';
+  static const String howCanIAssistYou = 'How Can I Assist You';
+  static const String today = 'Today ?';
+  static const String getStarted = 'Get Started';
+
+  //home view
+  static const String categories = 'Categories';
+  static const String recommendation = 'Recommendation Today';
+  static const String letsStartYourDay = "Let's Start Your Day";
+  static const String gym = 'Gym';
+  static const String yoga = 'Yoga';
+  static const String aerobics = 'Aerobics';
+  static const String trainer = 'Trainer';
+  static const String recommendationForYou = 'Recommendations For You';
+  static const String mealPlans = 'Meal Plans Coming Soon..';
+  //coming soon
+  static const String thisFeatureIsComingSoon = 'This feature is\ncoming soon!';
+  static const String stayTuned =
+      'We’re working hard to bring this to you.\nStay tuned for updates!';
 }

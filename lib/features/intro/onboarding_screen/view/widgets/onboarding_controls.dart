@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/blured_countainer.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
@@ -44,7 +46,7 @@ class OnboardingControls extends StatelessWidget {
                     if (pageIndex > 0)
                       _buildAnimatedButton(
                         context,
-                        text: StringsManager.onboardingBack,
+                        text: StringsManager.onboardingBack.tr(),
                         color: ColorManager.transparent,
                         borderColor: ColorManager.primary,
                         onPressed: () {
@@ -58,7 +60,7 @@ class OnboardingControls extends StatelessWidget {
                       Expanded(
                         child: _buildButton(
                           context,
-                          text: StringsManager.onboardingNext,
+                          text: StringsManager.onboardingNext.tr(),
                           color: ColorManager.primary,
                           onPressed: () {
                             pageController.nextPage(
@@ -71,11 +73,16 @@ class OnboardingControls extends StatelessWidget {
                     else
                       _buildAnimatedButton(
                         context,
-                        text: pageIndex == totalPages - 1 ? StringsManager.onboardingDoIt: StringsManager.onboardingNext,
+                        text: pageIndex == totalPages - 1
+                            ? StringsManager.onboardingDoIt.tr()
+                            : StringsManager.onboardingNext.tr(),
                         color: ColorManager.primary,
                         onPressed: () {
                           if (pageIndex == totalPages - 1) {
-                            // ToDo: Navigate to login screen
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              AppRoutes.loginScreen,
+                              (route) => false,
+                            );
                           } else {
                             pageController.nextPage(
                               duration: const Duration(milliseconds: 500),
@@ -95,12 +102,12 @@ class OnboardingControls extends StatelessWidget {
   }
 
   Widget _buildAnimatedButton(
-      BuildContext context, {
-        required String text,
-        required Color color,
-        required VoidCallback onPressed,
-        Color? borderColor,
-      }) {
+    BuildContext context, {
+    required String text,
+    required Color color,
+    required VoidCallback onPressed,
+    Color? borderColor,
+  }) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
       transitionBuilder: (Widget child, Animation<double> animation) {
@@ -123,8 +130,9 @@ class OnboardingControls extends StatelessWidget {
           duration: const Duration(milliseconds: 500),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return SlideTransition(
-              position: Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
-                  .animate(animation),
+              position:
+                  Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
+                      .animate(animation),
               child: FadeTransition(opacity: animation, child: child),
             );
           },
@@ -138,24 +146,21 @@ class OnboardingControls extends StatelessWidget {
     );
   }
 
-
   Widget _buildButton(
-      BuildContext context, {
-        required String text,
-        required Color color,
-        required VoidCallback onPressed,
-        bool isExpanded = false,
-        Color? borderColor,
-
-      }) {
+    BuildContext context, {
+    required String text,
+    required Color color,
+    required VoidCallback onPressed,
+    bool isExpanded = false,
+    Color? borderColor,
+  }) {
     final button = ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color:borderColor??color ),
+          side: BorderSide(color: borderColor ?? color),
           borderRadius: BorderRadius.circular(30),
-
         ),
       ),
       child: Text(
@@ -168,8 +173,6 @@ class OnboardingControls extends StatelessWidget {
   }
 }
 
-
-
 class SkipButton extends StatelessWidget {
   const SkipButton({super.key});
 
@@ -180,10 +183,13 @@ class SkipButton extends StatelessWidget {
       right: 20,
       child: TextButton(
         onPressed: () {
-          // ToDo: Navigate to login screen
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            AppRoutes.loginScreen,
+            (route) => false,
+          );
         },
         child: Text(
-          StringsManager.onboardingSkip,
+          StringsManager.onboardingSkip.tr(),
           style: AppTextStyles.font18W400White(
             fontSize: AppSize.s14,
             color: ColorManager.lightGrey,
@@ -193,4 +199,3 @@ class SkipButton extends StatelessWidget {
     );
   }
 }
-

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/routes/route_not_found.dart';
 import 'package:super_fitness/features/auth/login/presentation/view/login_screen.dart';
+import 'package:super_fitness/features/edit_profile/presentation/views/FAQ_screen.dart';
+import 'package:super_fitness/features/edit_profile/presentation/views/help_screen.dart';
 import 'package:super_fitness/features/home/chatBot/presentation/view/chatBot_view.dart';
 import 'package:super_fitness/features/home/chatBot/presentation/view/startChat_view.dart';
 import 'package:super_fitness/features/edit_profile/presentation/views/edit_profile_view.dart';
@@ -9,8 +11,10 @@ import 'package:super_fitness/features/forget_password/presentaion/create_new_pa
 import 'package:super_fitness/features/forget_password/presentaion/forgot_password_screen/view/forgot_password_screen.dart';
 import 'package:super_fitness/features/forget_password/presentaion/otp_verification_screen/view/otp_verification_screen.dart';
 import 'package:super_fitness/features/auth/register/presentation/views/register_view.dart';
+import 'package:super_fitness/features/home/presentation/view/coming_soon_screen.dart';
 import 'package:super_fitness/features/intro/onboarding_screen/view/onboarding_screen.dart';
 import 'package:super_fitness/features/intro/splash_screen/view/splash_screen.dart';
+import 'package:super_fitness/features/mian_lay_out_screen/mian_lay_out_view/mian_lay_out_screen.dart';
 
 import '../../features/home/presentation/view/homeScreen.dart';
 
@@ -18,19 +22,19 @@ Route manageRoutes(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.splashScreen:
       return MaterialPageRoute(
-        builder: (context) => SplashScreen(),
+        builder: (context) => const SplashScreen(),
       );
     case AppRoutes.homeScreen:
       return MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => const HomeScreen(),
       );
     case AppRoutes.loginScreen:
       return MaterialPageRoute(
-        builder: (context) => LoginScreen(),
+        builder: (context) => const LoginScreen(),
       );
     case AppRoutes.ChatScreen:
       return MaterialPageRoute(
-        builder: (context) => ChatScreen(),
+        builder: (context) => const ChatScreen(),
       );
     case AppRoutes.StartchatView:
       return MaterialPageRoute(
@@ -61,6 +65,24 @@ Route manageRoutes(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const EditProfileView(),
         // builder: (context) => OnboardingScreen(),
+      );
+    case AppRoutes.mainLayout:
+      return MaterialPageRoute(
+        builder: (context) => const MainLayOutScreen(),
+        // builder: (context) => OnboardingScreen(),
+      );
+    case AppRoutes.comingSoonScreen:
+      return MaterialPageRoute(
+        builder: (context) => const ComingSoonScreen(),
+        // builder: (context) => OnboardingScreen(),
+      );
+    case AppRoutes.helpScreen:
+      return MaterialPageRoute(
+        builder: (context) => const HelpScreen(),
+      );
+    case AppRoutes.FAQScreen:
+      return MaterialPageRoute(
+        builder: (context) => const FAQScreen(),
       );
     default:
       return MaterialPageRoute(

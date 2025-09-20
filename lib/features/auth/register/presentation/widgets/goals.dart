@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
@@ -43,7 +44,7 @@ class GoalsScreen extends StatelessWidget {
                           onPressed: goalsProvider.selectedItem != null
                               ? () => onNext(goalsProvider.selectedItem!)
                               : null,
-                          text: StringsManager.next,
+                          text: StringsManager.next.tr(),
                         ),
                       ),
                     ],

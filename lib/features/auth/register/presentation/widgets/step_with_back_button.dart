@@ -42,7 +42,7 @@ class StepWithBackButton extends StatelessWidget {
             ),
           ),
         ),
-        Spacer(),
+        const Spacer(),
         if (currentStepIndex > 0)
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +58,7 @@ class StepWithBackButton extends StatelessWidget {
               child,
             ],
           ),
-        Spacer(
+        const Spacer(
           flex: 2,
         ),
       ],

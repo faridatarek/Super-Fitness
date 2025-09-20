@@ -17,7 +17,7 @@ class BackgroundContainer extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color:
-                Color(0xFF242424).withOpacity(0.1), // Adjust opacity as needed
+                const Color(0xFF242424).withOpacity(0.1), // Adjust opacity as needed
           ),
           child: child,
         ),

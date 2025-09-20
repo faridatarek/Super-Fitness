@@ -1,20 +1,15 @@
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:super_fitness/core/di/di.dart';
 import 'package:super_fitness/core/local/providers/user_provider.dart';
-
 import 'package:super_fitness/features/base/base_cubit.dart';
 import 'package:super_fitness/features/base/base_states.dart';
 
-
 @injectable
 class ChatCubit extends BaseCubit {
-
   final TextEditingController controller = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? file;
@@ -36,7 +31,7 @@ class ChatCubit extends BaseCubit {
     if (userProvider.user == null) {
       debugPrint("⏳ User data is not ready yet. Waiting...");
       await Future.doWhile(() async {
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
         return userProvider.user == null;
       });
     }
@@ -46,20 +41,26 @@ class ChatCubit extends BaseCubit {
     final String userMessage = controller.text;
     final String fullMessage = "$userInfo\n\nUser Question: $userMessage";
 
+    // Add user message
     messages.add({
       "text": userMessage,
       "file": file,
       "sender": true,
       "hasImage": file != null,
     });
-
     emit(ChatMessageAdded(messages.last));
+
+    // Emit loading while waiting for Gemini
+    emit(ChatLoading());
 
     Gemini gemini = Gemini.instance;
     if (file != null) {
-      gemini.textAndImage(text: fullMessage, images: [file!.readAsBytesSync()]).then((value) {
+      gemini.textAndImage(
+        text: fullMessage,
+        images: [file!.readAsBytesSync()],
+      ).then((value) {
         messages.add({
-          "text": value!.output,
+          "text": value?.output ?? "⚠ No response",
           "file": null,
           "sender": false,
           "hasImage": false,
@@ -69,7 +70,7 @@ class ChatCubit extends BaseCubit {
     } else {
       gemini.text(fullMessage).then((value) {
         messages.add({
-          "text": value!.output,
+          "text": value?.output ?? "⚠ No response",
           "file": null,
           "sender": false,
           "hasImage": false,
@@ -77,10 +78,10 @@ class ChatCubit extends BaseCubit {
         emit(ChatMessageAdded(messages.last));
       });
     }
+
     controller.clear();
     file = null;
   }
-
 
   String _getUserInfo(userProvider) {
     final userGoal = userProvider.user?.goal ?? "No specific goal.";
@@ -103,11 +104,11 @@ class ChatCubit extends BaseCubit {
   }
 
   @override
-  void start() {
-    // TODO: implement start
-  }
+  void start() {}
 }
-sealed class ChatState extends BaseState{}
+
+// ---------------- States ----------------
+sealed class ChatState extends BaseState {}
 
 class ChatInitial extends ChatState {}
 
@@ -121,4 +122,4 @@ class ChatMessageAdded extends ChatState {
   ChatMessageAdded(this.message);
 }
 
-
+class ChatLoading extends ChatState {}

@@ -23,6 +23,7 @@ class EditProfileResponse {
 
   EditProfileEntity toEntity() {
     return EditProfileEntity(
+      message: message ?? '',
       lastName: user?.lastName,
       firstName: user?.firstName,
       email: user?.email,

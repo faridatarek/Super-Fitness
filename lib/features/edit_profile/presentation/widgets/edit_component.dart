@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +54,7 @@ class EditComponent extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringsManager.whatIsYourWeight,
+              StringsManager.whatIsYourWeight.tr(),
               style: AppTextStyles.font20W800White()
                   .copyWith(fontWeight: FontWeight.w900),
             ),
@@ -64,7 +65,7 @@ class EditComponent extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringsManager.weightPersonalizedPlan,
+              StringsManager.weightPersonalizedPlan.tr(),
               style: AppTextStyles.font16W500White(),
             ),
           ),
@@ -75,11 +76,11 @@ class EditComponent extends StatelessWidget {
           child: NumberSelector(
             min: 30,
             max: 150,
-            labelText: StringsManager.kg,
+            labelText: StringsManager.kg.tr(),
             onNextPressed: (selectedValue) {
               Navigator.pop(context, '$selectedValue kg');
             },
-            buttonText: StringsManager.done,
+            buttonText: StringsManager.done.tr(),
           ),
         ),
       ],
@@ -88,11 +89,11 @@ class EditComponent extends StatelessWidget {
 
   Widget _buildGoalSelector(BuildContext context) {
     final List<String> goals = [
-      StringsManager.gainWeight,
-      StringsManager.loseWeight,
-      StringsManager.getFitter,
-      StringsManager.gainMoreFlexible,
-      StringsManager.learnTheBasic
+      StringsManager.gainWeight.tr(),
+      StringsManager.loseWeight.tr(),
+      StringsManager.getFitter.tr(),
+      StringsManager.gainMoreFlexible.tr(),
+      StringsManager.learnTheBasic.tr()
     ];
 
     return Column(
@@ -102,7 +103,7 @@ class EditComponent extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringsManager.whatIsYourGoal,
+              StringsManager.whatIsYourGoal.tr(),
               style: AppTextStyles.font20W800White()
                   .copyWith(fontWeight: FontWeight.w900),
             ),
@@ -113,7 +114,7 @@ class EditComponent extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringsManager.goalPersonalizedPlan,
+              StringsManager.goalPersonalizedPlan.tr(),
               style: AppTextStyles.font16W500White(),
             ),
           ),
@@ -137,11 +138,11 @@ class EditComponent extends StatelessWidget {
 
   Widget _buildActivityLevelSelector(BuildContext context) {
     final Map<String, String> levelMap = {
-      StringsManager.rookie: 'Rookie',
-      StringsManager.beginner: 'Beginner',
-      StringsManager.intermediate: 'Intermediate',
-      StringsManager.advance: 'Advance',
-      StringsManager.trueBeast: 'True Beast',
+      StringsManager.rookie.tr(): 'Rookie',
+      StringsManager.beginner.tr(): 'Beginner',
+      StringsManager.intermediate.tr(): 'Intermediate',
+      StringsManager.advance.tr(): 'Advance',
+      StringsManager.trueBeast.tr(): 'True Beast',
     };
 
     return Column(
@@ -151,7 +152,7 @@ class EditComponent extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringsManager.yourActivityLevel,
+              StringsManager.yourRegularActivityLevel.tr(),
               style: AppTextStyles.font20W800White()
                   .copyWith(fontWeight: FontWeight.w900),
             ),

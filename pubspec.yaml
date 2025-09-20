@@ -59,6 +59,9 @@ dependencies:
   json_annotation:
   flutter_launcher_icons: ^0.14.3
   path:
+  flutter_phoenix: ^1.1.1
+  shared_preferences: ^2.5.3
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
@@ -93,7 +96,8 @@ flutter:
     - assets/svg/
     - assets/images/
     - assets/lotties/
-
+    - assets/translations/
+    - assets/images/tutorials/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
