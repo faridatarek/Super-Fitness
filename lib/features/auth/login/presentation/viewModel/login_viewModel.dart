@@ -70,7 +70,11 @@ class LoginViewModel extends BaseCubit {
 
       case Fail<LoginResponse?>():
         debugPrint("Login Failed");
-        emit(ErrorState(result.exception.toString()));
+
+        final message = result.data?.message ?? result.exception.toString();
+
+        emit(ErrorState(message));
+        emitError(errorMessage: message);
         break;
     }
   }
