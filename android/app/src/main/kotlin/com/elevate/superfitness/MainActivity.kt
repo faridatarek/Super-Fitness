@@ -1,4 +1,4 @@
-package com.example.super_fitness
+package com.elevate.superfitness
 
 import io.flutter.embedding.android.FlutterActivity
 
