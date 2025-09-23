@@ -12,6 +12,7 @@ import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/features/auth/login/data/dataSource/offline_dataSource/cache_user_model.dart';
 import 'package:super_fitness/features/auth/login/data/dtos/hive_user_dto.dart';
+import 'package:super_fitness/features/intro/onboarding_screen/onboarding_helper.dart';
 import 'package:super_fitness/utils/theme_manger.dart';
 import 'core/routes/router.dart';
 
@@ -36,14 +37,19 @@ Future<void> main() async {
 
   try {
     final token = await HiveManager().getToken();
+    final hasSeenOnboarding =
+        await SharedPreferencesService.hasSeenOnboarding();
+
     if (token != null) {
       final userModel = await HiveManager().getUser();
       final user = HiveUserDto.toEntity(userModel);
       userProvider.login(token);
       userProvider.setUser(user);
       initialRoute = AppRoutes.mainLayout;
-        } else {
+    } else if (!hasSeenOnboarding) {
       initialRoute = AppRoutes.splashScreen;
+    } else {
+      initialRoute = AppRoutes.loginScreen;
     }
   } catch (e) {
     initialRoute = AppRoutes.loginScreen;

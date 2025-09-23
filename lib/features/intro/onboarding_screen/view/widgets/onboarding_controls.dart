@@ -1,8 +1,10 @@
+// onboarding_controls.dart
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
+import 'package:super_fitness/features/intro/onboarding_screen/onboarding_helper.dart';
 import 'package:super_fitness/features/intro/onboarding_screen/view/widgets/blured_countainer.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
@@ -13,11 +15,13 @@ import '../../view_model/onboarding_view_model.dart';
 class OnboardingControls extends StatelessWidget {
   final PageController pageController;
   final int totalPages;
+  final int currentPageIndex;
 
   const OnboardingControls({
     super.key,
     required this.pageController,
     required this.totalPages,
+    required this.currentPageIndex,
   });
 
   @override
@@ -55,6 +59,8 @@ class OnboardingControls extends StatelessWidget {
                             curve: Curves.easeInOut,
                           );
                         },
+                        pageIndex: pageIndex,
+                        totalPages: totalPages,
                       ),
                     if (pageIndex == 0)
                       Expanded(
@@ -90,6 +96,8 @@ class OnboardingControls extends StatelessWidget {
                             );
                           }
                         },
+                        pageIndex: pageIndex,
+                        totalPages: totalPages,
                       ),
                   ],
                 ),
@@ -106,6 +114,8 @@ class OnboardingControls extends StatelessWidget {
     required String text,
     required Color color,
     required VoidCallback onPressed,
+    required int pageIndex,
+    required int totalPages,
     Color? borderColor,
   }) {
     return AnimatedSwitcher(
@@ -118,7 +128,12 @@ class OnboardingControls extends StatelessWidget {
       },
       child: ElevatedButton(
         key: ValueKey(text),
-        onPressed: onPressed,
+        onPressed: () async {
+          if (pageIndex == totalPages - 1) {
+            await SharedPreferencesService.setOnboardingSeen();
+          }
+          onPressed();
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           shape: RoundedRectangleBorder(
@@ -182,7 +197,8 @@ class SkipButton extends StatelessWidget {
       top: 40,
       right: 20,
       child: TextButton(
-        onPressed: () {
+        onPressed: () async {
+          await SharedPreferencesService.setOnboardingSeen();
           Navigator.of(context).pushNamedAndRemoveUntil(
             AppRoutes.loginScreen,
             (route) => false,

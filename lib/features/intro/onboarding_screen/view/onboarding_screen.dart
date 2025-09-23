@@ -1,3 +1,4 @@
+// onboarding_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness/core/widgets/custom_scaffold.dart';
@@ -19,7 +20,6 @@ class OnboardingScreen extends StatelessWidget {
           final cubit = context.read<OnboardingCubit>();
 
           return CustomScaffold(
-
             body: Column(
               children: [
                 Expanded(
@@ -33,17 +33,22 @@ class OnboardingScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return AnimatedSwitcher(
                             duration: const Duration(milliseconds: 500),
-                            transitionBuilder: (Widget child, Animation<double> animation) {
+                            transitionBuilder:
+                                (Widget child, Animation<double> animation) {
                               return FadeTransition(
                                 opacity: animation,
-                                child: ScaleTransition(scale: animation, child: child),
+                                child: ScaleTransition(
+                                    scale: animation, child: child),
                               );
                             },
                             child: OnboardingPage(
                               key: ValueKey(index),
-                              image: OnBoardingData.onboardingData[index]["image"]!,
-                              title: OnBoardingData.onboardingData[index]["title"]!,
-                              description: OnBoardingData.onboardingData[index]["description"]!,
+                              image: OnBoardingData.onboardingData[index]
+                                  ["image"]!,
+                              title: OnBoardingData.onboardingData[index]
+                                  ["title"]!,
+                              description: OnBoardingData.onboardingData[index]
+                                  ["description"]!,
                             ),
                           );
                         },
@@ -55,6 +60,7 @@ class OnboardingScreen extends StatelessWidget {
                 OnboardingControls(
                   pageController: cubit.getPageController,
                   totalPages: OnBoardingData.onboardingData.length,
+                  currentPageIndex: currentIndex,
                 ),
               ],
             ),
