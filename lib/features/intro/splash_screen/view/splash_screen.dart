@@ -1,9 +1,12 @@
+// splash_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:super_fitness/features/intro/onboarding_screen/onboarding_helper.dart';
 import '../../../../utils/assets_manager.dart';
 import '../../onboarding_screen/view/onboarding_screen.dart';
 import '../view_model/splash_state.dart';
 import '../view_model/splash_view_model.dart';
+import 'package:super_fitness/core/routes/app_routes.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -13,14 +16,25 @@ class SplashScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => SplashCubit()..startTimer(),
       child: BlocListener<SplashCubit, SplashState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is SplashFinished) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (_) => const OnboardingScreen(),
-              ),
-            );
+            final hasSeenOnboarding =
+                await SharedPreferencesService.hasSeenOnboarding();
 
+            if (hasSeenOnboarding) {
+              // ignore: use_build_context_synchronously
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                AppRoutes.loginScreen,
+                (route) => false,
+              );
+            } else {
+              // ignore: use_build_context_synchronously
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (_) => const OnboardingScreen(),
+                ),
+              );
+            }
           }
         },
         child: const Scaffold(

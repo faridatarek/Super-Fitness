@@ -26,10 +26,12 @@ class LoginViewBody extends StatelessWidget {
     final loginValidator = viewModel.loginValidator;
 
     void login() {
-      viewModel.handleIntent(LoginIntent(
-        email: loginValidator.emailController.text,
-        password: loginValidator.passwordController.text,
-      ));
+      if (loginValidator.loginFormKey.currentState?.validate() ?? false) {
+        viewModel.handleIntent(LoginIntent(
+          email: loginValidator.emailController.text,
+          password: loginValidator.passwordController.text,
+        ));
+      }
     }
 
     return Scaffold(
@@ -91,99 +93,105 @@ class LoginViewBody extends StatelessWidget {
                     child: ValueListenableBuilder<bool>(
                       valueListenable: viewModel.fieldsFilledNotifier,
                       builder: (context, areAllFieldsFilled, state) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              StringsManager.login.tr(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                        return SingleChildScrollView(
+                          // 🔥 make only fields scrollable
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                StringsManager.login.tr(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 20),
+                              const SizedBox(height: 20),
 
-                            // Email Field
-                            CustomTextField(
-                              hint: StringsManager.email.tr(),
-                              controller: loginValidator.emailController,
-                              validator: loginValidator
-                                  .validate(LoginValidatorTypesEnum.email),
-                              prefixIcon: const Icon(
-                                Icons.email_outlined,
-                                color: ColorManager.white,
+                              // Email Field
+                              CustomTextField(
+                                hint: StringsManager.email.tr(),
+                                controller: loginValidator.emailController,
+                                validator: loginValidator
+                                    .validate(LoginValidatorTypesEnum.email),
+                                prefixIcon: const Icon(
+                                  Icons.email_outlined,
+                                  color: ColorManager.white,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 20.h),
+                              SizedBox(height: 20.h),
 
-                            CustomTextField(
-                              hint: StringsManager.password.tr(),
-                              controller: loginValidator.passwordController,
-                              validator: loginValidator
-                                  .validate(LoginValidatorTypesEnum.password),
-                              prefixIcon: const Icon(
-                                Icons.lock_outline,
-                                color: ColorManager.white,
+                              // Password Field
+                              CustomTextField(
+                                hint: StringsManager.password.tr(),
+                                controller: loginValidator.passwordController,
+                                validator: loginValidator
+                                    .validate(LoginValidatorTypesEnum.password),
+                                prefixIcon: const Icon(
+                                  Icons.lock_outline,
+                                  color: ColorManager.white,
+                                ),
+                                obscureText: true,
                               ),
-                              obscureText: true,
-                            ),
 
-                            Row(
-                              children: [
-                                const Spacer(),
-                                TextButton(
-                                  child: Text(
-                                    StringsManager.forgetPasswordQ.tr(),
-                                    style: AppTextStyles.font14W500BaseColor(),
+                              Row(
+                                children: [
+                                  const Spacer(),
+                                  TextButton(
+                                    child: Text(
+                                      StringsManager.forgetPasswordQ.tr(),
+                                      style:
+                                          AppTextStyles.font14W500BaseColor(),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushNamed(context,
+                                          AppRoutes.forgetPasswordScreen);
+                                    },
                                   ),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context,
-                                        AppRoutes.forgetPasswordScreen);
-                                  },
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 40.h),
+                                ],
+                              ),
+                              SizedBox(height: 40.h),
 
-                            BlocBuilder<LoginViewModel, BaseState>(
-                              builder: (context, state) {
-                                if (state is LoadingState) {
-                                  return const CircularProgressIndicator();
-                                }
-                                return CustomButton(
-                                  text: StringsManager.login.tr(),
-                                  color: areAllFieldsFilled
-                                      ? ColorManager.primary
-                                      : Colors.grey,
-                                  onPressed: areAllFieldsFilled ? login : null,
-                                );
-                              },
-                            ),
-                            SizedBox(height: 15.h),
+                              BlocBuilder<LoginViewModel, BaseState>(
+                                builder: (context, state) {
+                                  if (state is LoadingState) {
+                                    return const CircularProgressIndicator();
+                                  }
+                                  return CustomButton(
+                                    text: StringsManager.login.tr(),
+                                    color: areAllFieldsFilled
+                                        ? ColorManager.primary
+                                        : Colors.grey,
+                                    onPressed:
+                                        areAllFieldsFilled ? login : null,
+                                  );
+                                },
+                              ),
+                              SizedBox(height: 15.h),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  StringsManager.alreadyHaveAccount.tr(),
-                                  style: AppTextStyles.font18W400White(
-                                      fontSize: 14.sp),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, AppRoutes.registerScreen);
-                                  },
-                                  child: Text(
-                                    StringsManager.register.tr(),
-                                    style: AppTextStyles.font14W800White(
-                                        color: ColorManager.primary),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    StringsManager.alreadyHaveAccount.tr(),
+                                    style: AppTextStyles.font18W400White(
+                                        fontSize: 14.sp),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, AppRoutes.registerScreen);
+                                    },
+                                    child: Text(
+                                      StringsManager.register.tr(),
+                                      style: AppTextStyles.font14W800White(
+                                          color: ColorManager.primary),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         );
                       },
                     ),

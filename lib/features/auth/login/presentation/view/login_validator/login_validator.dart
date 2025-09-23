@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:super_fitness/utils/strings_manager.dart';
 
 import 'login_validator_types_enum.dart';
 
 @injectable
 class LoginValidator {
-   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _loginFormKey = GlobalKey<FormState>();
+
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
   GlobalKey<FormState> get loginFormKey => _loginFormKey;
@@ -16,7 +16,6 @@ class LoginValidator {
   void attachListeners(VoidCallback onFieldsChanged) {
     _emailController.addListener(onFieldsChanged);
     _passwordController.addListener(onFieldsChanged);
-
   }
 
   void disposeFields() {
@@ -31,16 +30,18 @@ class LoginValidator {
       case LoginValidatorTypesEnum.password:
         return _validatePassword();
       default:
-        return (String? value) {
-          return null;
-        };
+        return (String? value) => null;
     }
   }
 
   String? Function(String?) _validateEmail() {
     return (String? value) {
-      if (value != null && (value.isEmpty || !value.contains("@"))) {
-        return StringsManager.issueEmptyEamil;
+      if (value == null || value.isEmpty) {
+        return '"email" is required';
+      }
+      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+      if (!emailRegex.hasMatch(value)) {
+        return '"email" must be a valid email';
       }
       return null;
     };
@@ -48,15 +49,33 @@ class LoginValidator {
 
   String? Function(String?) _validatePassword() {
     return (String? value) {
-      final RegExp passwordRegExp = RegExp(
-          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
       if (value == null || value.isEmpty) {
-        return StringsManager.issueEmptyPassword;
-      } else if (!passwordRegExp.hasMatch(value)) {
-        return StringsManager.issuePasswordPattern;
+        return '"password" is required';
       }
-      return null;
+
+      final errors = <String>[];
+
+      if (!RegExp(r'[A-Z]').hasMatch(value)) {
+        errors.add("must contain at least 1 uppercase letter");
+      }
+      if (!RegExp(r'[a-z]').hasMatch(value)) {
+        errors.add("must contain at least 1 lowercase letter");
+      }
+      if (!RegExp(r'[0-9]').hasMatch(value)) {
+        errors.add("must contain at least 1 number");
+      }
+      if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-]').hasMatch(value)) {
+        errors.add("must contain at least 1 special character");
+      }
+      if (value.length < 8) {
+        errors.add("must be at least 8 characters long");
+      }
+
+      if (errors.isNotEmpty) {
+        return 'password is invalid:\n- ${errors.join("\n- ")}';
+      }
+
+      return null; // valid
     };
   }
-
 }
