@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,7 +63,9 @@ Future<void> main() async {
       fallbackLocale: const Locale('en'),
       child: ChangeNotifierProvider(
         create: (_) => userProvider,
-        child: MyApp(initialRoute: initialRoute),
+        child: DevicePreview(
+            enabled: false,
+            builder: (context) => MyApp(initialRoute: initialRoute)),
       ),
     ),
   );

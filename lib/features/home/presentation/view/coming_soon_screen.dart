@@ -1,5 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness/core/routes/app_routes.dart';
+import 'package:super_fitness/utils/assets_manager.dart';
 import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
@@ -16,6 +20,27 @@ class ComingSoonScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                          context, AppRoutes.mainLayout);
+                    },
+                    child: CircleAvatar(
+                      radius: 15.r,
+                      backgroundColor: ColorManager.primary,
+                      child: SvgPicture.asset(
+                        SVGAssets.arrowIcon,
+                        width: 15.w,
+                        height: 15.h,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
               const Icon(
                 Icons.construction,
                 size: 100,
@@ -37,6 +62,7 @@ class ComingSoonScreen extends StatelessWidget {
                   color: Colors.grey[600],
                 ),
               ),
+              const Spacer(),
             ],
           ),
         ),

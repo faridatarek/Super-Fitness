@@ -40,27 +40,41 @@ class _MainLayoutBody extends StatelessWidget {
           return false;
         }
         SystemNavigator.pop();
-
         return true;
       },
       child: Scaffold(
         extendBody: true,
         body: viewModel.currentScreen,
-        bottomNavigationBar: _MainBottomNavigationBar(),
+        bottomNavigationBar: const _MainBottomNavigationBar(),
       ),
     );
   }
 }
 
 class _MainBottomNavigationBar extends StatelessWidget {
+  const _MainBottomNavigationBar();
+
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainLayoutViewModel>();
     final selectedIndex = viewModel.selectedIndex;
     final tabs = viewModel.tabs;
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Dynamic sizing
+    final horizontalPadding = screenWidth * 0.04;
+    final verticalPadding = screenHeight * 0.015;
+    final iconSize = screenWidth * 0.07; // scales with width
+    final fontSize = screenWidth * 0.03;
+
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      padding: EdgeInsets.only(
+        left: horizontalPadding,
+        right: horizontalPadding,
+        bottom: screenHeight * 0.02,
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: Container(
@@ -68,16 +82,19 @@ class _MainBottomNavigationBar extends StatelessWidget {
             color: ColorManager.darkGrey,
             borderRadius: BorderRadius.circular(30),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: EdgeInsets.symmetric(vertical: verticalPadding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(tabs.length, (index) {
               final isSelected = index == selectedIndex;
               return GestureDetector(
                 onTap: () => viewModel.onItemTapped(index),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.04,
+                    vertical: screenHeight * 0.006,
+                  ),
                   decoration: isSelected
                       ? BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -93,16 +110,17 @@ class _MainBottomNavigationBar extends StatelessWidget {
                           isSelected ? ColorManager.primary : Colors.white,
                           BlendMode.srcIn,
                         ),
-                        width: AppSize.s28,
+                        width: iconSize,
                       ),
                       if (isSelected)
                         Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
+                          padding: EdgeInsets.only(top: screenHeight * 0.004),
                           child: Text(
                             tabs[index].label.data!,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: ColorManager.primary,
                               fontWeight: FontWeight.bold,
+                              fontSize: fontSize,
                             ),
                           ),
                         ),

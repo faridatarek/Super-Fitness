@@ -11,6 +11,7 @@ import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_appbar.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/responsive_helper.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
@@ -221,47 +222,40 @@ class CategoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    const horizontalPadding = 8.0 * 2;
-    const separatorWidth = 16.0 * 3;
-    final itemWidth =
-        (screenWidth - horizontalPadding - separatorWidth) / categories.length;
 
     return Padding(
-      padding: EdgeInsets.all(screenWidth * 0.02),
+      padding: EdgeInsets.all(screenWidth * 0.03),
       child: Container(
         decoration: BoxDecoration(
           color: ColorManager.darkGrey,
           borderRadius: BorderRadius.circular(screenWidth * 0.05),
         ),
-        height: screenHeight * 0.14,
         padding: EdgeInsets.symmetric(
-            horizontal: screenWidth * 0.02, vertical: screenHeight * 0.01),
-        child: ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            final category = categories[index];
-            return SizedBox(
-              width: itemWidth,
-              child: CategoryItem(
-                routeName: category['routeName']!,
-                title: category['title']!,
-                iconPath: category['icon']!,
-              ),
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-              child: Container(
+          horizontal: screenWidth * 0.03,
+          vertical: screenWidth * 0.02,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(categories.length * 2 - 1, (index) {
+            if (index.isOdd) {
+              // Divider between items
+              return Container(
                 width: 1,
-                height: screenHeight * 0.08,
+                height: screenHeight * 0.06,
                 color: ColorManager.lightGrey.withOpacity(0.2),
-                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-              ),
-            );
-          },
+              );
+            } else {
+              final itemIndex = index ~/ 2;
+              final category = categories[itemIndex];
+              return Flexible(
+                child: CategoryItem(
+                  routeName: category['routeName']!,
+                  title: category['title']!,
+                  iconPath: category['icon']!,
+                ),
+              );
+            }
+          }),
         ),
       ),
     );
@@ -282,7 +276,7 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final r = ResponsiveHelper.of(context);
 
     return InkWell(
       onTap: () {
@@ -292,19 +286,23 @@ class CategoryItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(iconPath,
-              fit: BoxFit.cover,
-              width: screenWidth * 0.15,
-              height: screenWidth * 0.15),
-          SizedBox(height: screenWidth * 0.02),
+          Image.asset(
+            iconPath,
+            fit: BoxFit.cover,
+            width: r.w(0.15),
+            height: r.w(0.15),
+          ),
+          SizedBox(height: r.h(0.02)),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               title,
-              style: AppTextStyles.font16W500White(),
+              style: AppTextStyles.font16W500White().copyWith(
+                  fontSize: ResponsiveHelper.of(context)
+                      .getResposiveTextSize(context, 16)),
               textAlign: TextAlign.center,
             ),
-          )
+          ),
         ],
       ),
     );

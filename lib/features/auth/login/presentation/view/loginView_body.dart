@@ -12,6 +12,7 @@ import 'package:super_fitness/features/auth/login/presentation/viewModel/login_v
 import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
 import 'package:super_fitness/features/base/base_states.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/responsive_helper.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
@@ -67,7 +68,9 @@ class LoginViewBody extends StatelessWidget {
               children: [
                 Text(
                   StringsManager.heyThere.tr(),
-                  style: AppTextStyles.font18W400White(),
+                  style: AppTextStyles.font18W400White().copyWith(
+                      fontSize: ResponsiveHelper.of(context)
+                          .getResposiveTextSize(context, 18)),
                 ),
                 Text(
                   StringsManager.welcomeBack.tr(),
