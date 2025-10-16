@@ -11,6 +11,7 @@ import 'package:super_fitness/core/local/providers/user_provider.dart';
 import 'package:super_fitness/core/routes/app_routes.dart';
 import 'package:super_fitness/core/widgets/custom_appbar.dart';
 import 'package:super_fitness/utils/color_manager.dart';
+import 'package:super_fitness/utils/responsive_helper.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 
@@ -221,47 +222,40 @@ class CategoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    const horizontalPadding = 8.0 * 2;
-    const separatorWidth = 16.0 * 3;
-    final itemWidth =
-        (screenWidth - horizontalPadding - separatorWidth) / categories.length;
 
     return Padding(
-      padding: EdgeInsets.all(screenWidth * 0.02),
+      padding: EdgeInsets.all(screenWidth * 0.03),
       child: Container(
         decoration: BoxDecoration(
           color: ColorManager.darkGrey,
           borderRadius: BorderRadius.circular(screenWidth * 0.05),
         ),
-        height: screenHeight * 0.14,
         padding: EdgeInsets.symmetric(
-            horizontal: screenWidth * 0.02, vertical: screenHeight * 0.01),
-        child: ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            final category = categories[index];
-            return SizedBox(
-              width: itemWidth,
-              child: CategoryItem(
-                routeName: category['routeName']!,
-                title: category['title']!,
-                iconPath: category['icon']!,
-              ),
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-              child: Container(
+          horizontal: screenWidth * 0.03,
+          vertical: screenWidth * 0.02,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(categories.length * 2 - 1, (index) {
+            if (index.isOdd) {
+              // Divider between items
+              return Container(
                 width: 1,
-                height: screenHeight * 0.08,
+                height: screenHeight * 0.06,
                 color: ColorManager.lightGrey.withOpacity(0.2),
-                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-              ),
-            );
-          },
+              );
+            } else {
+              final itemIndex = index ~/ 2;
+              final category = categories[itemIndex];
+              return Flexible(
+                child: CategoryItem(
+                  routeName: category['routeName']!,
+                  title: category['title']!,
+                  iconPath: category['icon']!,
+                ),
+              );
+            }
+          }),
         ),
       ),
     );
@@ -282,7 +276,7 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final r = ResponsiveHelper.of(context);
 
     return InkWell(
       onTap: () {
@@ -292,19 +286,23 @@ class CategoryItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(iconPath,
-              fit: BoxFit.cover,
-              width: screenWidth * 0.15,
-              height: screenWidth * 0.15),
-          SizedBox(height: screenWidth * 0.02),
+          Image.asset(
+            iconPath,
+            fit: BoxFit.cover,
+            width: r.w(0.15),
+            height: r.w(0.15),
+          ),
+          SizedBox(height: r.h(0.02)),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               title,
-              style: AppTextStyles.font16W500White(),
+              style: AppTextStyles.font16W500White().copyWith(
+                  fontSize: ResponsiveHelper.of(context)
+                      .getResposiveTextSize(context, 16)),
               textAlign: TextAlign.center,
             ),
-          )
+          ),
         ],
       ),
     );
@@ -365,15 +363,14 @@ class RecommendationCubit extends Cubit<List<Workout>> {
         title: "Crunch",
         imagePath: "assets/images/crunches.jpeg",
         gifPath: "assets/images/tutorials/Crunch.gif",
-        videoUrl:
-            "https://example.com/crunch_video.mp4", // Replace with the actual video URL
+        videoUrl: "https://www.youtube.com/watch?v=MKmrqcoCZ-M",
         tutorial:
             "Lie flat on your back with your knees bent and feet flat on the floor. Place your hands lightly behind your head without pulling your neck. Engage your core and lift your upper back off the floor using your abdominal muscles. Keep your lower back in contact with the ground. Pause at the top, then slowly lower back down. Avoid using momentum or straining your neck."),
     Workout(
         title: "Lunges",
         imagePath: "assets/images/8-around-the-clock-lunge.jpg",
         gifPath: "assets/images/tutorials/bodyweight-forward-lunge.gif",
-        videoUrl: "https://www.youtube.com/shorts/05Hf8gM_KmM",
+        videoUrl: "https://www.youtube.com/watch?v=ASdqJoDPMHA",
         tutorial:
             "Stand upright with your feet hip-width apart. Take a big step forward with your right leg and lower your hips until both knees are bent at 90 degrees. The back knee should hover just above the floor, and the front knee should not pass your toes. Push through your front heel to return to the starting position. Repeat on the other leg. Keep your upper body upright and your core tight throughout the movement."),
     Workout(
@@ -401,8 +398,7 @@ class RecommendationCubit extends Cubit<List<Workout>> {
         title: "Leg Raises",
         imagePath: "assets/images/leg_rases.jpg",
         gifPath: "assets/images/tutorials/supine-leg-raises.gif",
-        videoUrl:
-            "https://www.youtube.com/watch?v=G7LdiX_jba4&ab_channel=DEMIC",
+        videoUrl: "https://www.youtube.com/watch?v=Cwuxy8eo7iw",
         tutorial:
             "Lie on your back with your legs straight and arms by your sides. Keeping your legs together, lift them slowly until they form a 90-degree angle with your torso. Slowly lower them back down without letting them touch the floor. Engage your core throughout the movement and avoid arching your lower back."),
     Workout(

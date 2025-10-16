@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/widgets/custom_button.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/background_container.dart';
+import 'package:super_fitness/utils/responsive_helper.dart';
 import 'package:super_fitness/utils/text_style.dart';
 import 'package:super_fitness/utils/values_manager.dart';
 import 'package:wheel_slider/wheel_slider.dart';
@@ -40,7 +41,10 @@ class NumberSelector extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: AppSize.s20.h),
-              Text(labelText, style: AppTextStyles.font12W300Primary()),
+              Text(labelText,
+                  style: AppTextStyles.font12W300Primary().copyWith(
+                      fontSize: ResponsiveHelper.of(context)
+                          .getResposiveTextSize(context, 12))),
               SizedBox(height: AppSize.s20.h),
 
               // WheelSlider instead of ListView
@@ -50,9 +54,14 @@ class NumberSelector extends StatelessWidget {
                 listWidth: AppSize.s200.w,
                 initValue: provider.selectedNumber,
                 totalCount: max,
-                unSelectedNumberStyle: AppTextStyles.font33W900White(),
+                unSelectedNumberStyle: AppTextStyles.font33W900White().copyWith(
+                    fontSize: ResponsiveHelper.of(context)
+                        .getResposiveTextSize(context, 33)),
                 selectedNumberStyle:
-                    AppTextStyles.font33W900White(color: selectedColor),
+                    AppTextStyles.font33W900White(color: selectedColor)
+                        .copyWith(
+                            fontSize: ResponsiveHelper.of(context)
+                                .getResposiveTextSize(context, 33)),
                 onValueChanged: (value) {
                   provider.selectNumber(value);
                 },

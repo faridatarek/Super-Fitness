@@ -19,107 +19,98 @@ class StartchatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              PNGAssets.chatBackground,
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(PNGAssets.chatBackground),
+            fit: BoxFit.cover,
           ),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-            child: Container(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SafeArea(
-                child: AppBar(
-              title: Padding(
-                padding: EdgeInsets.only(top: 15.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "${StringsManager.hi}${userProvider.user?.firstName}",
-                      style: AppTextStyles.font24W500White(fontSize: 18.sp),
-                    ),
-                    Text(
-                      StringsManager.iAmYourSmartCoach.tr(),
-                      style: AppTextStyles.font24W500White(
-                          fontSize: 20.sp, fontWeight: FontWeight.w700),
-                    ),
-                  ],
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              leadingWidth: 40.w,
-              leading: Padding(
-                padding: EdgeInsets.only(left: 10.w),
-                child: InkWell(
-                  onTap: () => Navigator.pushNamedAndRemoveUntil(
-                      context, AppRoutes.mainLayout, (route) => false),
-                  child: CircleAvatar(
-                    radius: 10.r,
-                    backgroundColor: ColorManager.primary,
-                    child: SvgPicture.asset(
-                      SVGAssets.arrowIcon,
-                      width: 15.w,
-                      height: 15.h,
-                    ),
-                  ),
-                ),
-              ),
-            )),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Image.asset(
-                height: 450.h,
-                PNGAssets.startChat,
-              ),
-              Container(
-                height: 200.h,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: ColorManager.chatBotmessage.withOpacity(0.9),
-                    borderRadius: BorderRadius.circular(40.r)),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+          child: SafeArea(
+            child: Column(
+              children: [
+                // Header
+                Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Row(
                     children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Text(StringsManager.howCanIAssistYou.tr(),
-                          style: AppTextStyles.font24W800White(fontSize: 18)),
-                      Text(StringsManager.today.tr(),
-                          style: AppTextStyles.font24W800White(fontSize: 18)),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.w, vertical: 20.h),
-                        child: CustomButton(
-                          text: StringsManager.getStarted.tr(),
-                          onPressed: () => Navigator.pushReplacementNamed(
-                              context, AppRoutes.ChatScreen),
+                      InkWell(
+                        onTap: () => Navigator.pushNamedAndRemoveUntil(
+                            context, AppRoutes.mainLayout, (route) => false),
+                        child: CircleAvatar(
+                          radius: 20.r,
+                          backgroundColor: ColorManager.primary,
+                          child: SvgPicture.asset(
+                            SVGAssets.arrowIcon,
+                            width: 15.w,
+                            height: 15.h,
+                          ),
                         ),
-                      )
+                      ),
+                      SizedBox(width: 15.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${StringsManager.hi}${userProvider.user?.firstName}",
+                              style: AppTextStyles.font24W500White(
+                                  fontSize: 18.sp),
+                            ),
+                            Text(
+                              StringsManager.iAmYourSmartCoach.tr(),
+                              style: AppTextStyles.font24W500White(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 35.w), // Balance the back button
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              const Spacer(),
-            ],
-          )
-        ],
+
+                // Main content - takes remaining space
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Large image
+                      Container(
+                        height: screenHeight * 0.4, // 40% of screen height
+                        width: screenWidth * 0.9, // 90% of screen width
+                        child: Image.asset(
+                          PNGAssets.startChat,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+
+                      // Bottom card
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        child: CustomButton(
+                          text: StringsManager.getStarted.tr(),
+                          onPressed: () => Navigator.pushNamed(
+                              context, AppRoutes.ChatScreen),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

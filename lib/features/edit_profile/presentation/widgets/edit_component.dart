@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:super_fitness/core/widgets/custom_scaffold.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/number_selector.dart';
 import 'package:super_fitness/features/auth/register/presentation/widgets/goals.dart';
 import 'package:super_fitness/utils/assets_manager.dart';
+import 'package:super_fitness/utils/color_manager.dart';
 import 'package:super_fitness/utils/strings_manager.dart';
 import 'package:super_fitness/utils/text_style.dart';
 import 'package:super_fitness/utils/values_manager.dart';
@@ -33,6 +35,24 @@ class EditComponent extends StatelessWidget {
             Image.asset(
               ImageAssets.logo,
               height: AppSize.s48.h,
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: CircleAvatar(
+                    radius: 20.r,
+                    backgroundColor: ColorManager.primary,
+                    child: SvgPicture.asset(
+                      SVGAssets.arrowIcon,
+                      width: 15.w,
+                      height: 15.h,
+                    ),
+                  ),
+                ),
+              ),
             ),
             const Spacer(),
             if (type == EditType.weight) _buildWeightSelector(context),

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,46 +18,67 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              ImageAssets.editProfileBackground,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: AppSize.s5, sigmaY: AppSize.s5),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity, // 👈 ensures full screen fit
+        child: Stack(
+          children: [
+            // 🔹 Background image
+            Positioned.fill(
               child: Container(
-                color: Colors.grey.withOpacity(0.1),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(ImageAssets.editProfileBackground),
+                    fit: BoxFit.cover, // 👈 fills whole screen
+                  ),
+                ),
               ),
             ),
-          ),
-          SafeArea(
-            child: Column(
-              children: [
-                CustomAppBar(
-                  title: StringsManager.profile.tr(),
-                  onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, AppRoutes.mainLayout, (route) => false);
-                  },
+
+            // 🔹 Blur overlay
+            Positioned.fill(
+              child: BackdropFilter(
+                filter:
+                    ImageFilter.blur(sigmaX: AppSize.s5, sigmaY: AppSize.s5),
+                child: Container(
+                  color: Colors.grey.withOpacity(0.1),
                 ),
-                Center(
-                    child: ChangeNotifierProvider.value(
-                        value: getIt<UserProvider>(),
-                        child: const ProfileHeader(
-                          isEditable: false,
-                        ))),
-                const SizedBox(height: AppSize.s20),
-                const Spacer(flex: 1),
-                const ProfileMenu(),
-                const Spacer(flex: 2),
-              ],
+              ),
             ),
-          ),
-        ],
+
+            // 🔹 Scrollable content
+            SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomAppBar(
+                      title: StringsManager.profile.tr(),
+                      onTap: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRoutes.mainLayout,
+                          (route) => false,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: AppSize.s20),
+                    Center(
+                      child: ChangeNotifierProvider.value(
+                        value: getIt<UserProvider>(),
+                        child: const ProfileHeader(isEditable: false),
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.s20),
+                    const ProfileMenu(),
+                    const SizedBox(height: AppSize.s20),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

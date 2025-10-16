@@ -50,6 +50,8 @@ class StringsManager {
   static const register = "Register";
   static const heyThere = "Hey There";
   static const welcomeBack = "WELCOME BACK";
+  static const passwordMustBeAtLeast8Chars =
+      "Password must be at least 8 characters";
 
   // Common strings
   static const String next = 'Next';
