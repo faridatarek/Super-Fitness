@@ -190,6 +190,8 @@ class RegisterCubit extends BaseCubit {
     } else if (result is Fail<RegisterResponseEntity?>) {
       emitError(
           errorMessage: result.exception?.toString() ?? "Registration failed");
+
+      await Future.delayed(const Duration(seconds: 2));
       emit(RegisterState(step: RegisterStep.initial));
     }
   }

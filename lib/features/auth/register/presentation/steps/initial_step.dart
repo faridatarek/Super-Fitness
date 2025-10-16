@@ -228,9 +228,18 @@ class InitialStep extends StatelessWidget {
     if (value == null || value.isEmpty) {
       return StringsManager.pleaseEnterYourPassword.tr();
     }
-    if (value.length < 6) {
-      return StringsManager.passwordMustBeAtLeast6Chars.tr();
+    if (value.length < 8) {
+      return StringsManager.issueEmptyPassword.tr();
     }
+
+    const pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$';
+    final regExp = RegExp(pattern);
+
+    if (!regExp.hasMatch(value)) {
+      return StringsManager.issuePasswordPattern.tr();
+    }
+
     return null;
   }
 

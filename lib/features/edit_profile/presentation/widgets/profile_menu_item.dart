@@ -45,84 +45,93 @@ class MenuItemsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = ScrollController();
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.35.h,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ProfileMenuItem(
-              title: StringsManager.editProfile.tr(),
-              leadingIcon: SVGAssets.profilemenu,
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.editProfileScreen);
-              },
-            ),
-            ProfileMenuItem(
-              title: StringsManager.changePassword.tr(),
-              leadingIcon: SVGAssets.change,
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.forgetPasswordScreen);
-              },
-            ),
-            ProfileMenuItem(
-                title: StringsManager.slectLanguage.tr(),
-                leadingIcon: SVGAssets.language,
+      child: Scrollbar(
+        controller: scrollController,
+        thumbVisibility: true,
+        thickness: 4.w,
+        child: SingleChildScrollView(
+          controller: scrollController,
+          child: Column(
+            children: [
+              ProfileMenuItem(
+                title: StringsManager.editProfile.tr(),
+                leadingIcon: SVGAssets.profilemenu,
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      backgroundColor: ColorManager.black,
-                      title: Text('Select Language',
-                          style: AppTextStyles.font20W800White().copyWith(
-                            color: ColorManager.primary,
-                          )),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ListTile(
-                            title: Text(
-                              'English',
-                              style: AppTextStyles.font16W500White().copyWith(
-                                color: ColorManager.primary,
-                              ),
-                            ),
-                            onTap: () {
-                              context.setLocale(const Locale('en'));
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            title: Text('العربية',
+                  Navigator.pushNamed(context, AppRoutes.editProfileScreen);
+                },
+              ),
+              ProfileMenuItem(
+                title: StringsManager.changePassword.tr(),
+                leadingIcon: SVGAssets.change,
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.forgetPasswordScreen);
+                },
+              ),
+              ProfileMenuItem(
+                  title: StringsManager.slectLanguage.tr(),
+                  leadingIcon: SVGAssets.language,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: ColorManager.black,
+                        title: Text('Select Language',
+                            style: AppTextStyles.font20W800White().copyWith(
+                              color: ColorManager.primary,
+                            )),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              title: Text(
+                                'English',
                                 style: AppTextStyles.font16W500White().copyWith(
                                   color: ColorManager.primary,
-                                )),
-                            onTap: () {
-                              context.setLocale(const Locale('ar'));
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
+                                ),
+                              ),
+                              onTap: () {
+                                context.setLocale(const Locale('en'));
+                                Navigator.pop(context);
+                              },
+                            ),
+                            ListTile(
+                              title: Text('العربية',
+                                  style:
+                                      AppTextStyles.font16W500White().copyWith(
+                                    color: ColorManager.primary,
+                                  )),
+                              onTap: () {
+                                context.setLocale(const Locale('ar'));
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }),
-            ProfileMenuItem(
-              title: StringsManager.help.tr(),
-              leadingIcon: SVGAssets.help,
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.helpScreen);
-              },
-            ),
-            ProfileMenuItem(
-              title: StringsManager.logout.tr(),
-              leadingIcon: SVGAssets.logout,
-              onTap: () {
-                _logout(context);
-                Navigator.pushNamedAndRemoveUntil(
-                    context, AppRoutes.loginScreen, (route) => false);
-              },
-            )
-          ],
+                    );
+                  }),
+              ProfileMenuItem(
+                title: StringsManager.help.tr(),
+                leadingIcon: SVGAssets.help,
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.helpScreen);
+                },
+              ),
+              ProfileMenuItem(
+                title: StringsManager.logout.tr(),
+                leadingIcon: SVGAssets.logout,
+                onTap: () {
+                  _logout(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, AppRoutes.loginScreen, (route) => false);
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

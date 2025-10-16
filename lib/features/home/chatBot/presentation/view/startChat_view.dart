@@ -100,7 +100,7 @@ class StartchatView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 30.w),
                         child: CustomButton(
                           text: StringsManager.getStarted.tr(),
-                          onPressed: () => Navigator.pushReplacementNamed(
+                          onPressed: () => Navigator.pushNamed(
                               context, AppRoutes.ChatScreen),
                         ),
                       ),

@@ -363,15 +363,14 @@ class RecommendationCubit extends Cubit<List<Workout>> {
         title: "Crunch",
         imagePath: "assets/images/crunches.jpeg",
         gifPath: "assets/images/tutorials/Crunch.gif",
-        videoUrl:
-            "https://example.com/crunch_video.mp4", // Replace with the actual video URL
+        videoUrl: "https://www.youtube.com/watch?v=MKmrqcoCZ-M",
         tutorial:
             "Lie flat on your back with your knees bent and feet flat on the floor. Place your hands lightly behind your head without pulling your neck. Engage your core and lift your upper back off the floor using your abdominal muscles. Keep your lower back in contact with the ground. Pause at the top, then slowly lower back down. Avoid using momentum or straining your neck."),
     Workout(
         title: "Lunges",
         imagePath: "assets/images/8-around-the-clock-lunge.jpg",
         gifPath: "assets/images/tutorials/bodyweight-forward-lunge.gif",
-        videoUrl: "https://www.youtube.com/shorts/05Hf8gM_KmM",
+        videoUrl: "https://www.youtube.com/watch?v=ASdqJoDPMHA",
         tutorial:
             "Stand upright with your feet hip-width apart. Take a big step forward with your right leg and lower your hips until both knees are bent at 90 degrees. The back knee should hover just above the floor, and the front knee should not pass your toes. Push through your front heel to return to the starting position. Repeat on the other leg. Keep your upper body upright and your core tight throughout the movement."),
     Workout(
@@ -399,8 +398,7 @@ class RecommendationCubit extends Cubit<List<Workout>> {
         title: "Leg Raises",
         imagePath: "assets/images/leg_rases.jpg",
         gifPath: "assets/images/tutorials/supine-leg-raises.gif",
-        videoUrl:
-            "https://www.youtube.com/watch?v=G7LdiX_jba4&ab_channel=DEMIC",
+        videoUrl: "https://www.youtube.com/watch?v=Cwuxy8eo7iw",
         tutorial:
             "Lie on your back with your legs straight and arms by your sides. Keeping your legs together, lift them slowly until they form a 90-degree angle with your torso. Slowly lower them back down without letting them touch the floor. Engage your core throughout the movement and avoid arching your lower back."),
     Workout(
